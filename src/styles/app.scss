@@ -1,0 +1,48 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: 0;
+}
+
+html {
+  &::-webkit-scrollbar {
+    width: 0.4rem;
+    background-color: lightgray;
+    cursor: pointer;
+  }
+  &::-webkit-scrollbar-thumb {
+    color: darkgray;
+    background-color: aqua;
+    cursor: pointer;
+    border-radius: 1rem;
+  }
+}
+body {
+  margin-top: 30px;
+  font-family: "Roboto", sans-serif;
+  width: 100%;
+  font-weight: 400;
+}
+
+h2 {
+  font-size: 3rem;
+  font-family: "Lobster", cursive;
+  font-weight: lighter;
+}
+h3 {
+  font-size: 1.3rem;
+  color: #444;
+  font-weight: 500;
+  line-height: 150%;
+}
+p {
+  font-size: 1rem;
+  line-height: 150%;
+  color: #696969;
+}
+a {
+  text-decoration: none;
+  color: #444;
+}
+@import "./news";
+@import "./nav";
