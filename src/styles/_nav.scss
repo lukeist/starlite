@@ -35,6 +35,10 @@
     // background-color: khaki;
     font-size: small;
     font-weight: 500;
+    a:hover {
+      color: aqua;
+      transition: all 0.2s ease;
+    }
   }
 }
 

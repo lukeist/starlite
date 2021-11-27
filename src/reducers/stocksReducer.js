@@ -1,8 +1,9 @@
 const initState = {
   quote: {},
+  company: {},
   companyNews: [],
   basicFinancials: {},
-  search: [],
+  stockActive: false,
 };
 
 const stocksReducer = (state = initState, action) => {
@@ -10,9 +11,11 @@ const stocksReducer = (state = initState, action) => {
     case "FETCH_STOCKS":
       return {
         ...state,
+        company: action.payload.company,
         quote: action.payload.quote,
-        companyNews: action.payload.companyNews,
         basicFinancials: action.payload.basicFinancials,
+        companyNews: action.payload.companyNews,
+        stockActive: action.payload.stockActive,
       };
     default:
       return { ...state };

@@ -1,7 +1,10 @@
-const ResultList = ({ item, searchInputUpperCase }) => {
+import { useDispatch } from "react-redux";
+import { stocksAction } from "../actions/stocksAction";
+
+const ResultList = ({ stock, searchInputUpperCase, setIsSearching }) => {
+  /////////////////////////////////////////////////// change the color of search result's string followed input (like search on Robinhood):
+  ////////////////////// cut the string into an array with 3 items: [head string, searchInput, tail string]
   const changeResultChar = (terms) => {
-    /////////////////////////////////////////////////// change the color of search result's string followed input (like search on Robinhood):
-    ////////////////////// cut the string into an array with 3 items: [head string, searchInput, tail string]
     if (typeof terms === "undefined") {
       return searchInputUpperCase;
     } else {
@@ -27,35 +30,52 @@ const ResultList = ({ item, searchInputUpperCase }) => {
       }
     }
   };
+  /////////////////////////////////////////////////// go to stock when click
+  const dispatch = useDispatch();
+  const getStockDetailHandler = () => {
+    dispatch(stocksAction(stock.symbol));
+    setIsSearching(false);
+    console.log(stock.symbol);
+  };
   return (
-    <ul className="search-list">
-      <li className="symbol-result">
-        {item.symbol.indexOf(searchInputUpperCase) > -1 ? (
-          <span>
-            <span>{changeResultChar(item.symbol)[0].toLowerCase()}</span>
-            <span className="highlight-input">
-              {changeResultChar(item.symbol)[1].toLowerCase()}
+    <div
+      // onMouseDown preventDefault makes onBlur comes after onClick: https://stackoverflow.com/questions/17769005/onclick-and-onblur-ordering-issue
+      onMouseDown={(e) => e.preventDefault()}
+      onClick={getStockDetailHandler}
+    >
+      <ul className="search-list">
+        <li className="symbol-result">
+          {stock.symbol.indexOf(searchInputUpperCase) > -1 ? (
+            <span>
+              <span>{changeResultChar(stock.symbol)[0].toLowerCase()}</span>
+              <span className="highlight-input">
+                {changeResultChar(stock.symbol)[1].toLowerCase()}
+              </span>
+              <span>{changeResultChar(stock.symbol)[2].toLowerCase()}</span>
             </span>
-            <span>{changeResultChar(item.symbol)[2].toLowerCase()}</span>
-          </span>
-        ) : (
-          item.symbol
-        )}
-      </li>
-      <li className="description-result">
-        {item.description.indexOf(searchInputUpperCase) > -1 ? (
-          <span>
-            <span>{changeResultChar(item.description)[0].toLowerCase()}</span>
-            <span className="highlight-input">
-              {changeResultChar(item.description)[1].toLowerCase()}
+          ) : (
+            stock.symbol
+          )}
+        </li>
+        <li className="description-result">
+          {stock.description.indexOf(searchInputUpperCase) > -1 ? (
+            <span>
+              <span>
+                {changeResultChar(stock.description)[0].toLowerCase()}
+              </span>
+              <span className="highlight-input">
+                {changeResultChar(stock.description)[1].toLowerCase()}
+              </span>
+              <span>
+                {changeResultChar(stock.description)[2].toLowerCase()}
+              </span>
             </span>
-            <span>{changeResultChar(item.description)[2].toLowerCase()}</span>
-          </span>
-        ) : (
-          item.description.toLowerCase()
-        )}
-      </li>
-    </ul>
+          ) : (
+            stock.description.toLowerCase()
+          )}
+        </li>
+      </ul>
+    </div>
   );
 };
 

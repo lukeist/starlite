@@ -1,0 +1,28 @@
+.home-body {
+  display: flex;
+  justify-content: space-evenly;
+  // width: 880px;
+  // max-width: 880px;
+}
+
+.news-body {
+  //   flex-direction: column;
+  //   justify-content: center;
+  // max-width: 80%;
+
+  // margin: auto;
+  max-width: 640px;
+  // min-width: 400px;
+  transform: translateX(-20%);
+  z-index: -1;
+}
+
+.fav-body {
+  // margin: auto;
+  background-color: black;
+  position: fixed;
+  padding: 2em;
+  left: 50%;
+  top: 0%;
+  transform: translateX(-20%);
+}

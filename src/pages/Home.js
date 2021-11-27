@@ -1,64 +1,53 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Stock from "../components/Stock";
 import News from "../components/News";
 import Nav from "../components/Nav";
 // redux
 import { useDispatch, useSelector } from "react-redux";
-import { stocksAction } from "../actions/stocksAction";
-import { quoteData } from "../api";
 import { newsAction } from "../actions/newsAction";
-import { searchAction } from "../actions/searchAction";
-import { symbolLookupData } from "../api";
+import MainNews from "../components/MainNews";
+import FavList from "../components/FavList";
 
 const Home = () => {
   // FETCH STOCKS
   const dispatch = useDispatch();
-  const [isDropdown, setIsDropdown] = useState(true);
   useEffect(() => {
-    // dispatch(getQuote());
     dispatch(newsAction());
-    dispatch(stocksAction("GME"));
-    // dispatch(searchAction("GME"));
   }, [dispatch]);
-  // get data back
-  const { quote, companyNews } = useSelector((state) => state.stocks);
+  // get data back from state
+  const { stockActive } = useSelector((state) => state.stocks);
   const { general, crypto } = useSelector((state) => state.news);
 
-  // exit search dropdown when click outside of it
-  const exitSearchHandler = (e) => {
-    const element = e.target;
-    if (!element.classList.contains("search-dropdown")) {
-      // document.body.style.overflow = "auto";
-      setIsDropdown(false);
-      console.log(isDropdown);
-      console.log(element);
-    }
-  };
+  const generalWithoutBloomberg = general.filter(
+    (key) => key.source !== "Bloomberg"
+  );
 
   return (
-    <div onClick={exitSearchHandler} className="home">
-      {/* <button onClick={() => console.log(symbolLookupData("gme"))}>test</button> */}
-      {/* <button onClick={() => console.log(quoteData("GME"))}>test</button> */}
-      <Nav isDropdown={isDropdown} setIsDropdown={setIsDropdown} />
-      {/* <h1>{quote.c}</h1> */}
-      <div className="news-container">
-        {general.map((news) =>
-          news.source === "Bloomberg" ? (
-            //   || news.source === "MarketWatch"
-            ""
+    <div className="home">
+      <Nav />
+      <div className="home-body">
+        <div className="news-body">
+          {stockActive ? (
+            <Stock />
           ) : (
-            <News
-              datetime={news.datetime}
-              headline={news.headline}
-              id={news.id}
-              image={news.image}
-              source={news.source}
-              summary={news.summary}
-              url={news.url}
-              key={news.id}
-            />
-          )
-        )}
+            <div className="main-news">
+              {generalWithoutBloomberg.slice(0, 1).map((mainnews) => (
+                <MainNews key={mainnews.id} mainnews={mainnews} />
+              ))}
+            </div>
+          )}
+          <div></div>
+          <div className="sub-news">
+            <h3>Market News</h3>
+            <hr />
+            {generalWithoutBloomberg.slice(1, 7).map((news) => (
+              <News key={news.id} news={news} />
+            ))}
+          </div>
+        </div>
+        <div className="fav-body">
+          <FavList />
+        </div>
       </div>
     </div>
   );

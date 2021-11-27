@@ -22,13 +22,6 @@ const getCurrentDay = () => {
   }
 };
 
-const currentYear = new Date().getFullYear();
-const currentMonth = getCurrentMonth();
-const currentDay = getCurrentDay();
-const currentDate = `${currentYear}-${currentMonth}-${currentDay}`;
-const last7Days = `${currentYear}-${currentMonth}-${currentDay - 7}`;
-const last3Days = `${currentYear}-${currentMonth}-${currentDay - 3}`;
-
 // const lastYear = `${currentYear - 1}-${currentMonth}.${currentDay}`;
 // const nextYear = `${currentYear + 1}-${currentMonth}.${currentDay}`;
 
@@ -40,16 +33,6 @@ const last3Days = `${currentYear}-${currentMonth}-${currentDay - 3}`;
 // export const popularGamesURL = () => `${base_url}${popularGames}`;
 // export const upcomingGamesURL = () => `${base_url}${upcomingGames}`;
 // export const newGamesURL = () => `${base_url}${newGames}`;
-// ////////////////////////////////////////////////
-// const finnhub = require("finnhub");
-
-// const api_key = finnhub.ApiClient.instance.authentications["api_key"];
-// api_key.apiKey = "c6a500qad3idi8g5o2v0";
-// const finnhubClient = new finnhub.DefaultApi();
-
-// finnhubClient.quote("AAPL", (error, data, response) => {
-//   console.log(data);
-// });
 
 const base_url = `https://finnhub.io/api/v1/`;
 const api_key = `&token=c6a500qad3idi8g5o2v0`;
@@ -57,6 +40,11 @@ const api_key = `&token=c6a500qad3idi8g5o2v0`;
 
 // SAI - KO CHAY DUOC vi (sym) nam trong function symbol:
 // const symbol = (sym) => `symbol=${sym}`;
+
+/////////////////////////////////////////////////// COMPANY PROFILE
+// https://finnhub.io/api/v1/stock/profile2?symbol=AAPL&token=c6a500qad3idi8g5o2v0
+export const companyProfile = (symbol) =>
+  `${base_url}stock/profile2?symbol=${symbol}${api_key}`;
 
 /////////////////////////////////////////////////// QUOTE
 //https://finnhub.io/api/v1/quote?symbol=AAPL&token=c6a500qad3idi8g5o2v0
@@ -71,14 +59,21 @@ export const marketNewsGeneralData = `${base_url}${marketNewsGeneral}${api_key}`
 export const marketNewsCryptoData = `${base_url}${marketNewsCrypto}${api_key}`;
 
 /////////////////////////////////////////////////// Company News
+const currentYear = new Date().getFullYear();
+const currentMonth = getCurrentMonth();
+const currentDay = getCurrentDay();
+const currentDate = `${currentYear}-${currentMonth}-${currentDay}`;
+const last7Days = `${currentYear}-${currentMonth}-${currentDay - 7}`;
+const last3Days = `${currentYear}-${currentMonth}-${currentDay - 3}`;
+const companyNews = `company-news`;
 // https://finnhub.io/api/v1/company-news?symbol=AAPL&from=2021-09-01&to=2021-09-09&token=c6a500qad3idi8g5o2v0
-const companyNews = `company-news?`;
+
 export const companyNewsData7Days = (symbol) =>
-  `${base_url}${companyNews}$?symbol=${symbol}&from=${last7Days}&to=${currentDate}${api_key}`;
+  `${base_url}company-news?symbol=${symbol}&from=${last7Days}&to=${currentDate}${api_key}`;
 export const companyNewsData3Days = (symbol) =>
-  `${base_url}${companyNews}$?symbol=${symbol}&from=${last3Days}&to=${currentDate}${api_key}`;
+  `${base_url}company-news?symbol=${symbol}&from=${last3Days}&to=${currentDate}${api_key}`;
 export const companyNewsDataToday = (symbol) =>
-  `${base_url}${companyNews}$?symbol=${symbol}${api_key}`;
+  `${base_url}company-news?symbol=${symbol}${api_key}`;
 
 /////////////////////////////////////////////////// Basic Financials
 // https://finnhub.io/api/v1/stock/metric?symbol=AAPL&metric=all&token=c6a500qad3idi8g5o2v0
@@ -92,3 +87,8 @@ export const basicFinancialsData = (symbol) =>
 
 export const symbolLookupData = (terms) =>
   `${base_url}search?q=${terms}${api_key}`;
+
+/////////////////////////////////////////////////// Trades - Last Price Updates
+export const socket = new WebSocket(
+  "wss://ws.finnhub.io?token=c6a500qad3idi8g5o2v0"
+);

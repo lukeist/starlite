@@ -10,9 +10,6 @@ import ResultList from "./ResultList";
 const Nav = () => {
   const [isSearching, setIsSearching] = useState(false);
   const [searchInput, setSearchInput] = useState("");
-  const [indexInput, setIndexInput] = useState("");
-  // const [resultSymbol, setResultSymbol] = useState([]);
-  // const [resultDescription, setResultDescription] = useState([]);
   const [searchResultTop6, setSearchResultTop6] = useState([]);
   const searchInputUpperCase = searchInput.toUpperCase();
 
@@ -23,38 +20,11 @@ const Nav = () => {
   useEffect(() => {
     if (typeof searchResult === "undefined" || searchResult.length === 0) {
       // when "afdasfdsfasfdasdfasdf" in input or when there's nothing in input:
-      // setResultSymbol([]);
-      // setResultDescription([]);
+
       setSearchResultTop6([]);
     } else {
       // when there are matches from input to data:
-      setSearchResultTop6([
-        searchResult[0],
-        searchResult[1],
-        searchResult[2],
-        searchResult[3],
-        searchResult[4],
-        searchResult[5],
-      ]);
-
-      //for method 1 - not working with highlights
-
-      // setResultSymbol([
-      //   searchResult[0].symbol,
-      //   searchResult[1].symbol,
-      //   searchResult[2].symbol,
-      //   searchResult[3].symbol,
-      //   searchResult[4].symbol,
-      //   searchResult[5].symbol,
-      // ]);
-      // setResultDescription([
-      //   searchResult[0].description,
-      //   searchResult[1].description,
-      //   searchResult[2].description,
-      //   searchResult[3].description,
-      //   searchResult[4].description,
-      //   searchResult[5].description,
-      // ]);
+      setSearchResultTop6(searchResult.slice(0, 6));
     }
   }, [searchResult]);
 
@@ -72,7 +42,9 @@ const Nav = () => {
   return (
     <nav className="nav">
       <h2 className="logo">starlite</h2>
-      <button onClick={() => console.log(searchResultTop6)}>aaaaa</button>{" "}
+      {/* <button onClick={() => console.log(searchResult.slice(0, 6))}>
+        aaaaa
+      </button> */}
       <div className="search-field">
         <div className="search-bar">
           <FontAwesomeIcon className="search-icon" icon={faMoon} />
@@ -81,6 +53,14 @@ const Nav = () => {
             placeholder="Search"
             onChange={getInput}
             type="text"
+            onBlur={() => setIsSearching(false)}
+            // if string.length in input > -1 when click on input => show dropdown
+            onClick={(e) =>
+              // console.log(e.target.value.length)
+              e.target.value.length < 1
+                ? setIsSearching(false)
+                : setIsSearching(true)
+            }
           />
           {isSearching ? (
             <div className="search-dropdown">
@@ -90,40 +70,12 @@ const Nav = () => {
                 <p>Loading results...</p>
               ) : (
                 <div className="search-result">
-                  {/* Method 1 - doesn't work with highlights when hover over stocks*/}
-                  {/* <ul className="symbol-result">
-                    {resultSymbol.map((item) =>
-                      item.indexOf(searchInputUpperCase) > -1 ? (
-                        <ResultList
-                          item={item}
-                          key={item.symbol}
-                          searchInput={searchInput}
-                        />
-                      ) : (
-                        <li>{item.toLowerCase()}</li>
-                      )
-                    )}
-                  </ul>
-                  <ul className="description-result">
-                    {resultDescription.map((item) =>
-                      item.indexOf(searchInputUpperCase) > -1 ? (
-                        <ResultList
-                          item={item}
-                          key={item.description}
-                          searchInput={searchInput}
-                        />
-                      ) : (
-                        <li>{item.toLowerCase()}</li>
-                      )
-                    )}
-                  </ul> */}
-
-                  {/* Method 2 */}
-                  {searchResultTop6.map((item) => (
+                  {searchResultTop6.map((stock) => (
                     <ResultList
-                      item={item}
-                      key={item.symbol}
+                      stock={stock}
+                      key={stock.symbol}
                       searchInputUpperCase={searchInputUpperCase}
+                      setIsSearching={setIsSearching}
                     />
                   ))}
                 </div>
@@ -136,7 +88,9 @@ const Nav = () => {
       </div>
       <ul className="menu-items">
         <li>
-          <a href="#">Portfolio</a>
+          <a onClick={(e) => console.log(e.target)} href="#">
+            Portfolio
+          </a>
         </li>
         <li>
           <a href="#">Messages</a>

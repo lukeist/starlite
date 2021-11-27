@@ -1,4 +1,4 @@
-const News = ({ news }) => {
+const MainNews = ({ mainnews }) => {
   // convert unix timestamp to time
   function timeConverter(UNIX_timestamp) {
     let a = new Date(UNIX_timestamp * 1000);
@@ -40,19 +40,18 @@ const News = ({ news }) => {
 
   return (
     <div>
-      <div className="news-item">
-        <div className="news-header">
-          <h4>{news.headline}</h4>
-          <p className="news-subheader">
-            {news.source} | {timeConverter(news.datetime)}
+      <div className="mainnews-item">
+        <div className="mainnews-header">
+          <h1>{mainnews.headline}</h1>
+          <p className="mainnews-subheader">
+            {mainnews.source} | {timeConverter(mainnews.datetime)}
           </p>
-          <p className="news-summary">{news.summary}</p>
+          <p className="mainnews-summary">{mainnews.summary}</p>
         </div>
-        <img src={news.image} alt={news.headline} />
+        <img src={mainnews.image} alt={mainnews.headline} />
       </div>
-      <hr></hr>
     </div>
   );
 };
 
-export default News;
+export default MainNews;
