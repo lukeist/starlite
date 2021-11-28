@@ -46,7 +46,9 @@ const Home = () => {
           </div>
         </div>
         <div className="fav-body">
-          <FavList />
+          <div className="fav-container">
+            <FavList />
+          </div>
         </div>
       </div>
     </div>

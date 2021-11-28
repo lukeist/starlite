@@ -20,8 +20,9 @@ html {
 body {
   margin-top: 60px;
   font-family: "Roboto", sans-serif;
-  width: 100%;
+  // width: 100%;
   font-weight: 400;
+  // font-size: small;
 }
 h1 {
   font-size: 3rem;
@@ -39,6 +40,11 @@ h3 {
   line-height: 150%;
   padding-top: 2rem;
   padding-bottom: 1rem;
+}
+h4 {
+  font-size: 1rem;
+  color: #666;
+  font-weight: 500;
 }
 p {
   font-size: 1rem;
@@ -62,9 +68,9 @@ hr {
   line-height: 0;
   clear: both;
   border: none;
-  border-top: 1px solid #aaaaaa;
+  border-top: 1px solid lightgray;
   // border-bottom: 1px solid #ffffff;
-  z-index: -1;
+  z-index: 1;
 }
 
 @import "./home";

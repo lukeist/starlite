@@ -41,13 +41,13 @@ const Stock = () => {
         <div
           className={quote.d > 0 ? "quote-header green" : "quote-header red"}
         >
-          <h1>{company.name}</h1>
+          <h3>{company.name}</h3>
           <h1 className="quote-current">${quote.c}</h1>
         </div>
         <p className="quote-change">
           {quote.d < 0 ? (
             <span>
-              {quote.d.toString().slice(0, 1)}${quote.d.toString().slice(1)}{" "}
+              {quote.d.toString().slice(0, 1)}${quote.d.toString().slice(1)}
             </span>
           ) : (
             <span>${quote.d} </span>
@@ -63,28 +63,56 @@ const Stock = () => {
         <h3>Key statistics</h3>
         <hr />
         <ul>
-          <li>High price of the day: ${quote.h}</li>
-          <li>Low price of the day: ${quote.l}</li>
-          <li>Open price of the day: ${quote.o}</li>
-          <li>Previous close price: ${quote.pc}</li>
           <li>
-            <span>Market Cap: </span>
-            {marketCapLength > 3
-              ? marketCapLength > 6
-                ? marketCapTrillion
-                : marketCapBillion
-              : marketCapMillion}
+            <dt>High price of the day:</dt>
+            <dd>${quote.h}</dd>
+          </li>
+          <li>
+            <dt>Low price of the day:</dt> <dd>${quote.l}</dd>
+          </li>
+          <li>
+            <dt>Open price of the day:</dt> <dd>${quote.o}</dd>
+          </li>
+          <li>
+            <dt>Previous close price:</dt> <dd>${quote.pc}</dd>
+          </li>
+          <li>
+            <dt>Market Cap: </dt>
+            <dd>
+              {marketCapLength > 3
+                ? marketCapLength > 6
+                  ? marketCapTrillion
+                  : marketCapBillion
+                : marketCapMillion}
+            </dd>
           </li>
         </ul>
       </div>
       <div className="company-info">
         <h3>About</h3>
         <hr />
-        <div>
-          <p>{company.name}</p>
-          <p>Ticker: {company.ticker}</p>
-          <p>Industry: {company.finnhubIndustry}</p>
-          <img src={company.logo} alt="" />
+        <ul>
+          <li>
+            <dt>{company.name}</dt>
+            <dd>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam
+              ratione, exercitationem maiores officiis voluptate quo facilis
+              dignissimos corrupti at quod perspiciatis soluta ipsam magnam,
+              assumenda consequatur neque cupiditate esse praesentium.
+            </dd>
+          </li>
+          <li>
+            <img src={company.logo} alt="" />
+          </li>
+          <li>
+            <dt>Ticker: </dt>
+            <dd>{company.ticker}</dd>
+          </li>
+          <li>
+            <dt>Industry: </dt>
+            <dd>{company.finnhubIndustry}</dd>
+          </li>
+
           {/* <button onClick={tesssst}>test</button> */}
           {/* <p>{basicFinancials.metric.52WeekHigh}</p> */}
           {/* <p>52 Week High Date{basicFinancials.52WeekHighDate}</p>
@@ -95,7 +123,7 @@ const Stock = () => {
         <p>52 Week High {basicFinancials.52WeekHigh}</p>
         <p>52 Week High {basicFinancials.52WeekHigh}</p> */}
           {/* <p>52 Week High {basicFinancials.10DayAverageTradingVolume}</p> */}
-        </div>
+        </ul>
       </div>
       <div className="company-news">
         <h3>Company News</h3>

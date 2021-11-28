@@ -1,14 +1,31 @@
+.stock {
+  ul {
+    list-style-type: none;
+    // display: block;
+    flex-direction: column;
+    padding: 1rem 0rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(300px, 1fr));
+    grid-column-gap: 2rem;
+    grid-row-gap: 1rem;
+  }
+  dt {
+    font-weight: 450;
+    padding: 0.5rem 0rem;
+  }
+  img {
+    width: 50%;
+  }
+}
+
 .quote {
   .green {
-    color: lightgreen;
+    color: lightgreen !important;
   }
   .red {
-    color: darkred;
+    color: red !important;
   }
 }
 
 .basic-financials {
-  ul {
-    list-style-type: none;
-  }
 }
