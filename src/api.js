@@ -89,6 +89,6 @@ export const symbolLookupData = (terms) =>
   `${base_url}search?q=${terms}${api_key}`;
 
 /////////////////////////////////////////////////// Trades - Last Price Updates
-export const socket = new WebSocket(
-  "wss://ws.finnhub.io?token=c6a500qad3idi8g5o2v0"
-);
+// export const socket = new WebSocket(
+//   "wss://ws.finnhub.io?token=c6a500qad3idi8g5o2v0"
+// );

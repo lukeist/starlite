@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { socket } from "../api";
 import News from "./News";
 
@@ -20,20 +21,20 @@ const Stock = () => {
       .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
       .slice(0, -4) + "B";
 
-  // Connection opened -> Subscribe
-  const tesssst = socket.addEventListener("open", function (event) {
-    socket.send(JSON.stringify({ type: "subscribe", symbol: "AAPL" }));
-    console.log("open", event.data);
-  });
-  // Listen for messages
-  const testtt = socket.addEventListener("message", function (event) {
-    console.log("Message from server ", event);
-  });
+  // // Connection opened -> Subscribe
+  // const tesssst = socket.addEventListener("open", function (event) {
+  //   socket.send(JSON.stringify({ type: "subscribe", symbol: "AAPL" }));
+  //   console.log("open", event.data);
+  // });
+  // // Listen for messages
+  // const testtt = socket.addEventListener("message", function (event) {
+  //   console.log("Message from server ", event);
+  // });
 
-  // Unsubscribe
-  var unsubscribe = function (symbol) {
-    socket.send(JSON.stringify({ type: "unsubscribe", symbol: symbol }));
-  };
+  // // Unsubscribe
+  // var unsubscribe = function (symbol) {
+  //   socket.send(JSON.stringify({ type: "unsubscribe", symbol: symbol }));
+  // };
 
   return (
     <div className="stock">

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { resultSymbolLookupData } from "../api";
 import { searchAction } from "../actions/searchAction";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon } from "@fortawesome/free-regular-svg-icons";
+import { Link } from "react-router-dom";
 import ResultList from "./ResultList";
 
 const Nav = () => {
@@ -41,7 +41,10 @@ const Nav = () => {
 
   return (
     <nav className="nav">
-      <h2 className="logo">starlite</h2>
+      <Link className="logo" id="logo" to="/">
+        Starlite
+      </Link>
+
       {/* <button onClick={() => console.log(searchResult.slice(0, 6))}>
         aaaaa
       </button> */}
@@ -67,7 +70,7 @@ const Nav = () => {
               <h4>Stocks</h4>
               {typeof searchResult === "undefined" ||
               searchResult.length === 0 ? (
-                <p>Loading results...</p>
+                <p>Loading results...</p> // If input = 'dkfasdfasdfasdf' => show 'no match found' /////// deal with this later
               ) : (
                 <div className="search-result">
                   {searchResultTop6.map((stock) => (
