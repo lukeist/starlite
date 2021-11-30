@@ -1,6 +1,6 @@
 import Nav from "./components/Nav";
 import Home from "./pages/Home";
-import Stock from "./components/Stock";
+import Stock from "./pages/Stock";
 import "./styles/app.scss";
 import { Routes, Route } from "react-router-dom";
 

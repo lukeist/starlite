@@ -1,4 +1,5 @@
-.stock {
+.stock-body {
+  max-width: 800px;
   ul {
     list-style-type: none;
     // display: block;
@@ -28,4 +29,22 @@
 }
 
 .basic-financials {
+}
+
+.trade-body {
+  // margin: auto;
+  // width: 400px;
+  // background-color: black;
+  // position: fixed;
+  // padding: 2em;
+  // left: 50%;
+  // top: 0%;
+  // transform: translateX(-20%);
+  // grid-column-start: middle;
+  // grid-column-end: col4-start;
+  justify-self: center;
+  max-width: 400px;
+  min-width: 300px;
+  // background-color: mediumorchid;
+  position: relative;
 }

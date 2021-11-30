@@ -24,6 +24,12 @@ body {
   font-weight: 400;
   // font-size: small;
 }
+
+// .App {
+//   display: flex;
+//   justify-content: space-around;
+// }
+
 h1 {
   font-size: 3rem;
   font-weight: 500;
@@ -79,3 +85,4 @@ hr {
 @import "./nav";
 @import "./favlist";
 @import "./stock";
+@import "./trade";

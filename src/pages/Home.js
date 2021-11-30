@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import Stock from "../components/Stock";
 import News from "../components/News";
 // redux
 import { useDispatch, useSelector } from "react-redux";

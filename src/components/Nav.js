@@ -39,6 +39,11 @@ const Nav = () => {
     }
   };
 
+  const EscClose = (e) => {
+    if (e.keyCode == 27) {
+      setIsSearching(false);
+    }
+  };
   return (
     <nav className="nav">
       <Link className="logo" id="logo" to="/">
@@ -57,6 +62,10 @@ const Nav = () => {
             onChange={getInput}
             type="text"
             onBlur={() => setIsSearching(false)}
+            onKeyDown={
+              (e) =>
+                e.key === 27 ? setIsSearching(true) : setIsSearching(false) // Press ESC to hide DropDown
+            }
             // if string.length in input > -1 when click on input => show dropdown
             onClick={(e) =>
               // console.log(e.target.value.length)
