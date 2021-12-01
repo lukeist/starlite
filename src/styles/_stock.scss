@@ -19,11 +19,15 @@
   }
 }
 
-.quote {
-  .green {
+.green {
+  color: lightgreen !important;
+  p {
     color: lightgreen !important;
   }
-  .red {
+}
+.red {
+  color: red !important;
+  p {
     color: red !important;
   }
 }

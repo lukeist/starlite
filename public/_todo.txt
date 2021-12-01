@@ -1,0 +1,8 @@
+- dark/light theme
+- button colors followed red/green
+- buy/sell list
+
+- route on browser address
+- remove lag when route
+
+- add/remove watch list

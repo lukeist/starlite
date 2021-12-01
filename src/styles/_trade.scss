@@ -114,3 +114,28 @@
 //     }
 //   }
 // }
+.fav-add {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  button {
+    display: block;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+
+    margin: 1.5rem 1.5rem;
+    border: none;
+    border-radius: 0.3rem;
+    box-shadow: inset 0 0 0 1px lightgray;
+    background-color: transparent;
+    text-align: center;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: rgb(233, 233, 233);
+    transition: all ease 0.2s;
+    color: white;
+  }
+}

@@ -18,14 +18,29 @@
     border: 1px solid lightgray;
     width: 300px;
     h4 {
-      padding: 1rem;
+      padding: 1rem 1.5rem;
     }
     .fav-items {
-      padding: 1rem;
+      padding: 1rem 1.5rem;
     }
   }
 }
 
+.fav-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .fav-icon {
+    padding: 1rem 1.5rem;
+    color: lightgray;
+    font-size: 150%;
+    cursor: pointer;
+  }
+  .fav-icon:hover {
+    color: aqua;
+    transition: all ease 0.2s;
+  }
+}
 .fav-stock {
   display: flex;
   justify-content: space-between;

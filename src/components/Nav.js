@@ -5,7 +5,7 @@ import { searchAction } from "../actions/searchAction";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon } from "@fortawesome/free-regular-svg-icons";
 import { Link } from "react-router-dom";
-import ResultList from "./ResultList";
+import NavSearchResult from "./NavSearchResult";
 
 const Nav = () => {
   const [isSearching, setIsSearching] = useState(false);
@@ -83,7 +83,7 @@ const Nav = () => {
               ) : (
                 <div className="search-result">
                   {searchResultTop6.map((stock) => (
-                    <ResultList
+                    <NavSearchResult
                       stock={stock}
                       key={stock.symbol}
                       searchInputUpperCase={searchInputUpperCase}
@@ -100,15 +100,19 @@ const Nav = () => {
       </div>
       <ul className="menu-items">
         <li>
-          <a onClick={(e) => console.log(e.target)} href="#">
+          <Link className="nav-portfolio" id="portfolio" to="/portfolio">
             Portfolio
-          </a>
+          </Link>
         </li>
         <li>
-          <a href="#">Messages</a>
+          <Link className="nav-messages" id="portfolio" to="/messages">
+            Messages
+          </Link>
         </li>
         <li>
-          <a href="#">Account</a>
+          <Link className="nav-account" id="portfolio" to="/account">
+            Account
+          </Link>
         </li>
       </ul>
     </nav>
