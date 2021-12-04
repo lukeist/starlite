@@ -1,32 +1,39 @@
 import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { stocksAction } from "../actions/stocksAction";
 
 const FavStock = ({ stock }) => {
-  // const favSymbol = useSelector((state) => state.fav);
-  const stockActive = useSelector((state) => state.stocks.stockActive);
   const dispatch = useDispatch();
+  const stockCurrentPrice = stock.quote.c;
+  const stockPercentChange = Math.round(stock.quote.dp * 100) / 100;
+
   return (
     <Link to={`/stocks/${stock.symbol}`}>
-      {stockActive && (
+      <div className="fav-item">
         <div
           onClick={() => dispatch(stocksAction(stock.symbol))}
-          className={stock.quote.dp > 0 ? "fav-stock green" : "fav-stock red"}
+          className="fav-stock"
         >
-          {/* <p>{stocks.company.ticker}</p>
-      <div>
-        <dt>{stocks.quote.c}</dt>
-        <dd>{stocks.qutoe.dp}</dd>
-      </div> */}
-          <p>{stock.symbol}</p>
-          <p>Fancy Graphs</p>
-          <div className="fav-quote">
-            <dt>${stock.quote.c}</dt>
-            <dd>{stock.quote.dp}%</dd>
-          </div>
+          <li className="fav-symbol">{stock.symbol}</li>
+          <li
+            className={
+              stockPercentChange > 0
+                ? "fav-graph stonk-up"
+                : "fav-graph stonk-down"
+            }
+          >
+            Fancy Graphs
+          </li>
+          <li className="fav-quote">
+            <dt>${stockCurrentPrice}</dt>
+            {stockPercentChange < 0 ? (
+              <dd className="stonk-down">{stockPercentChange}%</dd>
+            ) : (
+              <dd className="stonk-up">+{stockPercentChange}%</dd>
+            )}
+          </li>
         </div>
-      )}
+      </div>
     </Link>
   );
 };

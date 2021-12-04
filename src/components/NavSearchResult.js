@@ -2,7 +2,12 @@ import { useDispatch } from "react-redux";
 import { stocksAction } from "../actions/stocksAction";
 import { Link } from "react-router-dom";
 
-const ResultList = ({ stock, searchInputUpperCase, setIsSearching }) => {
+const ResultList = ({
+  stock,
+  searchInputUpperCase,
+  setIsSearching,
+  setSearchInput,
+}) => {
   /////////////////////////////////////////////////// change the color of search result's string followed input (like search on Robinhood):
   ////////////////////// cut the string into an array with 3 items: [head string, searchInput, tail string]
   const changeResultChar = (terms) => {
@@ -36,6 +41,7 @@ const ResultList = ({ stock, searchInputUpperCase, setIsSearching }) => {
   const getStockDetailHandler = () => {
     dispatch(stocksAction(stock.symbol));
     setIsSearching(false);
+    setSearchInput("");
     // console.log(stock.symbol);
   };
   return (

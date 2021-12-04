@@ -17,6 +17,8 @@ const stocksReducer = (state = initState, action) => {
         companyNews: action.payload.companyNews,
         stockActive: action.payload.stockActive,
       };
+    case "RESET_STOCKS":
+      return { ...state, stockActive: action.payload.stockActive };
     default:
       return { ...state };
   }

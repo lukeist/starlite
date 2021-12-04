@@ -1,0 +1,23 @@
+// dark mode
+$color-dark-background: #1b1e2b;
+$color-dark-hover: #292d3e;
+$color-dark-outline: #3e4251;
+$color-dark-highlight: #545765;
+$color-dark-text-first: rgba(255, 255, 255, 1);
+$color-dark-text-second: rgba(255, 255, 255, 0.8);
+$color-dark-text-third: rgba(255, 255, 255, 0.6);
+$color-dark-boxshadow: 0px 5px 30px rgba(0, 0, 0, 0.2);
+
+// light mode
+$color-light-background: white;
+$color-light-hover: rgba(0, 0, 0, 0.2);
+$color-light-text: rgba(27, 30, 43, 0.8);
+
+// both mode
+$color-stonkup-first: rgba(0, 255, 0, 1);
+$color-stonkup-second: rgba(0, 255, 0, 0.8);
+$color-stonkup-third: rgba(0, 255, 0, 0.2);
+
+$color-stonkdown-first: rgba(255, 0, 0, 1);
+$color-stonkdown-second: rgba(255, 0, 0, 0.8);
+$color-stonkdown-third: rgba(255, 0, 0, 0.2);

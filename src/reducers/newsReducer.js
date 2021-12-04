@@ -1,20 +1,21 @@
+import { act } from "react-dom/test-utils";
+
 const initState = {
   general: [],
   crypto: [],
+  newsActive: false,
 };
 
 const newsReducer = (state = initState, action) => {
   switch (action.type) {
-    case "FETCH_NEWS_GENERAL":
+    case "FETCH_NEWS":
       return {
         ...state,
         general: action.payload.general,
-      };
-    case "FETCH_NEWS_CRYPTO":
-      return {
-        ...state,
         crypto: action.payload.crypto,
+        newsActive: action.payload.newsActive,
       };
+
     default:
       return { ...state };
   }

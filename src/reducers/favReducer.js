@@ -2,10 +2,10 @@
 
 const favReducer = (state = [], action) => {
   switch (action.type) {
-    case "FETCH_FAV":
-      return state.findIndex((s) => {
+    case "ADD_FAV":
+      return state.findIndex((stock) => {
         // find index of an object => to check if this object is in state
-        return s.symbol === action.payload.symbol;
+        return stock.symbol === action.payload.symbol;
       }) > -1
         ? //   state.indexOf({
           //     symbol: action.payload.symbol,
@@ -14,9 +14,13 @@ const favReducer = (state = [], action) => {
           [...state] // if object is already in state => return state
         : [
             ...state,
-            { symbol: action.payload.symbol, quote: action.payload.quote }, // if not, return state with new object
+            {
+              symbol: action.payload.symbol,
+              quote: action.payload.quote,
+            }, // if not, return state with new object
           ];
-
+    case "REMOVE_FAV":
+      return state.filter((stock) => stock.symbol !== action.payload.symbol);
     default:
       return state;
   }

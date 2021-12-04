@@ -9,7 +9,7 @@ import { Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App dark-mode">
       <Nav />
       {/* <button onClick={() => console.log(quoteData)}>clik</button> */}
       <Routes>

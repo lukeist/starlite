@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon } from "@fortawesome/free-regular-svg-icons";
 import { Link } from "react-router-dom";
 import NavSearchResult from "./NavSearchResult";
+import { resetStockPage } from "../actions/stocksAction";
 
 const Nav = () => {
   const [isSearching, setIsSearching] = useState(false);
@@ -15,6 +16,7 @@ const Nav = () => {
 
   const dispatch = useDispatch();
   const searchResult = useSelector((state) => state.search.result);
+  const activeStock = useSelector((state) => state.stocks);
 
   /////////////////////////////////////////////////// when there is searchResult => useEffect to create arrays
   useEffect(() => {
@@ -39,14 +41,13 @@ const Nav = () => {
     }
   };
 
-  const EscClose = (e) => {
-    if (e.keyCode == 27) {
-      setIsSearching(false);
-    }
+  const resetActive = () => {
+    dispatch(resetStockPage());
   };
+
   return (
     <nav className="nav">
-      <Link className="logo" id="logo" to="/">
+      <Link onClick={resetActive} className="logo" id="logo" to="/">
         Starlite
       </Link>
 
@@ -61,6 +62,7 @@ const Nav = () => {
             placeholder="Search"
             onChange={getInput}
             type="text"
+            value={searchInput}
             onBlur={() => setIsSearching(false)}
             onKeyDown={
               (e) =>
@@ -88,6 +90,7 @@ const Nav = () => {
                       key={stock.symbol}
                       searchInputUpperCase={searchInputUpperCase}
                       setIsSearching={setIsSearching}
+                      setSearchInput={setSearchInput}
                     />
                   ))}
                 </div>
@@ -115,6 +118,10 @@ const Nav = () => {
           </Link>
         </li>
       </ul>
+      <div>
+        <input type="checkbox" id="time" />
+        <label for="time">Night</label>
+      </div>
     </nav>
   );
 };

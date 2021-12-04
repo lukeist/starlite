@@ -5,10 +5,11 @@ export const newsAction = () => async (dispatch) => {
   const general = await axios.get(marketNewsGeneralData);
   const crypto = await axios.get(marketNewsCryptoData);
   dispatch({
-    type: "FETCH_NEWS_GENERAL",
+    type: "FETCH_NEWS",
     payload: {
       general: general.data,
+      crypto: crypto.data,
+      newsActive: true,
     },
   });
-  dispatch({ type: "FETCH_NEWS_CRYPTO", payload: { crypto: crypto.data } });
 };

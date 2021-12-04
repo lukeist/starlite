@@ -1,0 +1,54 @@
+@import "./colorcode";
+
+.stonk-up {
+  color: $color-stonkup-first;
+  .trade-submit {
+    input {
+      // box-shadow: inset 0 0 0 1px $color-stonkdown;
+      background-color: $color-stonkup-second;
+      transition: all ease-in-out 0.3s;
+    }
+    input:hover {
+      // box-shadow: inset 0 0 0 1px $color-stonkdown-button;
+      background-color: $color-stonkup-first;
+    }
+  }
+  button {
+    border: solid 1px $color-stonkup-second;
+    // border: none;
+    // box-shadow: inset 0 0 0 1px $color-stonkup-second;  // Why there is a glicht in the corner?
+    background-color: transparent;
+    color: $color-stonkup-second;
+    transition: all ease 0.3s;
+  }
+  button:hover {
+    background-color: $color-stonkup-third;
+  }
+}
+
+.stonk-down {
+  color: $color-stonkdown-first;
+  .trade-submit {
+    input {
+      // box-shadow: inset 0 0 0 1px $color-stonkdown;
+      background-color: $color-stonkdown-second;
+      transition: all ease-in-out 0.3s;
+    }
+    input:hover {
+      // box-shadow: inset 0 0 0 1px $color-stonkdown-button;
+      background-color: $color-stonkdown-first;
+    }
+  }
+
+  button {
+    border: solid 1px $color-stonkdown-second;
+    // border: none;
+    // box-shadow: inset 0 0 0 1px $color-stonkdown-second; // Why there is a glicht in the corner?
+    background-color: transparent;
+    color: $color-stonkdown-second;
+    transition: all ease 0.3s;
+  }
+  button:hover {
+    background-color: $color-stonkdown-third;
+  }
+}

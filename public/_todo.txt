@@ -1,8 +1,9 @@
 - dark/light theme
 - button colors followed red/green
-- buy/sell list
+- buy/sell panel
 
 - route on browser address
-- remove lag when route
 
-- add/remove watch list
+- more list 
+
+- login > only logging in: can 'watch stock' > after clicking on login: nav account shows up, nav login disappears

@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { socket } from "../api";
 import News from "../components/News";
-import Trade from "../components/Trade";
+import TradePanel from "../components/TradePanel";
 
 const Stock = () => {
   const { company, quote, companyNews, basicFinancials, stockActive } =
@@ -20,6 +20,20 @@ const Stock = () => {
       .toString()
       .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
       .slice(0, -4) + "B";
+
+  const stockCurrentPrice = quote.c;
+  const stockPriceChange = quote.d;
+  // doesn't work because stock hasn't loaded yet
+  // const stockPriceChangeWithDollarSignInTheMiddle =
+  //   stockPriceChange.toString().slice(0, 1) +
+  //   "$" +
+  //   stockPriceChange.toString().slice(1);
+  const stockPercentChange = Math.round(quote.dp * 100) / 100;
+  const todayHigh = Math.round(quote.h * 100) / 100;
+  const todayLow = Math.round(quote.l * 100) / 100;
+  const todayOpen = Math.round(quote.o * 100) / 100;
+  const previousClose = Math.round(quote.pc * 100) / 100;
+  const sixLatestNews = 6;
 
   // // Connection opened -> Subscribe
   // const tesssst = socket.addEventListener("open", function (event) {
@@ -38,29 +52,34 @@ const Stock = () => {
 
   return (
     <div className="home">
-      {stockActive && (
+      {stockActive ? (
         <div className="home-body">
           <div className="stock-body">
             <div className="quote">
-              <div
-                className={
-                  quote.d > 0 ? "quote-header green" : "quote-header red"
-                }
-              >
+              <div className="quote-header">
                 <h3>{company.name}</h3>
-                <h1 className="quote-current">${quote.c}</h1>
+                <h1
+                  className={
+                    stockPriceChange > 0
+                      ? "quote-current stonk-up"
+                      : "quote-current stonk-down"
+                  }
+                >
+                  ${stockCurrentPrice}
+                </h1>
               </div>
               <p className="quote-change">
-                {quote.d < 0 ? (
+                {stockPriceChange < 0 ? (
                   <span>
-                    {quote.d.toString().slice(0, 1)}$
-                    {quote.d.toString().slice(1)} (
-                    {Math.round(quote.dp * 100) / 100}
+                    {stockPriceChange.toString().slice(0, 1) +
+                      "$" +
+                      stockPriceChange.toString().slice(1)}
+                    ({stockPercentChange}
                     %)
                   </span>
                 ) : (
                   <span>
-                    +${quote.d} (+{Math.round(quote.dp * 100) / 100}
+                    +${stockPriceChange} (+{stockPercentChange}
                     %)
                   </span>
                 )}
@@ -73,16 +92,16 @@ const Stock = () => {
               <ul>
                 <li>
                   <dt>High price of the day:</dt>
-                  <dd>${quote.h}</dd>
+                  <dd>${todayHigh}</dd>
                 </li>
                 <li>
-                  <dt>Low price of the day:</dt> <dd>${quote.l}</dd>
+                  <dt>Low price of the day:</dt> <dd>${todayLow}</dd>
                 </li>
                 <li>
-                  <dt>Open price of the day:</dt> <dd>${quote.o}</dd>
+                  <dt>Open price of the day:</dt> <dd>${todayOpen}</dd>
                 </li>
                 <li>
-                  <dt>Previous close price:</dt> <dd>${quote.pc}</dd>
+                  <dt>Previous close price:</dt> <dd>${previousClose}</dd>
                 </li>
                 <li>
                   <dt>Market Cap: </dt>
@@ -137,7 +156,7 @@ const Stock = () => {
             <div className="company-news">
               <h3>Company News</h3>
               <hr />
-              {companyNews.slice(0, 6).map((news) => (
+              {companyNews.slice(0, sixLatestNews).map((news) => (
                 <News news={news} key={news.id} />
               ))}
               <a href="#">See more</a>
@@ -145,9 +164,42 @@ const Stock = () => {
           </div>
           <div className="trade-body">
             <div className="trade-container">
-              <Trade company={company} />
+              <TradePanel
+                stockPriceChange={stockPriceChange}
+                company={company}
+              />
             </div>
           </div>
+        </div>
+      ) : (
+        <div>
+          <div class="blobs">
+            <div class="blob-center"></div>
+            <div class="blob"></div>
+            <div class="blob"></div>
+            <div class="blob"></div>
+            <div class="blob"></div>
+            <div class="blob"></div>
+            <div class="blob"></div>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+            <defs>
+              <filter id="goo">
+                <feGaussianBlur
+                  in="SourceGraphic"
+                  stdDeviation="10"
+                  result="blur"
+                />
+                <feColorMatrix
+                  in="blur"
+                  mode="matrix"
+                  values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"
+                  result="goo"
+                />
+                <feBlend in="SourceGraphic" in2="goo" />
+              </filter>
+            </defs>
+          </svg>
         </div>
       )}
     </div>

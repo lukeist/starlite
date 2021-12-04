@@ -27,3 +27,12 @@ export const stocksAction = (symbol) => async (dispatch) => {
     },
   });
 };
+
+export const resetStockPage = () => (dispatch) => {
+  dispatch({
+    type: "RESET_STOCKS",
+    payload: {
+      stockActive: false,
+    },
+  });
+};

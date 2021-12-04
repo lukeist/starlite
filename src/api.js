@@ -35,8 +35,8 @@ const getCurrentDay = () => {
 // export const newGamesURL = () => `${base_url}${newGames}`;
 
 const base_url = `https://finnhub.io/api/v1/`;
-const api_key = `&token=c6a500qad3idi8g5o2v0`;
-// const api_key = `&token=${process.env.REACT_APP_FINNHUB_API}`; // NOT WORKING - WHY?
+const apiENV = process.env.REACT_APP_FINNHUB_API;
+const api_key = `&token=${apiENV}`;
 
 // SAI - KO CHAY DUOC vi (sym) nam trong function symbol:
 // const symbol = (sym) => `symbol=${sym}`;
@@ -51,6 +51,7 @@ export const companyProfile = (symbol) =>
 
 export const quoteData = (symbol) =>
   `${base_url}quote?symbol=${symbol}${api_key}`;
+
 /////////////////////////////////////////////////// Market News
 // https://finnhub.io/api/v1/news?category=general&token=c6a500qad3idi8g5o2v0
 const marketNewsGeneral = `news?category=general`;
