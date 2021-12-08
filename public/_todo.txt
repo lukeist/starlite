@@ -1,9 +1,24 @@
+- prevent white flash on browser before loading page?
+
 - dark/light theme
 - button colors followed red/green
 - buy/sell panel
 
 - route on browser address
 
-- more list 
+- more list watching stonk\s
 
 - login > only logging in: can 'watch stock' > after clicking on login: nav account shows up, nav login disappears
+
+
+- add transition to all hovers
+
+
+- fix errors in console
+
+
+
+
+
+
+` DOI MAT MAT munich@

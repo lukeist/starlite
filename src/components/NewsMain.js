@@ -1,4 +1,4 @@
-const MainNews = ({ mainnews }) => {
+const NewsMain = ({ mainnews }) => {
   // convert unix timestamp to time
   function timeConverter(UNIX_timestamp) {
     let a = new Date(UNIX_timestamp * 1000);
@@ -54,4 +54,4 @@ const MainNews = ({ mainnews }) => {
   );
 };
 
-export default MainNews;
+export default NewsMain;

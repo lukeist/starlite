@@ -9,7 +9,7 @@
 @import "./colorcode";
 @import "./darklighttoggle";
 @import "./stonkcolor";
-
+@import "./listsaddremoveedit";
 * {
   margin: 0;
   padding: 0;
@@ -17,6 +17,12 @@
 }
 
 html {
+  height: 100%;
+  // background: red;
+  // -webkit-background-size: cover;
+  // -moz-background-size: cover;
+  // -o-background-size: cover;
+  // background-size: cover;
   &::-webkit-scrollbar {
     width: 0.4rem;
     background-color: lightgray;
@@ -30,6 +36,11 @@ html {
   }
 }
 body {
+  // background: red;
+  // -webkit-background-size: cover;
+  // -moz-background-size: cover;
+  // -o-background-size: cover;
+  // background-size: cover;
   margin-top: 60px;
   font-family: "Roboto", sans-serif;
   // width: 100%;
@@ -38,7 +49,9 @@ body {
 }
 
 .dark-mode {
-  background-color: $color-dark-background;
+  background: $color-dark-background;
+
+  min-height: 100vh;
   h1 {
     font-size: 3rem;
     font-weight: 500;
@@ -53,8 +66,8 @@ body {
     color: $color-dark-text-first;
     font-weight: 500;
     line-height: 150%;
-    padding-top: 2rem;
-    padding-bottom: 1rem;
+    // padding-top: 2rem;
+    // padding-bottom: 1rem;
   }
   h4 {
     font-size: 1rem;
@@ -91,6 +104,7 @@ body {
 
 .light-mode {
   background-color: $color-light-background;
+  min-height: 100vh;
   h1 {
     font-size: 3rem;
     font-weight: 500;

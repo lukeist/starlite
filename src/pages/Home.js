@@ -1,11 +1,13 @@
 import { useEffect } from "react";
 import News from "../components/News";
+import NewsMain from "../components/NewsMain";
+import PanelFavorite from "../components/PanelFavorite";
+import { newsAction } from "../actions/newsAction";
+import { useLocation } from "react-router";
+
 // redux
 import { useDispatch, useSelector } from "react-redux";
-import { newsAction } from "../actions/newsAction";
-import MainNews from "../components/MainNews";
-import FavPanel from "../components/FavPanel";
-import { useLocation } from "react-router";
+
 const Home = () => {
   // GET CURRENT LOCATION:
   const location = useLocation();
@@ -24,7 +26,6 @@ const Home = () => {
 
   return (
     <div className="home">
-      {" "}
       {newsActive ? (
         <div className="home-body">
           <div className="news-body">
@@ -33,7 +34,7 @@ const Home = () => {
           ) : ( */}
             <div className="main-news">
               {generalWithoutBloomberg.slice(0, 1).map((mainnews) => (
-                <MainNews key={mainnews.id} mainnews={mainnews} />
+                <NewsMain key={mainnews.id} mainnews={mainnews} />
               ))}
             </div>
             {/* )} */}
@@ -47,7 +48,7 @@ const Home = () => {
           </div>
           <div className="fav-body">
             <div className="fav-container">
-              <FavPanel />
+              <PanelFavorite />
             </div>
           </div>
         </div>

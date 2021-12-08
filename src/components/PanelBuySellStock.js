@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretSquareRight } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
 import { addFavAction, removeFavAction } from "../actions/favAction";
-const Trade = ({ company, stockPriceChange }) => {
+const PanelBuySellStock = ({ company, stockPriceChange }) => {
   const dispatch = useDispatch();
   const addFavHandler = () => {
     dispatch(addFavAction(company.ticker));
@@ -73,4 +73,4 @@ const Trade = ({ company, stockPriceChange }) => {
   );
 };
 
-export default Trade;
+export default PanelBuySellStock;

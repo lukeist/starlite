@@ -3,7 +3,8 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { socket } from "../api";
 import News from "../components/News";
-import TradePanel from "../components/TradePanel";
+import PanelBuySellStock from "../components/PanelBuySellStock";
+import PanelAddRemoveEditLists from "../components/PanelAddRemoveEditLists";
 
 const Stock = () => {
   const { company, quote, companyNews, basicFinancials, stockActive } =
@@ -52,6 +53,7 @@ const Stock = () => {
 
   return (
     <div className="home">
+      <PanelAddRemoveEditLists company={company} />
       {stockActive ? (
         <div className="home-body">
           <div className="stock-body">
@@ -164,7 +166,7 @@ const Stock = () => {
           </div>
           <div className="trade-body">
             <div className="trade-container">
-              <TradePanel
+              <PanelBuySellStock
                 stockPriceChange={stockPriceChange}
                 company={company}
               />
