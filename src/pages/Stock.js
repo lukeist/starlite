@@ -8,8 +8,8 @@ import PanelAddRemoveEditLists from "../components/PanelAddRemoveEditLists";
 
 const Stock = () => {
   const { company, quote, companyNews, basicFinancials, stockActive } =
-    useSelector((state) => state.stocks);
-  const { general } = useSelector((state) => state.news);
+    useSelector((state) => state.entities.stock);
+  const { general } = useSelector((state) => state.entities.news);
   // Market Cap display
   const marketCapLength = Math.round(company.marketCapitalization).toString()
     .length;
@@ -53,7 +53,7 @@ const Stock = () => {
 
   return (
     <div className="home">
-      <PanelAddRemoveEditLists company={company} />
+      <PanelAddRemoveEditLists quote={quote} company={company} />
       {stockActive ? (
         <div className="home-body">
           <div className="stock-body">

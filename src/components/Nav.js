@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { searchAction } from "../actions/searchAction";
+import { Link } from "react-router-dom";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon } from "@fortawesome/free-regular-svg-icons";
-import { Link } from "react-router-dom";
 import NavSearchResult from "./NavSearchResult";
-import { resetStockPage } from "../actions/stocksAction";
+import { resetStockPage } from "../store/actions/stocksAction";
+import { searchAction } from "../store/actions/searchAction";
 
 const Nav = () => {
   const [isSearching, setIsSearching] = useState(false);
@@ -15,8 +16,8 @@ const Nav = () => {
   const searchInputUpperCase = searchInput.toUpperCase();
 
   const dispatch = useDispatch();
-  const searchResult = useSelector((state) => state.search.result);
-  const activeStock = useSelector((state) => state.stocks);
+  const searchResult = useSelector((state) => state.entities.search.result);
+  const activeStock = useSelector((state) => state.entities.stock);
 
   /////////////////////////////////////////////////// when there is searchResult => useEffect to create arrays
   useEffect(() => {

@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { stocksAction } from "../actions/stocksAction";
+import { stocksAction } from "../store/actions/stocksAction";
 
 const FavStock = ({ stock }) => {
   const dispatch = useDispatch();

@@ -6,7 +6,7 @@ import {
   companyNewsDataToday,
   basicFinancialsData,
   companyProfile,
-} from "../api";
+} from "../../api";
 
 export const stocksAction = (symbol) => async (dispatch) => {
   //fetch axios

@@ -1,10 +1,10 @@
+import { useSelector } from "react-redux";
 import FavStock from "./FavStock";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faCaretSquareRight } from "@fortawesome/free-regular-svg-icons";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
-import { useSelector } from "react-redux";
-const PanelFavorite = () => {
-  const fav = useSelector((state) => state.fav);
+
+const PanelFavorites = () => {
+  const fav = useSelector((state) => state.entities.stockFavorites);
   return (
     <div className="fav-list">
       <div className="fav-header">
@@ -21,4 +21,4 @@ const PanelFavorite = () => {
   );
 };
 
-export default PanelFavorite;
+export default PanelFavorites;

@@ -18,7 +18,7 @@
 
 
 
-
+- list name (paneladdremoveeditlist): 1-64 characters
 
 
 ` DOI MAT MAT munich@

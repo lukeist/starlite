@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faCaretSquareRight } from "@fortawesome/free-regular-svg-icons";
-import { faCaretSquareRight } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
-import { addFavAction, removeFavAction } from "../actions/favAction";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCaretSquareRight } from "@fortawesome/free-solid-svg-icons";
+import { addFavAction, removeFavAction } from "../store/actions/favAction";
+
 const PanelBuySellStock = ({ company, stockPriceChange }) => {
   const dispatch = useDispatch();
   const addFavHandler = () => {
@@ -12,8 +12,8 @@ const PanelBuySellStock = ({ company, stockPriceChange }) => {
   const removeFavHandler = () => {
     dispatch(removeFavAction(company.ticker));
   };
-  const favArray = useSelector((state) => state.fav);
-  const favCurrentStock = favArray.filter(
+  const fav = useSelector((state) => state.entities.stockFavorites);
+  const favCurrentStock = fav.filter(
     (stock) => stock.symbol === company.ticker
   );
   return (

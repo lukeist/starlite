@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import News from "../components/News";
 import NewsMain from "../components/NewsMain";
-import PanelFavorite from "../components/PanelFavorite";
-import { newsAction } from "../actions/newsAction";
+import PanelFavorites from "../components/PanelFavorites";
+import { newsAction } from "../store/actions/newsAction";
 import { useLocation } from "react-router";
 
 // redux
@@ -18,7 +18,9 @@ const Home = () => {
     dispatch(newsAction());
   }, [dispatch]);
   // get data back from state
-  const { general, crypto, newsActive } = useSelector((state) => state.news);
+  const { general, crypto, newsActive } = useSelector(
+    (state) => state.entities.news
+  );
 
   const generalWithoutBloomberg = general.filter(
     (key) => key.source !== "Bloomberg"
@@ -48,7 +50,7 @@ const Home = () => {
           </div>
           <div className="fav-body">
             <div className="fav-container">
-              <PanelFavorite />
+              <PanelFavorites />
             </div>
           </div>
         </div>

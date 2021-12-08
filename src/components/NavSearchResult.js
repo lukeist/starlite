@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { stocksAction } from "../actions/stocksAction";
+import { stocksAction } from "../store/actions/stocksAction";
 import { Link } from "react-router-dom";
 
 const ResultList = ({

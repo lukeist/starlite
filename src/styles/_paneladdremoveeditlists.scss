@@ -24,6 +24,8 @@
   color: black;
   overflow: hidden;
   box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.2);
+  max-height: 600px;
+  overflow-y: scroll;
 }
 
 .lists-header {
@@ -49,7 +51,7 @@
 
 .createlist-button {
   display: grid;
-  grid-template-columns: 0.8fr 2.1fr;
+  grid-template-columns: 0.5fr 0.8fr 2.1fr;
   align-items: center;
   padding: 1rem;
   color: $color-dark-text-second;
@@ -73,5 +75,31 @@
 }
 
 .lists-container {
-  list-style-type: none;
+  padding: 1rem;
+
+  ul {
+    list-style-type: none;
+  }
+}
+.lists-button {
+  color: $color-dark-text-second;
+  display: grid;
+  grid-template-columns: 0.5fr 0.8fr 2.1fr;
+  align-items: center;
+  padding: 1rem;
+  color: $color-dark-text-second;
+  cursor: pointer;
+}
+.lists-button:hover {
+  background-color: $color-dark-hover;
+}
+.check-icon {
+  font-size: 150%;
+}
+
+.select-icon {
+  font-size: 150%;
+  padding: 0.5rem;
+  box-shadow: 0px 0px 0px 1px $color-dark-text-second;
+  border-radius: 0.3rem;
 }

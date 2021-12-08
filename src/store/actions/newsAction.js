@@ -1,5 +1,5 @@
 import axios from "axios";
-import { marketNewsGeneralData, marketNewsCryptoData } from "../api";
+import { marketNewsGeneralData, marketNewsCryptoData } from "../../api";
 
 export const newsAction = () => async (dispatch) => {
   const general = await axios.get(marketNewsGeneralData);
