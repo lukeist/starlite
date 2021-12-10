@@ -2,9 +2,10 @@ import { useSelector } from "react-redux";
 import FavStock from "./FavStock";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
+import FavListInHomePanel from "./FavListInHomePanel";
 
 const PanelFavorites = () => {
-  const fav = useSelector((state) => state.entities.stockFavorites);
+  const stockLists = useSelector((state) => state.entities.stockLists);
   return (
     <div className="fav-list">
       <div className="fav-header">
@@ -13,8 +14,12 @@ const PanelFavorites = () => {
       </div>
       <hr />
       <div className="fav-items">
-        {fav.map((stock) => (
+        {/* {fav.map((stock) => (
           <FavStock stock={stock} id={stock.symbol} />
+        ))} */}
+
+        {stockLists.map((list) => (
+          <FavListInHomePanel key={list.id} list={list} />
         ))}
       </div>
     </div>

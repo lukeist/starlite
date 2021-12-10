@@ -40,6 +40,28 @@
       transition: all ease 0.2s;
     }
   }
+
+  .lists-container {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    .list-header {
+      color: $color-dark-text-first;
+      display: grid;
+      grid-template-columns: 1fr 5fr 1fr;
+      align-items: center;
+      width: 100%;
+    }
+    .list-header:hover {
+      background-color: $color-dark-outline;
+    }
+    .testt {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: saddlebrown;
+    }
+  }
   .fav-stock {
     display: flex;
     justify-content: space-between;

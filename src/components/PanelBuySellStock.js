@@ -2,15 +2,20 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretSquareRight } from "@fortawesome/free-solid-svg-icons";
-import { addFavAction, removeFavAction } from "../store/actions/favAction";
+// import { addFavAction, removeFavAction } from "../store/actions/favAction";
+import { showPopUpAction } from "../store/actions/popUpListsAction";
 
 const PanelBuySellStock = ({ company, stockPriceChange }) => {
   const dispatch = useDispatch();
-  const addFavHandler = () => {
-    dispatch(addFavAction(company.ticker));
-  };
-  const removeFavHandler = () => {
-    dispatch(removeFavAction(company.ticker));
+  // const addFavHandler = () => {
+  //   dispatch(addFavAction(company.ticker));
+  // };
+  // const removeFavHandler = () => {
+  //   dispatch(removeFavAction(company.ticker));
+  // };
+
+  const showPopUpList = () => {
+    dispatch(showPopUpAction());
   };
   const fav = useSelector((state) => state.entities.stockFavorites);
   const favCurrentStock = fav.filter(
@@ -63,11 +68,12 @@ const PanelBuySellStock = ({ company, stockPriceChange }) => {
           stockPriceChange < 0 ? "fav-add stonk-down" : "fav-add stonk-up"
         }
       >
-        {favCurrentStock.length === 1 ? ( // if the stock is already in the array => unwatch it
-          <button onClick={removeFavHandler}>Unwatch {company.ticker}</button>
-        ) : (
-          <button onClick={addFavHandler}>Watch {company.ticker}</button>
-        )}
+        {/* {favCurrentStock.length === 1 ? ( // if the stock is already in the array => unwatch it */}
+        {/* <button onClick={removeFavHandler}>Unwatch {company.ticker}</button> */}
+        {/* ) : ( */}
+        {/* <button onClick={addFavHandler}>Watch {company.ticker}</button> */}
+        {/* )} */}
+        <button onClick={showPopUpList}>Watch {company.ticker}</button>
       </div>
     </div>
   );

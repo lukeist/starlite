@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import createListReducer from "./reducers/createListReducer";
+import listReducer from "./reducers/listReducer";
 import favReducer from "./reducers/favReducer";
 import newsReducer from "./reducers/newsReducer";
 import searchReducer from "./reducers/searchReducer";
@@ -10,7 +10,7 @@ const entitiesReducer = combineReducers({
   news: newsReducer,
   stock: stocksReducer,
   stockFavorites: favReducer,
-  stockLists: createListReducer,
+  stockLists: listReducer,
 });
 
 export default entitiesReducer;

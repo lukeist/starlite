@@ -4,15 +4,16 @@ import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare, faWindowClose } from "@fortawesome/free-solid-svg-icons";
 import { v4 as uuidv4 } from "uuid";
-import FavList from "./FavList";
-import { createListAction } from "../store/actions/createListAction";
+import FavListInPopUp from "./FavListInPopUp";
+import { createListAction } from "../store/actions/listAction";
+import { hidePopUpAction } from "../store/actions/popUpListsAction";
 
-const PanelAddRemoveEditLists = ({ company }) => {
-  const [isAdding, setIsAdding] = useState(false);
+const PopUpAddRemoveEditLists = ({ quote, company }) => {
+  const [addingList, setAddingList] = useState(false);
   const [listName, setListName] = useState("");
 
   const dispatch = useDispatch();
-  const listState = useSelector((state) => state.entities.stockLists);
+  const stockLists = useSelector((state) => state.entities.stockLists);
   const getInput = (e) => {
     console.log(e.target.value);
     setListName(e.target.value);
@@ -20,7 +21,7 @@ const PanelAddRemoveEditLists = ({ company }) => {
 
   const addNewListHandler = (e) => {
     e.preventDefault();
-    setIsAdding(false);
+    setAddingList(false);
     const listId = uuidv4();
     dispatch(createListAction(listName, listId));
   };
@@ -44,18 +45,33 @@ const PanelAddRemoveEditLists = ({ company }) => {
   //   }
   // };
 
+  const exitPopUpLists = (e) => {
+    const element = e.target;
+    if (element.classList.contains("popup-shadow")) {
+      dispatch(hidePopUpAction());
+    }
+  };
   return (
-    <div className="popup-shadow">
-      <div className="lists-panel">
+    <div onClick={exitPopUpLists} className="popup-shadow">
+      <div
+        onKeyDown={
+          (e) => (e.key === 27 ? console.log("asdfasdf") : "") // Press ESC to exit Pop-up
+        }
+        className="lists-panel"
+      >
         <div className="lists-header">
           <h3>Add {company.ticker} to List</h3>
-          <FontAwesomeIcon className="exit-icon" icon={faWindowClose} />
+          <FontAwesomeIcon
+            onClick={() => dispatch(hidePopUpAction())}
+            className="exit-icon"
+            icon={faWindowClose}
+          />
         </div>
         <hr />
-        {!isAdding ? (
+        {!addingList ? (
           <div className="createlist-container">
             <div
-              onClick={() => setIsAdding(true)}
+              onClick={() => setAddingList(true)}
               className="createlist-button"
             >
               <div></div>
@@ -73,9 +89,18 @@ const PanelAddRemoveEditLists = ({ company }) => {
               className="createlist-form"
               action=""
             >
-              <input onChange={getInput} type="text" />
+              <input
+                onKeyDown={
+                  (e) => (e.key === 27 ? () => console.log(e) : "") // Press ESC to exit Pop-up
+                }
+                onChange={getInput}
+                type="text"
+              />
               <div>
-                <button onClick={() => setIsAdding(false)}>Cancel</button>
+                <button type="button" onClick={() => setAddingList(false)}>
+                  {/* the <button> tag defaults to type="submit". If you change it to type="button" => Forms mishandle submit for Enter key: https://github.com/facebook/react/issues/2093 */}
+                  Cancel
+                </button>
                 <input type="submit" value="Create List" />
               </div>
             </form>
@@ -83,8 +108,13 @@ const PanelAddRemoveEditLists = ({ company }) => {
         )}
         <div className="lists-container">
           <ul>
-            {listState.map((list) => (
-              <FavList list={list} company={company} />
+            {stockLists.map((list) => (
+              <FavListInPopUp
+                key={list.id}
+                list={list}
+                quote={quote}
+                company={company}
+              />
             ))}
           </ul>
         </div>
@@ -92,4 +122,4 @@ const PanelAddRemoveEditLists = ({ company }) => {
     </div>
   );
 };
-export default PanelAddRemoveEditLists;
+export default PopUpAddRemoveEditLists;

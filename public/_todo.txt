@@ -16,7 +16,7 @@
 
 - fix errors in console
 
-
+` press ESC to exit pop up
 
 - list name (paneladdremoveeditlist): 1-64 characters
 

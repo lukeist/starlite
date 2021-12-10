@@ -4,13 +4,14 @@ import { Link } from "react-router-dom";
 import { socket } from "../api";
 import News from "../components/News";
 import PanelBuySellStock from "../components/PanelBuySellStock";
-import PanelAddRemoveEditLists from "../components/PanelAddRemoveEditLists";
+import PopUpLists from "../components/PopUpLists";
 
 const Stock = () => {
   const { company, quote, companyNews, basicFinancials, stockActive } =
     useSelector((state) => state.entities.stock);
   const { general } = useSelector((state) => state.entities.news);
   // Market Cap display
+  const { popUpFavLists } = useSelector((state) => state.utilities);
   const marketCapLength = Math.round(company.marketCapitalization).toString()
     .length;
   const marketCapMillion = Math.round(company.marketCapitalization) + "M";
@@ -53,7 +54,7 @@ const Stock = () => {
 
   return (
     <div className="home">
-      <PanelAddRemoveEditLists quote={quote} company={company} />
+      {popUpFavLists ? <PopUpLists quote={quote} company={company} /> : ""}
       {stockActive ? (
         <div className="home-body">
           <div className="stock-body">
