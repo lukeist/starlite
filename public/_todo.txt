@@ -19,6 +19,6 @@
 ` press ESC to exit pop up
 
 - list name (paneladdremoveeditlist): 1-64 characters
-
+- ETF doesnt show tickers
 
 ` DOI MAT MAT munich@

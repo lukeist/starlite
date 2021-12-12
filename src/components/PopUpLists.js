@@ -9,7 +9,8 @@ import { createListAction } from "../store/actions/listAction";
 import { hidePopUpAction } from "../store/actions/popUpListsAction";
 
 const PopUpAddRemoveEditLists = ({ quote, company }) => {
-  const [addingList, setAddingList] = useState(false);
+  const [isAddingNewList, setIsAddingNewList] = useState(false);
+
   const [listName, setListName] = useState("");
 
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ const PopUpAddRemoveEditLists = ({ quote, company }) => {
 
   const addNewListHandler = (e) => {
     e.preventDefault();
-    setAddingList(false);
+    setIsAddingNewList(false);
     const listId = uuidv4();
     dispatch(createListAction(listName, listId));
   };
@@ -68,10 +69,10 @@ const PopUpAddRemoveEditLists = ({ quote, company }) => {
           />
         </div>
         <hr />
-        {!addingList ? (
+        {!isAddingNewList ? (
           <div className="createlist-container">
             <div
-              onClick={() => setAddingList(true)}
+              onClick={() => setIsAddingNewList(true)}
               className="createlist-button"
             >
               <div></div>
@@ -97,7 +98,7 @@ const PopUpAddRemoveEditLists = ({ quote, company }) => {
                 type="text"
               />
               <div>
-                <button type="button" onClick={() => setAddingList(false)}>
+                <button type="button" onClick={() => setIsAddingNewList(false)}>
                   {/* the <button> tag defaults to type="submit". If you change it to type="button" => Forms mishandle submit for Enter key: https://github.com/facebook/react/issues/2093 */}
                   Cancel
                 </button>

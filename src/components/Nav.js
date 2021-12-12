@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMoon } from "@fortawesome/free-regular-svg-icons";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import NavSearchResult from "./NavSearchResult";
 import { resetStockPage } from "../store/actions/stocksAction";
 import { searchAction } from "../store/actions/searchAction";
@@ -57,7 +57,12 @@ const Nav = () => {
       </button> */}
       <div className="search-field">
         <div className="search-bar">
-          <FontAwesomeIcon className="search-icon" icon={faMoon} />
+          <FontAwesomeIcon
+            className={
+              isSearching ? "fasearch-icon fasearch-active" : "fasearch-icon"
+            }
+            icon={faSearch}
+          />
           <input
             className={isSearching ? "search-input inactive" : "search-input"}
             placeholder="Search"

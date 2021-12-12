@@ -54,12 +54,23 @@
   .search-bar {
     position: relative;
     width: 100%;
-    .search-icon {
-      color: gray;
+
+    .fasearch-icon {
+      color: $color-dark-text-third;
       position: absolute;
       top: 1.5rem;
       left: 0.5rem;
     }
+    .fasearch-active {
+      color: $color-dark-hover-icon !important;
+    }
+    // // .search-input:hover ~ .fasearch-icon {
+    // //   color: $color-dark-hover-icon;
+    // // }
+    // .inactive:hover ~ .fasearch-icon {
+    //   color: $color-dark-hover-icon;
+    // }
+
     .search-input {
       box-sizing: border-box;
       -moz-box-sizing: border-box;

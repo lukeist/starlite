@@ -46,7 +46,7 @@ const FavListInPopUp = ({ company, list, quote }) => {
       ) : (
         <FontAwesomeIcon className="check-icon" icon={faSquare} />
       )}
-      <FontAwesomeIcon className="select-icon" icon={faRocket} />
+      <FontAwesomeIcon className="emoji-icon" icon={faRocket} />
       <h4>{list.listName}</h4>
     </li>
   );
