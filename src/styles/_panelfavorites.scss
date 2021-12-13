@@ -149,31 +149,119 @@
   justify-content: space-between;
   position: relative;
 }
-// .listedit-shadow {
+.listedit-shadow {
+  width: 100%;
+  min-height: 100vh;
+  // overflow-y: scroll; // wherever I am on the page, this div pops up right in the middle
+  background: rgba(0, 0, 0, 0);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 22;
+}
+
+// .listedit-container {
+//   position: relative;
+//   background: red;
+// }
+.lists-edit {
+  list-style-type: none;
+  position: fixed;
+  -webkit-transform: translateX(-75%) translateY(25%);
+  transform: translateX(-75%) translateY(25%);
+  padding: 0.5rem;
+  width: 150px;
+  border: solid 1px $color-dark-highlight;
+  border-radius: 0.5rem;
+  background: $color-dark-outline;
+  z-index: 22;
+  color: $color-dark-text-second;
+  font-size: small;
+  overflow: hidden;
+  box-shadow: $color-dark-boxshadow;
+  .list-edit {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    align-items: center;
+  }
+  .edit-icon {
+    padding: 0.5rem;
+  }
+}
+
+// .popupdelete-shadow {
 //   width: 100%;
 //   min-height: 100vh;
 //   // overflow-y: scroll; // wherever I am on the page, this div pops up right in the middle
-//   background: rgba(0, 0, 0, 0);
+//   background: rgba(0, 0, 0, 0.2);
 //   position: fixed;
 //   top: 0;
 //   left: 0;
 //   z-index: 10;
 // }
 
-.list-edit {
-  position: fixed;
-  margin-left: 1.5rem;
-  margin-top: 2rem;
-  // top: 50%;
-  // left: 50%;
-  -webkit-transform: translateX(-100%) translateY(0%);
-  transform: translateX(-100%) translateY(0%);
-  width: 200px;
-  border-radius: 0.8rem;
-  background: $color-dark-background;
-  z-index: 10;
-  color: black;
-  overflow: hidden;
-  box-shadow: $color-dark-boxshadow;
-  max-height: 600px;
+// .popup-delete {
+//   list-style-type: none;
+//   position: fixed;
+//   top: 50%;
+//   left: 50%;
+//   -webkit-transform: translateX(-100%) translateY(50%);
+//   transform: translateX(-100%) translateY(50%);
+//   padding: 0.5rem;
+//   width: 150px;
+//   border: solid 1px $color-dark-highlight;
+//   border-radius: 0.5rem;
+//   background: $color-dark-outline;
+//   z-index: 10;
+//   color: $color-dark-text-second;
+//   font-size: small;
+//   overflow: hidden;
+//   box-shadow: $color-dark-boxshadow;
+//   .list-edit {
+//     display: grid;
+//     grid-template-columns: 1fr 4fr;
+//     align-items: center;
+//   }
+// }
+
+.delete-list {
+  z-index: 22 !important;
+  top: 25% !important;
+}
+
+.deleteconfirm-txt {
+  padding: 1rem;
+  text-align: center;
+  color: $color-dark-text-first;
+  font-size: 150% !important;
+}
+.deleteconfirm-listname {
+  color: $color-stonkdown-first;
+}
+.deleteconfirm-buttons {
+  display: flex;
+  padding-bottom: 2rem;
+  align-items: center;
+  justify-content: center;
+  button {
+    background: transparent;
+    color: $color-stonkdown-first;
+    padding: 1rem 2rem;
+  }
+  button:hover {
+    background: $color-stonkdown-third;
+  }
+  input {
+    background: $color-stonkdown-second;
+    padding: 1rem 4rem;
+  }
+  input:hover {
+    background: $color-stonkdown-first;
+  }
+}
+.deleteconfirm-button {
+  margin: 0.25rem;
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+  border: solid 1px $color-stonkdown-second;
 }

@@ -16,7 +16,7 @@ const createListReducer = (state = [], action) => {
     //   case 'EDIT_LIST':
     //       return
     case "REMOVE_LIST":
-      return state.filter((id) => id !== action.payload.id);
+      return state.filter((list) => list.id !== action.payload.id);
 
     case "ADD_TICKER_TO_LIST":
       // remove the list out of lists

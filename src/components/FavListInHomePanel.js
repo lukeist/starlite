@@ -14,16 +14,36 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import {
   addTickerToListAction,
+  removeListAction,
   removeTickerFromListAction,
 } from "../store/actions/listAction";
 import FavListInHomePanelsTickers from "./FavListInHomePanelsTickers";
 const FavListInHomePanel = ({ list }) => {
   const [showingStocks, setShowingStocks] = useState(true);
-  const [showingPopUpListEdit, setShowingPopUpListEdit] = useState(false);
+  const [popUpEditList, setPopUpEditList] = useState(false);
+  const [popUpDeleteList, setPopUpDeleteList] = useState(false);
+  const dispatch = useDispatch();
   const exitPopUpListEdit = (e) => {
     const element = e.target;
     if (element.classList.contains("listedit-shadow")) {
-      setShowingPopUpListEdit(false);
+      setPopUpEditList(false);
+    }
+  };
+
+  const popUpConfirmDelete = () => {
+    setPopUpEditList(false);
+    setPopUpDeleteList(true);
+  };
+  const deleteList = () => {
+    console.log(list.id);
+    dispatch(removeListAction(list.id));
+    setPopUpDeleteList(false);
+  };
+
+  const exitPopUpLists = (e) => {
+    const element = e.target;
+    if (element.classList.contains("popup-shadow")) {
+      setPopUpDeleteList(false);
     }
   };
   return (
@@ -35,30 +55,36 @@ const FavListInHomePanel = ({ list }) => {
       <div className="list-header">
         <FontAwesomeIcon className="emoji-icon" icon={faRocket} />
         <h4>{list.listName}</h4>
+
         <div className="list-details">
           <FontAwesomeIcon
-            onClick={() => setShowingPopUpListEdit(true)}
+            onClick={() => setPopUpEditList(true)}
             className="facog-hide"
             icon={faCog}
           />
 
-          {showingPopUpListEdit ? (
-            <div onClick={exitPopUpListEdit} className="listedit-shadow">
-              <ul className="list-edit">
-                <li>
-                  <FontAwesomeIcon className="edit-icon" icon={faPen} />
-                  <span>Edit List</span>
-                </li>
-                <li>
-                  <FontAwesomeIcon className="edit-icon" icon={faServer} />
-                  <span>Rearrange Lists</span>
-                </li>
-                <li>
-                  <FontAwesomeIcon className="edit-icon" icon={faEraser} />
-                  <span>Delete List</span>
-                </li>
-              </ul>
-            </div>
+          {/* // click anywhere to exit pop up */}
+          {popUpEditList ? (
+            <div onClick={exitPopUpListEdit} className="listedit-shadow"></div>
+          ) : (
+            ""
+          )}
+
+          {popUpEditList ? (
+            <ul className="lists-edit">
+              <li className="list-edit">
+                <FontAwesomeIcon className="edit-icon" icon={faPen} />
+                <span>Edit List</span>
+              </li>
+              <li className="list-edit">
+                <FontAwesomeIcon className="edit-icon" icon={faServer} />
+                <span>Rearrange Lists</span>
+              </li>
+              <li onClick={popUpConfirmDelete} className="list-edit">
+                <FontAwesomeIcon className="edit-icon" icon={faEraser} />
+                <span>Delete List</span>
+              </li>
+            </ul>
           ) : (
             ""
           )}
@@ -78,6 +104,42 @@ const FavListInHomePanel = ({ list }) => {
           )}
         </div>
       </div>
+
+      {/* delete list alert / confirmation */}
+      {popUpDeleteList ? (
+        <div onClick={exitPopUpLists} className="popup-shadow">
+          <form
+            onSubmit={deleteList}
+            action=""
+            className="lists-panel delete-list"
+          >
+            <div>
+              <p className="deleteconfirm-txt">
+                Are you sure you want to delete "
+                <span className="deleteconfirm-listname">{list.listName}</span>
+                "?
+              </p>
+            </div>
+            <div className="deleteconfirm-buttons">
+              <input
+                className="deleteconfirm-button"
+                type="submit"
+                value="Delete List"
+              />
+              <button
+                className="deleteconfirm-button"
+                onClick={() => setPopUpDeleteList(false)}
+                type="button"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      ) : (
+        ""
+      )}
+
       {showingStocks ? (
         <div className="list-stocks">
           {list.tickers.map((stock) => (

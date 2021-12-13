@@ -9,6 +9,8 @@
   top: 0;
   left: 0;
   z-index: 10;
+  overflow: auto;
+
   // &::-webkit-scrollbar {
   //   width: 0.5rem;
   // }
@@ -21,20 +23,28 @@
 }
 
 .lists-panel {
+  overflow: auto;
+  /* Hide scrollbar for IE, Edge and Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  &::-webkit-scrollbar {
+    display: none;
+  }
   position: absolute;
   top: 50%;
   left: 50%;
   -webkit-transform: translateX(-50%) translateY(-50%);
   transform: translateX(-50%) translateY(-50%);
   width: 400px;
-  border-radius: 0.8rem;
-  background: $color-dark-background;
-  z-index: 10;
+  border-radius: 0.5rem;
+  background: $color-dark-hover;
   color: black;
-  overflow: hidden;
+  // overflow: hidden;
   box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.2);
   max-height: 600px;
   overflow-y: scroll;
+  z-index: 10;
 }
 
 .lists-header {
