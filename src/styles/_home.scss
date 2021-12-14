@@ -1,49 +1,51 @@
-.home {
-  display: flex;
-  // flex-direction: column;
-  justify-content: space-around;
-}
+.dark-mode {
+  .home {
+    display: flex;
+    // flex-direction: column;
+    justify-content: space-around;
+  }
 
-.home-body {
-  // justify-content: space-around;
-  // width: 1000px;
-  // max-width: 1080px;
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  // [first] 10rem [line3] 640px [middle]
-  // 360px [col4-start] 10rem [end];
-  // background-color: lightskyblue;
-}
+  .home-body {
+    // justify-content: space-around;
+    // width: 1000px;
+    // max-width: 1080px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    // [first] 10rem [line3] 640px [middle]
+    // 360px [col4-start] 10rem [end];
+    // background-color: lightskyblue;
+  }
 
-.news-body {
-  //   flex-direction: column;
-  //   justify-content: center;
-  // max-width: 80%;
+  .news-body {
+    //   flex-direction: column;
+    //   justify-content: center;
+    // max-width: 80%;
 
-  // margin: auto;
-  max-width: 800px;
-  // min-width: 600px;
-  // transform: translateX(-20%);
+    // margin: auto;
+    max-width: 800px;
+    // min-width: 600px;
+    // transform: translateX(-20%);
 
-  // grid-column-start: line3;
-  // grid-column-end: middle;
-  // background-color: lightsteelblue;
-}
+    // grid-column-start: line3;
+    // grid-column-end: middle;
+    // background-color: lightsteelblue;
+  }
 
-.fav-body {
-  // margin: auto;
-  // width: 400px;
-  // background-color: black;
-  // position: fixed;
-  // padding: 2em;
-  // left: 50%;
-  // top: 0%;
-  // transform: translateX(-20%);
-  // grid-column-start: middle;
-  // grid-column-end: col4-start;
-  justify-self: center;
-  max-width: 400px;
-  min-width: 300px;
-  // background-color: mediumorchid;
-  position: relative;
+  .fav-body {
+    // margin: auto;
+    // width: 400px;
+    // background-color: black;
+    // position: fixed;
+    // padding: 2em;
+    // left: 50%;
+    // top: 0%;
+    // transform: translateX(-20%);
+    // grid-column-start: middle;
+    // grid-column-end: col4-start;
+    justify-self: center;
+    max-width: 400px;
+    min-width: 300px;
+    // background-color: mediumorchid;
+    position: relative;
+  }
 }

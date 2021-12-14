@@ -10,7 +10,6 @@ import { hidePopUpAction } from "../store/actions/popUpListsAction";
 
 const PopUpAddRemoveEditLists = ({ quote, company }) => {
   const [isAddingNewList, setIsAddingNewList] = useState(false);
-
   const [listName, setListName] = useState("");
 
   const dispatch = useDispatch();

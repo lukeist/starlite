@@ -18,10 +18,16 @@ import {
   removeTickerFromListAction,
 } from "../store/actions/listAction";
 import FavListInHomePanelsTickers from "./FavListInHomePanelsTickers";
+import { useSelector } from "react-redux";
+import {
+  hidePopUpAction,
+  showPopUpAction,
+} from "../store/actions/popUpListsAction";
 const FavListInHomePanel = ({ list }) => {
   const [showingStocks, setShowingStocks] = useState(true);
   const [popUpEditList, setPopUpEditList] = useState(false);
   const [popUpDeleteList, setPopUpDeleteList] = useState(false);
+  const { popUpFavLists } = useSelector((state) => state.utilities);
   const dispatch = useDispatch();
   const exitPopUpListEdit = (e) => {
     const element = e.target;
@@ -32,18 +38,18 @@ const FavListInHomePanel = ({ list }) => {
 
   const popUpConfirmDelete = () => {
     setPopUpEditList(false);
-    setPopUpDeleteList(true);
+    dispatch(showPopUpAction());
   };
   const deleteList = () => {
     console.log(list.id);
     dispatch(removeListAction(list.id));
-    setPopUpDeleteList(false);
+    dispatch(hidePopUpAction());
   };
 
   const exitPopUpLists = (e) => {
     const element = e.target;
     if (element.classList.contains("popup-shadow")) {
-      setPopUpDeleteList(false);
+      dispatch(hidePopUpAction());
     }
   };
   return (
@@ -106,7 +112,7 @@ const FavListInHomePanel = ({ list }) => {
       </div>
 
       {/* delete list alert / confirmation */}
-      {popUpDeleteList ? (
+      {popUpFavLists ? (
         <div onClick={exitPopUpLists} className="popup-shadow">
           <form
             onSubmit={deleteList}
@@ -128,7 +134,7 @@ const FavListInHomePanel = ({ list }) => {
               />
               <button
                 className="deleteconfirm-button"
-                onClick={() => setPopUpDeleteList(false)}
+                onClick={() => dispatch(hidePopUpAction())}
                 type="button"
               >
                 Cancel

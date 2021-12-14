@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 const Home = () => {
   // GET CURRENT LOCATION:
   const location = useLocation();
-  console.log(location.pathname);
+  // console.log(location.pathname);
   // FETCH STOCKS
   const dispatch = useDispatch();
   useEffect(() => {
@@ -48,10 +48,10 @@ const Home = () => {
               ))}
             </div>
           </div>
-          <div className="fav-body">
-            <div className="fav-container">
-              <PanelFavorites />
-            </div>
+          {/* <div className="fav-body"> */}
+          <div className="fav-container">
+            <PanelFavorites />
+            {/* </div> */}
           </div>
         </div>
       ) : (
