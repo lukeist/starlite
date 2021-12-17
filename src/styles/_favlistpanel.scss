@@ -32,15 +32,15 @@
       box-shadow: $color-dark-boxshadow;
       border: 1px solid $color-dark-outline;
       width: 276px;
-      h4 {
-        padding: 1rem 1.5rem;
-      }
     }
   }
   .fav-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    h4 {
+      padding: 1rem 1.5rem;
+    }
     .fav-icon {
       padding: 1rem 1.5rem;
       color: lightgray;
@@ -57,13 +57,12 @@
     transition: all ease 0.5s;
     // display: flex;
     // flex-direction: column;
-    padding: 0rem;
     .list-header {
       color: $color-dark-text-first;
       display: grid;
-      grid-template-columns: 1fr 5fr 1.5fr;
+      grid-template-columns: 6fr 1.5fr;
       align-items: center;
-      padding: 0rem 1.5rem;
+      padding: 0.5rem 1.5rem;
       cursor: pointer;
     }
     .list-header:hover {
@@ -110,6 +109,21 @@
       transform: rotateZ(180deg);
       transition: 0.4s;
     }
+  }
+  .list-name {
+    h4 {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    padding: 0.5rem 0rem;
+    width: auto;
+  }
+
+  .list-name:hover {
+    // background-color: $color-stonkup-third;
   }
 
   .list-stocks {
@@ -228,46 +242,85 @@
 //   }
 // }
 
-.delete-list {
-  // z-index: 22 !important;
+.confirm-list {
   top: 25% !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.deleteconfirm-txt {
+.confirm-txt {
   padding: 1rem;
   text-align: center;
   color: $color-dark-text-first;
   font-size: 150% !important;
 }
-.deleteconfirm-listname {
+.confirm-listname {
   color: $color-stonkdown-first;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  overflow-wrap: break-word;
+  direction: ltr;
+  width: 30vw;
+  margin: auto;
+  text-align: justify;
+  word-break: break-word;
+  white-space: pre-line;
+  -ms-word-break: break-word;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
 }
-.deleteconfirm-buttons {
-  display: flex;
-  padding-bottom: 2rem;
+
+.confirm-buttons {
+  padding-bottom: 1rem;
+  // display: flex;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  width: 100%;
   align-items: center;
   justify-content: center;
   button {
+    width: 100%;
     background: transparent;
-    color: $color-stonkdown-first;
+    color: $color-stonkup-first;
     padding: 1rem 2rem;
     cursor: pointer;
   }
   button:hover {
-    background: $color-stonkdown-third;
+    background: $color-stonkup-third;
   }
   input {
-    background: $color-stonkdown-second;
+    width: 100%;
+    background: $color-stonkup-second;
     padding: 1rem 4rem;
     cursor: pointer;
   }
   input:hover {
-    background: $color-stonkdown-first;
+    background: $color-stonkup-first;
   }
 }
-.deleteconfirm-button {
+.confirm-button {
   margin: 0.25rem;
   padding: 0.5rem;
   border-radius: 0.3rem;
-  border: solid 1px $color-stonkdown-second;
+  border: solid 1px $color-stonkup-second;
+  width: 100%;
+}
+
+.delete-input {
+  background: $color-stonkdown-second !important;
+  border: solid 1px $color-stonkdown-second !important;
+}
+.delete-input:hover {
+  background: $color-stonkdown-first !important;
+}
+.delete-button {
+  color: $color-stonkdown-first !important;
+  border: solid 1px $color-stonkdown-second !important;
+}
+.delete-button:hover {
+  background: $color-stonkdown-third !important;
 }

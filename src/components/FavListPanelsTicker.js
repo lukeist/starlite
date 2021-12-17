@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { stocksAction } from "../store/actions/stocksAction";
 
-const FavListHomePanelsTickers = ({ stock }) => {
+const FavListPanelsTicker = ({ stock }) => {
   const dispatch = useDispatch();
   const stockCurrentPrice = stock.stockCurrentPrice;
   const stockPercentChange = Math.round(stock.stockPercentChange * 100) / 100;
@@ -38,4 +38,4 @@ const FavListHomePanelsTickers = ({ stock }) => {
   );
 };
 
-export default FavListHomePanelsTickers;
+export default FavListPanelsTicker;

@@ -57,7 +57,7 @@
     .exit-icon {
       padding: 1rem;
       font-size: 300%;
-      color: $color-dark-hover;
+      color: $color-dark-outline;
       cursor: pointer;
     }
     .exit-icon:hover {
@@ -78,7 +78,7 @@
   }
 
   .createlist-button:hover {
-    background-color: $color-dark-hover;
+    background-color: $color-dark-outline;
     border-radius: 0.3rem;
   }
 
@@ -86,12 +86,12 @@
     font-size: 240%;
   }
 
-  .createlist-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 2rem;
-  }
+  // .createlist-form {
+  //   display: flex;
+  //   flex-direction: column;
+  //   justify-content: center;
+  //   padding: 2rem;
+  // }
 
   .lists-container {
     padding: 1rem;
@@ -108,18 +108,14 @@
     padding: 1rem;
     color: $color-dark-text-second;
     cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .lists-button:hover {
     background-color: $color-dark-hover;
   }
   .check-icon {
     font-size: 150%;
-  }
-
-  .emoji-icon {
-    font-size: 120%;
-    padding: 0.5rem;
-    box-shadow: 0px 0px 0px 1px $color-dark-text-second;
-    border-radius: 0.3rem;
   }
 }

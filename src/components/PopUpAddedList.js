@@ -11,7 +11,7 @@ import {
   addTickerToListAction,
   removeTickerFromListAction,
 } from "../store/actions/listAction";
-const FavListInPopUp = ({ company, list, quote }) => {
+const PopUpAddedList = ({ company, list, quote }) => {
   const stockCurrentPrice = quote.c;
   const stockPercentChange = Math.round(quote.dp * 100) / 100;
   const stock = {
@@ -47,9 +47,9 @@ const FavListInPopUp = ({ company, list, quote }) => {
         <FontAwesomeIcon className="check-icon" icon={faSquare} />
       )}
       <FontAwesomeIcon className="emoji-icon" icon={faRocket} />
-      <h4>{list.listName}</h4>
+      <h4 className="list-name">{list.listName}</h4>
     </li>
   );
 };
 
-export default FavListInPopUp;
+export default PopUpAddedList;

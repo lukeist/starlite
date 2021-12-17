@@ -208,14 +208,13 @@
     }
     .description-result {
       list-style-type: none;
-      overflow: hidden;
-      white-space: nowrap;
       text-transform: capitalize;
       cursor: pointer;
       //   width: 70%;
       max-width: 20rem;
       //   background-color: gray;
       padding: 0.5rem 1rem;
+      white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
     }

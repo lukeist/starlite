@@ -1,10 +1,7 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { addFavAction, removeFavAction } from "../store/actions/favAction";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faRocket,
-  faSortDown,
   faAngleDown,
   faAngleUp,
   faCog,
@@ -12,23 +9,17 @@ import {
   faServer,
   faEraser,
 } from "@fortawesome/free-solid-svg-icons";
-import {
-  addTickerToListAction,
-  removeListAction,
-  removeTickerFromListAction,
-} from "../store/actions/listAction";
-import FavListInHomePanelsTickers from "./FavListInHomePanelsTickers";
-import { useSelector } from "react-redux";
-import {
-  hidePopUpAction,
-  showPopUpAction,
-} from "../store/actions/popUpListsAction";
-const FavListInHomePanel = ({ list }) => {
+import FavListPanelsTicker from "./FavListPanelsTicker";
+import DeleteList from "./FavList-DeleteList";
+import RenameList from "./FavList-RenameList";
+import Emojis from "./Emojis";
+
+const FavListPanelsList = ({ list }) => {
   const [showingStocks, setShowingStocks] = useState(true);
   const [popUpEditList, setPopUpEditList] = useState(false);
   const [popUpDeleteList, setPopUpDeleteList] = useState(false);
-  const { popUpFavLists } = useSelector((state) => state.utilities);
-  const dispatch = useDispatch();
+  const [popUpRenameList, setPopUpRenameList] = useState(false);
+
   const exitPopUpListEdit = (e) => {
     const element = e.target;
     if (element.classList.contains("listedit-shadow")) {
@@ -36,21 +27,14 @@ const FavListInHomePanel = ({ list }) => {
     }
   };
 
-  const popUpConfirmDelete = () => {
+  const popUpConfirmRename = () => {
     setPopUpEditList(false);
-    dispatch(showPopUpAction());
-  };
-  const deleteList = () => {
-    console.log(list.id);
-    dispatch(removeListAction(list.id));
-    dispatch(hidePopUpAction());
+    setPopUpRenameList(true);
   };
 
-  const exitPopUpLists = (e) => {
-    const element = e.target;
-    if (element.classList.contains("popup-shadow")) {
-      dispatch(hidePopUpAction());
-    }
+  const popUpConfirmDelete = () => {
+    setPopUpEditList(false);
+    setPopUpDeleteList(true);
   };
   return (
     <div
@@ -59,9 +43,11 @@ const FavListInHomePanel = ({ list }) => {
       className="list-container"
     >
       <div className="list-header">
-        <FontAwesomeIcon className="emoji-icon" icon={faRocket} />
-        <h4>{list.listName}</h4>
-
+        <div className="list-name">
+          {/* <FontAwesomeIcon className="emoji-icon" icon={faRocket} /> */}
+          <Emojis />
+          <h4>{list.listName}</h4>
+        </div>
         <div className="list-details">
           <FontAwesomeIcon
             onClick={() => setPopUpEditList(true)}
@@ -69,7 +55,7 @@ const FavListInHomePanel = ({ list }) => {
             icon={faCog}
           />
 
-          {/* // click anywhere to exit pop up */}
+          {/* // click anywhere to exit pop up  edit list cog*/}
           {popUpEditList ? (
             <div onClick={exitPopUpListEdit} className="listedit-shadow"></div>
           ) : (
@@ -78,7 +64,7 @@ const FavListInHomePanel = ({ list }) => {
 
           {popUpEditList ? (
             <ul className="lists-edit">
-              <li className="list-edit">
+              <li onClick={popUpConfirmRename} className="list-edit">
                 <FontAwesomeIcon className="edit-icon" icon={faPen} />
                 <span>Edit List</span>
               </li>
@@ -111,37 +97,16 @@ const FavListInHomePanel = ({ list }) => {
         </div>
       </div>
 
+      {/* edit list name alert / confirmation */}
+      {popUpRenameList ? (
+        <RenameList list={list} setPopUpRenameList={setPopUpRenameList} />
+      ) : (
+        ""
+      )}
+
       {/* delete list alert / confirmation */}
-      {popUpFavLists ? (
-        <div onClick={exitPopUpLists} className="popup-shadow">
-          <form
-            onSubmit={deleteList}
-            action=""
-            className="lists-panel delete-list"
-          >
-            <div>
-              <p className="deleteconfirm-txt">
-                Are you sure you want to delete "
-                <span className="deleteconfirm-listname">{list.listName}</span>
-                "?
-              </p>
-            </div>
-            <div className="deleteconfirm-buttons">
-              <input
-                className="deleteconfirm-button"
-                type="submit"
-                value="Delete List"
-              />
-              <button
-                className="deleteconfirm-button"
-                onClick={() => dispatch(hidePopUpAction())}
-                type="button"
-              >
-                Cancel
-              </button>
-            </div>
-          </form>
-        </div>
+      {popUpDeleteList ? (
+        <DeleteList list={list} setPopUpDeleteList={setPopUpDeleteList} />
       ) : (
         ""
       )}
@@ -149,7 +114,7 @@ const FavListInHomePanel = ({ list }) => {
       {showingStocks ? (
         <div className="list-stocks">
           {list.tickers.map((stock) => (
-            <FavListInHomePanelsTickers key={stock.symbol} stock={stock} />
+            <FavListPanelsTicker key={stock.symbol} stock={stock} />
           ))}
         </div>
       ) : (
@@ -159,4 +124,4 @@ const FavListInHomePanel = ({ list }) => {
   );
 };
 
-export default FavListInHomePanel;
+export default FavListPanelsList;

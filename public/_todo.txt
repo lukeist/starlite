@@ -19,8 +19,7 @@
 ` press ESC to exit pop up
 
 - list name (paneladdremoveeditlist): 1-64 characters 
-- re-style fav panel: when list name is longer than width
-
+-           minLength="1" function
 - ETF doesnt show tickers
 
 ` DOI MAT MAT munich@

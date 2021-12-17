@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import News from "../components/News";
 import NewsMain from "../components/NewsMain";
-import PanelFavorites from "../components/PanelFavorites";
+import FavListPanel from "../components/FavListPanel";
 import { newsAction } from "../store/actions/newsAction";
 import { useLocation } from "react-router";
 
@@ -50,7 +50,7 @@ const Home = () => {
           </div>
           {/* <div className="fav-body"> */}
           <div className="fav-container">
-            <PanelFavorites />
+            <FavListPanel />
             {/* </div> */}
           </div>
         </div>

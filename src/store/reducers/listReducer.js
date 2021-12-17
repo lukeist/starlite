@@ -1,6 +1,6 @@
 // const initState = [];
 
-const createListReducer = (state = [], action) => {
+const listReducer = (state = [], action) => {
   const tickersArray = [];
   switch (action.type) {
     case "CREATE_LIST":
@@ -13,8 +13,15 @@ const createListReducer = (state = [], action) => {
           tickers: tickersArray,
         },
       ];
-    //   case 'EDIT_LIST':
-    //       return
+    case "EDIT_LIST":
+      // const stateWithoutCurrentList = state.filter(
+      //   (list) => list.id !== action.payload.id
+      // );
+      // const currentList = state.filter((list) => list.id === action.payload.id);
+      // currentList.listName = action.payload.listName;
+      // const stateWithNewList = stateWithoutCurrentList.push(currentList);
+      return state;
+    // stateWithNewList;
     case "REMOVE_LIST":
       return state.filter((list) => list.id !== action.payload.id);
 
@@ -39,9 +46,10 @@ const createListReducer = (state = [], action) => {
     //     ),
     //   },
     // ];
+
     default:
       return state;
   }
 };
 
-export default createListReducer;
+export default listReducer;
