@@ -5,7 +5,7 @@
     // position: absolute; ///// solution 1
     position: relative;
     top: 1rem;
-    height: 100%; // to lock panel to position absolute
+    height: 100vh; // (last was 100%) to lock panel to position absolute
     justify-self: center;
     max-width: 400px;
     min-width: 300px;
@@ -60,9 +60,12 @@
     .list-header {
       color: $color-dark-text-first;
       display: grid;
-      grid-template-columns: 6fr 1.5fr;
+      grid-template-columns: 6fr 2fr;
       align-items: center;
-      padding: 0.5rem 1.5rem;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+      padding-left: 1rem;
+      padding-right: 1.5rem;
       cursor: pointer;
     }
     .list-header:hover {
@@ -77,8 +80,10 @@
     .list-header .facog-hide {
       opacity: 0;
       color: $color-dark-text-third;
-      font-size: 120%;
+      font-size: 100%;
       transition: all ease 0.3s;
+      align-self: center;
+      // margin-left: 0.5rem;
     }
     .list-header:hover .facog-hide {
       opacity: 1;
@@ -109,21 +114,6 @@
       transform: rotateZ(180deg);
       transition: 0.4s;
     }
-  }
-  .list-name {
-    h4 {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    display: grid;
-    grid-template-columns: 1fr 5fr;
-    padding: 0.5rem 0rem;
-    width: auto;
-  }
-
-  .list-name:hover {
-    // background-color: $color-stonkup-third;
   }
 
   .list-stocks {
@@ -162,9 +152,48 @@
   }
 }
 
+.list-info {
+  display: grid;
+  grid-template-columns: 1fr 4.5fr;
+  padding: 0.5rem 0.5rem;
+
+  // width: auto;
+  h4 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  // vertical-align: middle;
+}
+.list-info:hover {
+  background-color: $color-stonkup-last;
+  border-radius: 0.3rem;
+}
+.list-emoji {
+  padding: 0.5rem;
+  justify-content: center;
+  box-shadow: inset 0 0 0 1px $color-dark-highlight;
+  border-radius: 0.3rem;
+  background: $color-dark-outline;
+  display: flex;
+  flex-direction: row;
+  justify-items: center;
+  align-items: center;
+}
+.list-name {
+  padding-left: 0.5rem;
+  min-width: 0;
+  display: flex;
+  flex-direction: row;
+  justify-items: center;
+  align-items: center;
+}
+
 .list-details {
   display: flex;
   justify-content: space-between;
+  padding-left: 0.5rem;
   position: relative;
 }
 .listedit-shadow {
@@ -279,21 +308,22 @@
   // display: flex;
   display: grid;
   grid-template-columns: 2fr 1fr;
-  width: 100%;
+  // width: 100%;
   align-items: center;
   justify-content: center;
   button {
-    width: 100%;
+    // width: 100%;
     background: transparent;
     color: $color-stonkup-first;
     padding: 1rem 2rem;
     cursor: pointer;
+    margin-left: 0.5rem;
   }
   button:hover {
     background: $color-stonkup-third;
   }
   input {
-    width: 100%;
+    // width: 100%;
     background: $color-stonkup-second;
     padding: 1rem 4rem;
     cursor: pointer;
@@ -303,24 +333,8 @@
   }
 }
 .confirm-button {
-  margin: 0.25rem;
-  padding: 0.5rem;
+  // margin: 0.25rem;
   border-radius: 0.3rem;
   border: solid 1px $color-stonkup-second;
-  width: 100%;
-}
-
-.delete-input {
-  background: $color-stonkdown-second !important;
-  border: solid 1px $color-stonkdown-second !important;
-}
-.delete-input:hover {
-  background: $color-stonkdown-first !important;
-}
-.delete-button {
-  color: $color-stonkdown-first !important;
-  border: solid 1px $color-stonkdown-second !important;
-}
-.delete-button:hover {
-  background: $color-stonkdown-third !important;
+  // width: 100%;
 }

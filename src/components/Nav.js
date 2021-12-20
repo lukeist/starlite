@@ -47,7 +47,7 @@ const Nav = () => {
   };
 
   return (
-    <nav className="nav">
+    <nav id="nav" className="nav">
       <Link onClick={resetActive} className="logo" id="logo" to="/">
         Starlite
       </Link>

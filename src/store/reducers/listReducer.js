@@ -9,11 +9,11 @@ const listReducer = (state = [], action) => {
         {
           listName: action.payload.listName,
           id: action.payload.id,
-          //   emoji: action.payload.emoji,
+          emoji: action.payload.emoji,
           tickers: tickersArray,
         },
       ];
-    case "EDIT_LIST":
+    case "RENAME_LIST":
       // const stateWithoutCurrentList = state.filter(
       //   (list) => list.id !== action.payload.id
       // );

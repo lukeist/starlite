@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { socket } from "../api";
@@ -11,7 +11,7 @@ const Stock = () => {
     useSelector((state) => state.entities.stock);
   const { general } = useSelector((state) => state.entities.news);
   // Market Cap display
-  const { popUpFavLists } = useSelector((state) => state.utilities);
+  const { PopUpFavLists } = useSelector((state) => state.utilities);
   const marketCapLength = Math.round(company.marketCapitalization).toString()
     .length;
   const marketCapMillion = Math.round(company.marketCapitalization) + "M";
@@ -37,6 +37,22 @@ const Stock = () => {
   const previousClose = Math.round(quote.pc * 100) / 100;
   const sixLatestNews = 6;
 
+  //////////////// stop body Scrolling when the popup is open => use effect run only when a state becomes false
+  // WHY BODY MOVE TO THE RIGHT???????????????????
+  useEffect(() => {
+    if (!PopUpFavLists) {
+      document.body.style.overflow = "scroll";
+      document.body.style.paddingRight = "0rem";
+      // document.getElementById("nav").style.paddingRight = "0rem";
+    }
+    if (PopUpFavLists) {
+      document.body.style.overflow = "hidden";
+      // document.body.style.paddingRight = "15rem";
+      document.body.style.paddingRight = "0.4rem";
+      document.getElementById("nav").style.paddingRight = "5rem";
+    }
+  }, [PopUpFavLists]);
+
   // // Connection opened -> Subscribe
   // const tesssst = socket.addEventListener("open", function (event) {
   //   socket.send(JSON.stringify({ type: "subscribe", symbol: "AAPL" }));
@@ -54,7 +70,7 @@ const Stock = () => {
 
   return (
     <div className="home">
-      {popUpFavLists ? <PopUpLists quote={quote} company={company} /> : ""}
+      {PopUpFavLists ? <PopUpLists quote={quote} company={company} /> : ""}
       {stockActive ? (
         <div className="home-body">
           <div className="stock-body">

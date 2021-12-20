@@ -1,10 +1,12 @@
 import { combineReducers } from "redux";
 import isAddingListReducer from "./reducers/isAddingListReducer";
-import popUpListsReducer from "./reducers/popUpListsReducer";
+import isEditingListReducer from "./reducers/isEditingListReducer";
+import isPopUpListsReducer from "./reducers/isPopUpListsReducer";
 
 const utilitiesReducer = combineReducers({
-  popUpFavLists: popUpListsReducer,
-  isAddingList: isAddingListReducer,
+  PopUpFavLists: isPopUpListsReducer,
+  PopUpAddingList: isAddingListReducer,
+  PopUpEditingList: isEditingListReducer,
 });
 
 export default utilitiesReducer;

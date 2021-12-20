@@ -22,6 +22,7 @@
   margin-bottom: 1rem;
   align-items: center;
   justify-content: space-between;
+  position: relative;
 }
 
 .input-emoji {
@@ -34,13 +35,6 @@
   padding: 0.5rem;
   //   box-shadow: 0px 0px 0px 1px $color-dark-text-second;
   border-radius: 0.3rem;
-}
-
-.emoji-icon {
-  //   font-size: 120%;
-  //   padding: 0.5rem;
-  //   box-shadow: 0px 0px 0px 1px $color-dark-text-second;
-  //   border-radius: 0.3rem;
 }
 
 .input-name {

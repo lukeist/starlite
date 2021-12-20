@@ -1,18 +1,18 @@
 import { useDispatch } from "react-redux";
 import { removeListAction } from "../store/actions/listAction";
 
-const DeleteList = ({ setPopUpDeleteList, list }) => {
+const DeleteList = ({ setIsDeletingList, list }) => {
   const dispatch = useDispatch();
 
   const deleteListHandler = () => {
     dispatch(removeListAction(list.id));
-    setPopUpDeleteList(false);
+    setIsDeletingList(false);
   };
 
   const exitPopUpDeleteList = (e) => {
     const element = e.target;
     if (element.classList.contains("popup-shadow")) {
-      setPopUpDeleteList(false);
+      setIsDeletingList(false);
     }
   };
 
@@ -39,7 +39,7 @@ const DeleteList = ({ setPopUpDeleteList, list }) => {
           <button
             type="button"
             className="confirm-button delete-button"
-            onClick={() => setPopUpDeleteList(false)}
+            onClick={() => setIsDeletingList(false)}
           >
             Cancel
           </button>

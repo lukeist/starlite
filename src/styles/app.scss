@@ -10,15 +10,20 @@
 @import "./panelbuysellstock";
 @import "./favlistpanel";
 @import "./popuplists";
-@import "./formaddlist";
+@import "./formcreatelist";
+@import "./emoji";
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: 0;
+  // border: 1px solid red;
 }
 
 html {
   height: 100%;
+  min-height: 100%;
+
   // background: red;
   // -webkit-background-size: cover;
   // -moz-background-size: cover;
@@ -42,16 +47,17 @@ body {
   // -moz-background-size: cover;
   // -o-background-size: cover;
   // background-size: cover;
+  // width: 100%;
   margin-top: 60px;
   font-family: "Roboto", sans-serif;
-  // width: 100%;
   font-weight: 400;
   height: 100%;
+  min-height: 100%;
+  // overflow-x: hidden;
 }
 
 .dark-mode {
   background: $color-dark-background;
-
   min-height: 100vh;
   h1 {
     font-size: 3rem;

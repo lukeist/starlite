@@ -1,6 +1,16 @@
 @import "./colorcode";
 .dark-mode {
+  .popuplists-container {
+    position: absolute;
+  }
   .popup-shadow {
+    /* Hide scrollbar for IE, Edge and Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    &::-webkit-scrollbar {
+      display: none;
+    }
     width: 100%;
     min-height: 100vh;
     overflow-y: scroll; // wherever I am on the page, this div pops up right in the middle
@@ -9,8 +19,7 @@
     top: 0;
     left: 0;
     z-index: 10;
-    overflow: auto;
-
+    // overflow: auto;
     // &::-webkit-scrollbar {
     //   width: 0.5rem;
     // }
@@ -23,15 +32,7 @@
   }
 
   .lists-panel {
-    overflow: auto;
-    /* Hide scrollbar for IE, Edge and Firefox */
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-    /* Hide scrollbar for Chrome, Safari and Opera */
-    &::-webkit-scrollbar {
-      display: none;
-    }
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     -webkit-transform: translateX(-50%) translateY(-50%);
@@ -43,10 +44,41 @@
     // overflow: hidden;
     box-shadow: $color-dark-boxshadow;
     max-height: 600px;
-    overflow-y: scroll;
+    padding: 1.5rem;
+    // overflow-y: scroll;
     z-index: 10;
   }
 
+  .listspanel-rename {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    width: 400px;
+    border-radius: 0.5rem;
+    background: $color-dark-hover;
+    color: black;
+    // overflow: hidden;
+    box-shadow: $color-dark-boxshadow;
+    max-height: 600px;
+    padding: 1.5rem;
+    // overflow-y: scroll;
+    z-index: 10;
+  }
+
+  .popup-container {
+    overflow: auto;
+    max-height: 600px;
+    /* Hide scrollbar for IE, Edge and Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    overflow-y: scroll;
+  }
   .lists-header {
     display: flex;
     justify-content: space-between;
@@ -70,7 +102,7 @@
 
   .createlist-button {
     display: grid;
-    grid-template-columns: 0.5fr 0.8fr 2.1fr;
+    grid-template-columns: 1fr 1fr 6fr;
     align-items: center;
     padding: 1rem;
     color: $color-dark-text-second;
@@ -84,8 +116,14 @@
 
   .createlist-icon {
     font-size: 240%;
+    margin: auto;
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
   }
-
+  .createlist-title {
+    padding-left: 1rem;
+  }
   // .createlist-form {
   //   display: flex;
   //   flex-direction: column;
@@ -103,14 +141,18 @@
   .lists-button {
     color: $color-dark-text-second;
     display: grid;
-    grid-template-columns: 0.5fr 0.8fr 2.1fr;
+    grid-template-columns: 1fr 1fr 6fr;
     align-items: center;
     padding: 1rem;
     color: $color-dark-text-second;
     cursor: pointer;
+
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    .list-name {
+      padding-left: 1rem;
+    }
   }
   .lists-button:hover {
     background-color: $color-dark-hover;
@@ -118,4 +160,24 @@
   .check-icon {
     font-size: 150%;
   }
+}
+
+.rename-input {
+  padding: 0.75rem !important;
+  margin-bottom: 2rem;
+}
+
+.delete-input {
+  background: $color-stonkdown-second !important;
+  border: solid 1px $color-stonkdown-second !important;
+}
+.delete-input:hover {
+  background: $color-stonkdown-first !important;
+}
+.delete-button {
+  color: $color-stonkdown-first !important;
+  border: solid 1px $color-stonkdown-second !important;
+}
+.delete-button:hover {
+  background: $color-stonkdown-third !important;
 }

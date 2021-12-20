@@ -2,25 +2,18 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretSquareRight } from "@fortawesome/free-solid-svg-icons";
-// import { addFavAction, removeFavAction } from "../store/actions/favAction";
-import { showPopUpAction } from "../store/actions/popUpListsAction";
+import { showPopUpAction } from "../store/actions/isPopUpListsAction";
 
 const PanelBuySellStock = ({ company, stockPriceChange }) => {
   const dispatch = useDispatch();
-  // const addFavHandler = () => {
-  //   dispatch(addFavAction(company.ticker));
-  // };
-  // const removeFavHandler = () => {
-  //   dispatch(removeFavAction(company.ticker));
-  // };
 
   const showPopUpList = () => {
     dispatch(showPopUpAction());
   };
-  const fav = useSelector((state) => state.entities.stockFavorites);
-  const favCurrentStock = fav.filter(
-    (stock) => stock.symbol === company.ticker
-  );
+  // const fav = useSelector((state) => state.entities.stockFavorites);
+  // const favCurrentStock = fav.filter(
+  //   (stock) => stock.symbol === company.ticker
+  // );
   return (
     <div className="trade-list">
       <div className="trade-panel">

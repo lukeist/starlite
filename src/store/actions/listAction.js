@@ -1,22 +1,18 @@
-export const createListAction = (listName, id) => (dispatch) => {
+export const createListAction = (listName, emoji, id) => (dispatch) => {
   dispatch({
     type: "CREATE_LIST",
     payload: {
       listName,
       id,
-      //   emoji,
+      emoji,
     },
   });
 };
 
-export const editListAction = (listName, id) => (dispatch) => {
+export const renameListAction = (listName, emoji, id) => (dispatch) => {
   dispatch({
-    type: "EDIT_LIST",
-    payload: {
-      listName,
-      id,
-      // emoji,}
-    },
+    type: "RENAME_LIST",
+    payload: { emoji, listName, id },
   });
 };
 

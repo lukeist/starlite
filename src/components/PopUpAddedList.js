@@ -46,8 +46,10 @@ const PopUpAddedList = ({ company, list, quote }) => {
       ) : (
         <FontAwesomeIcon className="check-icon" icon={faSquare} />
       )}
-      <FontAwesomeIcon className="emoji-icon" icon={faRocket} />
-      <h4 className="list-name">{list.listName}</h4>
+      <h4 className="list-emoji">{list.emoji}</h4>{" "}
+      <div className="list-name">
+        <h4>{list.listName}</h4>
+      </div>
     </li>
   );
 };

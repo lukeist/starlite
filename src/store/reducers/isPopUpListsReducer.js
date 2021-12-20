@@ -1,6 +1,6 @@
 // const initState = [];
 
-const popUpListsReducer = (state = false, action) => {
+const isPopUpListsReducer = (state = false, action) => {
   switch (action.type) {
     case "SHOW_POPUP":
       return (state = action.payload.isPopUp);
@@ -11,4 +11,4 @@ const popUpListsReducer = (state = false, action) => {
   }
 };
 
-export default popUpListsReducer;
+export default isPopUpListsReducer;

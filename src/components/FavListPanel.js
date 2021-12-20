@@ -4,19 +4,17 @@ import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import FavListPanelsList from "./FavListPanelsList";
 import { useDispatch } from "react-redux";
 import { isAddingList } from "../store/actions/isAddingListAction";
-import FormAddList from "./FormAddList";
-import Emojis from "./Emojis";
+import FormCreateList from "./FormCreateList";
 
 const FavListPanel = () => {
   const dispatch = useDispatch();
   const stockLists = useSelector((state) => state.entities.stockLists);
-  const isAddingNewList = useSelector((state) => state.utilities.isAddingList);
+  const { PopUpAddingList } = useSelector((state) => state.utilities);
 
   return (
     <div className="fav-list">
       <div className="fav-header">
         <h4>Watching</h4>
-        <Emojis />
         <FontAwesomeIcon
           onClick={() => dispatch(isAddingList())}
           className="fav-icon"
@@ -24,7 +22,9 @@ const FavListPanel = () => {
         />
       </div>
       <hr />
-      {isAddingNewList ? <FormAddList /> : ""}
+
+      {PopUpAddingList ? <FormCreateList /> : ""}
+
       <div className="fav-items">
         {stockLists.map((list) => (
           <FavListPanelsList key={list.id} list={list} />

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faRocket,
   faAngleDown,
   faAngleUp,
   faCog,
@@ -12,13 +11,17 @@ import {
 import FavListPanelsTicker from "./FavListPanelsTicker";
 import DeleteList from "./FavList-DeleteList";
 import RenameList from "./FavList-RenameList";
-import Emojis from "./Emojis";
+import { Link } from "react-router-dom";
 
 const FavListPanelsList = ({ list }) => {
   const [showingStocks, setShowingStocks] = useState(true);
   const [popUpEditList, setPopUpEditList] = useState(false);
-  const [popUpDeleteList, setPopUpDeleteList] = useState(false);
-  const [popUpRenameList, setPopUpRenameList] = useState(false);
+  const [isRenamingList, setIsRenamingList] = useState(false);
+  const [isDeletingList, setIsDeletingList] = useState(false);
+  // const dispatch = useDispatch();
+  // const { isDeletingList, popupRenamingList } = useSelector(
+  //   (state) => state.utilities.PopUpEditingList
+  // );
 
   const exitPopUpListEdit = (e) => {
     const element = e.target;
@@ -29,25 +32,24 @@ const FavListPanelsList = ({ list }) => {
 
   const popUpConfirmRename = () => {
     setPopUpEditList(false);
-    setPopUpRenameList(true);
+    setIsRenamingList(true);
   };
 
   const popUpConfirmDelete = () => {
     setPopUpEditList(false);
-    setPopUpDeleteList(true);
+    setIsDeletingList(true);
   };
   return (
-    <div
-      key={list.id}
-      //   onClick={() => addStockToList(list.id)}
-      className="list-container"
-    >
+    <div className="list-container">
       <div className="list-header">
-        <div className="list-name">
-          {/* <FontAwesomeIcon className="emoji-icon" icon={faRocket} /> */}
-          <Emojis />
-          <h4>{list.listName}</h4>
-        </div>
+        <Link to={`/lists/${list.id}`}>
+          <div className="list-info">
+            <h4 className="list-emoji">{list.emoji}</h4>
+            <div className="list-name">
+              <h4>{list.listName}</h4>
+            </div>
+          </div>
+        </Link>
         <div className="list-details">
           <FontAwesomeIcon
             onClick={() => setPopUpEditList(true)}
@@ -98,19 +100,24 @@ const FavListPanelsList = ({ list }) => {
       </div>
 
       {/* edit list name alert / confirmation */}
-      {popUpRenameList ? (
-        <RenameList list={list} setPopUpRenameList={setPopUpRenameList} />
+      {/* {popupRenamingList ? <RenameList list={list} /> : ""} */}
+      {isRenamingList ? (
+        <RenameList
+          isRenamingList={isRenamingList}
+          setIsRenamingList={setIsRenamingList}
+          list={list}
+        />
       ) : (
         ""
       )}
-
       {/* delete list alert / confirmation */}
-      {popUpDeleteList ? (
-        <DeleteList list={list} setPopUpDeleteList={setPopUpDeleteList} />
+      {isDeletingList ? (
+        <DeleteList setIsDeletingList={setIsDeletingList} list={list} />
       ) : (
         ""
       )}
 
+      {/* list all chosen stocks */}
       {showingStocks ? (
         <div className="list-stocks">
           {list.tickers.map((stock) => (
