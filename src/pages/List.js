@@ -4,6 +4,10 @@ import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { renameListAction } from "../store/actions/listAction";
 import Emojis from "../components/Emojis";
+import TableOfStock from "../components/TableOfStock";
+import FavListPanel from "../components/FavListPanel";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCog } from "@fortawesome/free-solid-svg-icons";
 
 const List = () => {
   const location = useLocation();
@@ -50,7 +54,7 @@ const List = () => {
             <form
               //   onSubmit={editListHandler}
 
-              className="createlist-form"
+              className="listpage-form"
               action=""
               id="form-addlist"
             >
@@ -62,36 +66,67 @@ const List = () => {
                 >
                   {emoji}
                 </button>
-
-                <input
-                  className="input-name"
-                  placeholder="List Name"
-                  onKeyDown={
-                    (e) => (e.key === 27 ? () => console.log(e) : "") // Press ESC to exit Pop-up
-                  }
-                  onChange={getInput}
-                  type="text"
-                  minLength="1"
-                  maxLength="68"
-                  required
-                  value={listName}
-                  onBlur={editListHandler}
-                />
-              </div>
-
-              {emojiActive && (
-                <div className="picker-emoji favlistpanel-emoji popuplists-emoji list-emoji">
-                  <Emojis setEmoji={setEmoji} />
+                <div className="input-group">
+                  <input
+                    className="input-name"
+                    placeholder="List Name"
+                    onKeyDown={
+                      (e) => (e.key === 27 ? () => console.log(e) : "") // Press ESC to exit Pop-up
+                    }
+                    onChange={getInput}
+                    type="text"
+                    minLength="1"
+                    maxLength="68"
+                    required
+                    value={listName}
+                    onBlur={editListHandler}
+                    required
+                  />
+                  <FontAwesomeIcon
+                    // onClick={pressfaWindowClose}
+                    className="deletelist-icon"
+                    icon={faCog}
+                  />
                 </div>
-              )}
+                <p className="input-sub">
+                  {currentList.tickers.length > 1
+                    ? currentList.tickers.length + ` items`
+                    : currentList.tickers.length + ` item`}
+                </p>
+              </div>
               {emojiActive && (
                 <div onClick={exitPopUpEmoji} className="emoji-shadow"></div>
               )}
+              {emojiActive && (
+                <div className="picker-emoji list-emoji">
+                  <Emojis setEmoji={setEmoji} />
+                </div>
+              )}
             </form>
           </div>
-          {}
+
+          <div className="table-row">
+            <div className="table-header">
+              <ul className="table-column">
+                <li className="table-left">Name</li>
+                <li className="table-right">Symbol</li>
+                <li className="table-right">Price</li>
+                <li className="table-mid">Today</li>
+                <li className="table-right">Market Cap</li>
+                <li className="table-x"></li>
+              </ul>
+            </div>
+            {currentList.tickers.map((list) => (
+              <TableOfStock key={list.symbol} list={list} />
+            ))}
+          </div>
+        </div>
+        <div className="fav-container">
+          <FavListPanel />
+          {/* </div> */}
         </div>
       </div>
+
       {/* ) : (
         <div>
           <div class="blobs">

@@ -58,13 +58,11 @@ const FavListPanelsList = ({ list }) => {
           />
 
           {/* // click anywhere to exit pop up  edit list cog*/}
-          {popUpEditList ? (
+          {popUpEditList && (
             <div onClick={exitPopUpListEdit} className="listedit-shadow"></div>
-          ) : (
-            ""
           )}
 
-          {popUpEditList ? (
+          {popUpEditList && (
             <ul className="lists-edit">
               <li onClick={popUpConfirmRename} className="list-edit">
                 <FontAwesomeIcon className="edit-icon" icon={faPen} />
@@ -79,8 +77,6 @@ const FavListPanelsList = ({ list }) => {
                 <span>Delete List</span>
               </li>
             </ul>
-          ) : (
-            ""
           )}
 
           {!showingStocks ? (
@@ -101,31 +97,25 @@ const FavListPanelsList = ({ list }) => {
 
       {/* edit list name alert / confirmation */}
       {/* {popupRenamingList ? <RenameList list={list} /> : ""} */}
-      {isRenamingList ? (
+      {isRenamingList && (
         <RenameList
           isRenamingList={isRenamingList}
           setIsRenamingList={setIsRenamingList}
           list={list}
         />
-      ) : (
-        ""
       )}
       {/* delete list alert / confirmation */}
-      {isDeletingList ? (
+      {isDeletingList && (
         <DeleteList setIsDeletingList={setIsDeletingList} list={list} />
-      ) : (
-        ""
       )}
 
       {/* list all chosen stocks */}
-      {showingStocks ? (
+      {showingStocks && (
         <div className="list-stocks">
           {list.tickers.map((stock) => (
             <FavListPanelsTicker key={stock.symbol} stock={stock} />
           ))}
         </div>
-      ) : (
-        ""
       )}
     </div>
   );

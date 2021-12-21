@@ -28,20 +28,20 @@ const PanelBuySellStock = ({ company, stockPriceChange }) => {
             action=""
           >
             <div className="trade-info">
-              <label className="trade-label" for="quantity">
+              <label className="trade-label" htmlFor="quantity">
                 Quantity
               </label>
               <input
-                className="trade-input"
+                className="input-name trade-input"
                 type="text"
                 id="quantity"
                 name="quantity"
               />
-              <label className="trade-label" for="amount">
+              <label className="trade-label" htmlFor="amount">
                 Amount
               </label>
               <input
-                className="trade-input"
+                className="input-name trade-input"
                 type="text"
                 id="amount"
                 name="amount"

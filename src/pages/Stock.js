@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { socket } from "../api";
 import News from "../components/News";
 import PanelBuySellStock from "../components/PanelBuySellStock";
 import PopUpLists from "../components/PopUpLists";
+import CompanyMarketCap from "../components/CompanyMarketCap";
+import { useDispatch } from "react-redux";
+import { stocksAction } from "../store/actions/stocksAction";
 
 const Stock = () => {
   const { company, quote, companyNews, basicFinancials, stockActive } =
@@ -12,16 +15,6 @@ const Stock = () => {
   const { general } = useSelector((state) => state.entities.news);
   // Market Cap display
   const { PopUpFavLists } = useSelector((state) => state.utilities);
-  const marketCapLength = Math.round(company.marketCapitalization).toString()
-    .length;
-  const marketCapMillion = Math.round(company.marketCapitalization) + "M";
-  const marketCapBillion =
-    +(Math.round((company.marketCapitalization * 100) / 1000) + "e-2") + "B";
-  const marketCapTrillion =
-    Math.round(company.marketCapitalization)
-      .toString()
-      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-      .slice(0, -4) + "B";
 
   const stockCurrentPrice = quote.c;
   const stockPriceChange = quote.d;
@@ -36,6 +29,17 @@ const Stock = () => {
   const todayOpen = Math.round(quote.o * 100) / 100;
   const previousClose = Math.round(quote.pc * 100) / 100;
   const sixLatestNews = 6;
+
+  //////////////// PUT SToCK TO STATE WHEN ENTER SYMBOL INTo BROWSER
+  const location = useLocation();
+  const startPositionOfSymbolInLocationPathname = 8; // for example: location.pathname = /stocks/GME
+  const getSymbolFromBrowser = location.pathname.slice(
+    startPositionOfSymbolInLocationPathname
+  );
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(stocksAction(getSymbolFromBrowser));
+  }, [location]);
 
   //////////////// stop body Scrolling when the popup is open => use effect run only when a state becomes false
   // WHY BODY MOVE TO THE RIGHT???????????????????
@@ -77,6 +81,7 @@ const Stock = () => {
             <div className="quote">
               <div className="quote-header">
                 <h3>{company.name}</h3>
+
                 <h1
                   className={
                     stockPriceChange > 0
@@ -125,11 +130,14 @@ const Stock = () => {
                 <li>
                   <dt>Market Cap: </dt>
                   <dd>
-                    {marketCapLength > 3
-                      ? marketCapLength > 6
-                        ? marketCapTrillion
-                        : marketCapBillion
-                      : marketCapMillion}
+                    {
+                      CompanyMarketCap(company)
+                      // marketCapLength > 3
+                      //   ? marketCapLength > 6
+                      //     ? marketCapTrillion
+                      //     : marketCapBillion
+                      //   : marketCapMillion
+                    }
                   </dd>
                 </li>
               </ul>
@@ -192,14 +200,14 @@ const Stock = () => {
         </div>
       ) : (
         <div>
-          <div class="blobs">
-            <div class="blob-center"></div>
-            <div class="blob"></div>
-            <div class="blob"></div>
-            <div class="blob"></div>
-            <div class="blob"></div>
-            <div class="blob"></div>
-            <div class="blob"></div>
+          <div className="blobs">
+            <div className="blob-center"></div>
+            <div className="blob"></div>
+            <div className="blob"></div>
+            <div className="blob"></div>
+            <div className="blob"></div>
+            <div className="blob"></div>
+            <div className="blob"></div>
           </div>
           <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
             <defs>

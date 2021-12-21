@@ -2,6 +2,15 @@
 
 .stonk-up {
   color: $color-stonkup-first;
+  .trade-info {
+    input {
+      transition: all ease-in-out 0.3s;
+    }
+    input:focus {
+      box-shadow: inset 0 0 0 1px $color-stonkup-first;
+      border: none !important;
+    }
+  }
   .trade-submit {
     input {
       // box-shadow: inset 0 0 0 1px $color-stonkdown;
@@ -28,6 +37,16 @@
 
 .stonk-down {
   color: $color-stonkdown-first;
+  .trade-info {
+    input {
+      transition: all ease-in-out 0.3s;
+    }
+
+    input:focus {
+      box-shadow: inset 0 0 0 1px $color-stonkdown-first;
+      border: none !important;
+    }
+  }
   .trade-submit {
     input {
       // box-shadow: inset 0 0 0 1px $color-stonkdown;

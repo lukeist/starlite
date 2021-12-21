@@ -126,7 +126,7 @@ const Nav = () => {
       </ul>
       <div>
         <input type="checkbox" id="time" />
-        <label for="time">Night</label>
+        <label htmlFor="time">Night</label>
       </div>
     </nav>
   );

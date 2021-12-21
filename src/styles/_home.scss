@@ -11,6 +11,7 @@
     // max-width: 1080px;
     display: grid;
     grid-template-columns: 2fr 1fr;
+    column-gap: 2rem;
     // [first] 10rem [line3] 640px [middle]
     // 360px [col4-start] 10rem [end];
     // background-color: lightskyblue;

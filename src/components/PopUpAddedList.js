@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addFavAction, removeFavAction } from "../store/actions/favAction";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCheckSquare,
@@ -11,13 +12,19 @@ import {
   addTickerToListAction,
   removeTickerFromListAction,
 } from "../store/actions/listAction";
+import CompanyMarketCap from "./CompanyMarketCap";
 const PopUpAddedList = ({ company, list, quote }) => {
+  const companyName = company.name;
   const stockCurrentPrice = quote.c;
   const stockPercentChange = Math.round(quote.dp * 100) / 100;
+  const marketCap = CompanyMarketCap(company);
+
   const stock = {
+    companyName,
     symbol: company.ticker,
     stockCurrentPrice,
     stockPercentChange,
+    marketCap,
   };
   const dispatch = useDispatch();
 
