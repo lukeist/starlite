@@ -196,6 +196,10 @@
   padding-left: 0.5rem;
   position: relative;
 }
+
+.cog-flexend {
+  justify-content: flex-end !important;
+}
 .listedit-shadow {
   width: 100%;
   min-height: 100vh;
@@ -234,6 +238,17 @@
   .edit-icon {
     padding: 0.5rem;
   }
+}
+
+.lists-retransform {
+  -webkit-transform: translateX(0%) translateY(25%) !important;
+  transform: translateX(0%) translateY(25%) !important;
+}
+.cog-retransform {
+  -webkit-transform: translateX(255%) translateY(100%) !important;
+  transform: translateX(255%) translateY(100%) !important;
+  cursor: pointer;
+  z-index: 17;
 }
 
 // .popupdelete-shadow {

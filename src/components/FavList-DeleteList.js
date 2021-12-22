@@ -1,12 +1,30 @@
+import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import { useLocation, useHistory, useNavigate } from "react-router-dom";
 import { removeListAction } from "../store/actions/listAction";
 
 const DeleteList = ({ setIsDeletingList, list }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const locationPathnamesLength = location.pathname.length;
+  const locationPathnamesLengthThatNotContainsList = 2;
+  // const startPositionOfListIdInLocationPathname = 7; // for example: location.pathname = /lists/1d9fa494-8a3f-4951-a99b-e3d27576aae9
+  // const listId = location.pathname.slice(
+  //   startPositionOfListIdInLocationPathname
+  // );
+  const allCurrentLists = useSelector((state) => state.entities.stockLists);
 
   const deleteListHandler = () => {
     dispatch(removeListAction(list.id));
     setIsDeletingList(false);
+    if (locationPathnamesLength > locationPathnamesLengthThatNotContainsList) {
+      navigate("/");
+    }
+    // if (allCurrentLists.indexOf(list) < 0) {
+    //   navigate("/");
+    // }
   };
 
   const exitPopUpDeleteList = (e) => {
@@ -16,6 +34,7 @@ const DeleteList = ({ setIsDeletingList, list }) => {
     }
   };
 
+  // delete list if current is on PAGE List then after delete this list, go to home page
   return (
     <div onClick={exitPopUpDeleteList} className="popup-shadow">
       <form
@@ -34,7 +53,7 @@ const DeleteList = ({ setIsDeletingList, list }) => {
           <input
             className="confirm-button delete-input"
             type="submit"
-            value="Delete List"
+            value={`Delete ` + list.listName}
           />
           <button
             type="button"

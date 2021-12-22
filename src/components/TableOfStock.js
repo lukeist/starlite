@@ -6,7 +6,22 @@ import {
   faSortDown,
 } from "@fortawesome/free-solid-svg-icons";
 
-const TableOfStock = ({ list }) => {
+export const TableofStockHeader = () => {
+  return (
+    <div className="table-header">
+      <ul className="table-column">
+        <li className="table-left">Name</li>
+        <li className="table-right">Symbol</li>
+        <li className="table-right">Price</li>
+        <li className="table-mid">Today</li>
+        <li className="table-right">Market Cap</li>
+        <li className="table-x"></li>
+      </ul>
+    </div>
+  );
+};
+
+export const TableOfStock = ({ list }) => {
   return (
     <Link className="table-item" to={`/stocks/${list.symbol}`}>
       <hr />
@@ -41,4 +56,3 @@ const TableOfStock = ({ list }) => {
     </Link>
   );
 };
-export default TableOfStock;

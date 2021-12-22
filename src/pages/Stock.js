@@ -33,12 +33,15 @@ const Stock = () => {
   //////////////// PUT SToCK TO STATE WHEN ENTER SYMBOL INTo BROWSER
   const location = useLocation();
   const startPositionOfSymbolInLocationPathname = 8; // for example: location.pathname = /stocks/GME
-  const getSymbolFromBrowser = location.pathname.slice(
-    startPositionOfSymbolInLocationPathname
-  );
+  const getSymbolFromBrowser = location.pathname
+    .slice(startPositionOfSymbolInLocationPathname)
+    .toUpperCase();
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(stocksAction(getSymbolFromBrowser));
+    // useEffect only when pathname has /stocks/xxx, not /lists/xxx or anything else
+    if (location.pathname.includes("stocks")) {
+      dispatch(stocksAction(getSymbolFromBrowser));
+    }
   }, [location]);
 
   //////////////// stop body Scrolling when the popup is open => use effect run only when a state becomes false

@@ -11,18 +11,22 @@ import {
 import FavListPanelsTicker from "./FavListPanelsTicker";
 import DeleteList from "./FavList-DeleteList";
 import RenameList from "./FavList-RenameList";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 const FavListPanelsList = ({ list }) => {
   const [showingStocks, setShowingStocks] = useState(true);
   const [popUpEditList, setPopUpEditList] = useState(false);
   const [isRenamingList, setIsRenamingList] = useState(false);
   const [isDeletingList, setIsDeletingList] = useState(false);
-  // const dispatch = useDispatch();
+
   // const { isDeletingList, popupRenamingList } = useSelector(
   //   (state) => state.utilities.PopUpEditingList
   // );
-
+  const location = useLocation();
+  const locationPathnamesLength = location.pathname.length;
+  const locationPathnamesLengthThatNotContainsList = 2;
   const exitPopUpListEdit = (e) => {
     const element = e.target;
     if (element.classList.contains("listedit-shadow")) {
@@ -50,20 +54,48 @@ const FavListPanelsList = ({ list }) => {
             </div>
           </div>
         </Link>
-        <div className="list-details">
+        <div
+          className={
+            locationPathnamesLength < locationPathnamesLengthThatNotContainsList
+              ? "list-details"
+              : "list-details cog-flexend"
+          }
+        >
           <FontAwesomeIcon
             onClick={() => setPopUpEditList(true)}
             className="facog-hide"
             icon={faCog}
           />
 
+          {locationPathnamesLength <
+            locationPathnamesLengthThatNotContainsList &&
+            (!showingStocks ? (
+              <FontAwesomeIcon
+                onClick={() => setShowingStocks(!showingStocks)}
+                className={!showingStocks ? "faangle-down" : "faangle-faded"}
+                icon={faAngleDown}
+              />
+            ) : (
+              <FontAwesomeIcon
+                onClick={() => setShowingStocks(!showingStocks)}
+                className={showingStocks ? "faangle-up" : "faangle-faded"}
+                icon={faAngleUp}
+              />
+            ))}
           {/* // click anywhere to exit pop up  edit list cog*/}
           {popUpEditList && (
             <div onClick={exitPopUpListEdit} className="listedit-shadow"></div>
           )}
 
           {popUpEditList && (
-            <ul className="lists-edit">
+            <ul
+              className={
+                locationPathnamesLength <
+                locationPathnamesLengthThatNotContainsList
+                  ? "lists-edit"
+                  : "lists-edit lists-retransform"
+              }
+            >
               <li onClick={popUpConfirmRename} className="list-edit">
                 <FontAwesomeIcon className="edit-icon" icon={faPen} />
                 <span>Edit List</span>
@@ -77,20 +109,6 @@ const FavListPanelsList = ({ list }) => {
                 <span>Delete List</span>
               </li>
             </ul>
-          )}
-
-          {!showingStocks ? (
-            <FontAwesomeIcon
-              onClick={() => setShowingStocks(!showingStocks)}
-              className={!showingStocks ? "faangle-down" : "faangle-faded"}
-              icon={faAngleDown}
-            />
-          ) : (
-            <FontAwesomeIcon
-              onClick={() => setShowingStocks(!showingStocks)}
-              className={showingStocks ? "faangle-up" : "faangle-faded"}
-              icon={faAngleUp}
-            />
           )}
         </div>
       </div>
@@ -110,13 +128,14 @@ const FavListPanelsList = ({ list }) => {
       )}
 
       {/* list all chosen stocks */}
-      {showingStocks && (
-        <div className="list-stocks">
-          {list.tickers.map((stock) => (
-            <FavListPanelsTicker key={stock.symbol} stock={stock} />
-          ))}
-        </div>
-      )}
+      {locationPathnamesLength < locationPathnamesLengthThatNotContainsList &&
+        showingStocks && (
+          <div className="list-stocks">
+            {list.tickers.map((stock) => (
+              <FavListPanelsTicker key={stock.symbol} stock={stock} />
+            ))}
+          </div>
+        )}
     </div>
   );
 };
