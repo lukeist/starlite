@@ -18,7 +18,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 10;
+    z-index: 999;
     // overflow: auto;
     // &::-webkit-scrollbar {
     //   width: 0.5rem;
@@ -41,12 +41,12 @@
     border-radius: 0.5rem;
     background: $color-dark-hover;
     color: black;
-    // overflow: hidden;
     box-shadow: $color-dark-boxshadow;
     max-height: 600px;
     padding: 1.5rem;
+    // overflow: hidden;
     // overflow-y: scroll;
-    z-index: 10;
+    z-index: 1000;
   }
 
   .listspanel-rename {
@@ -64,7 +64,7 @@
     max-height: 600px;
     padding: 1.5rem;
     // overflow-y: scroll;
-    z-index: 10;
+    z-index: 1000;
   }
 
   .popup-container {

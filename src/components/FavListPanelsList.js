@@ -14,6 +14,7 @@ import RenameList from "./FavList-RenameList";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 const FavListPanelsList = ({ list }) => {
   const [showingStocks, setShowingStocks] = useState(true);
@@ -109,6 +110,7 @@ const FavListPanelsList = ({ list }) => {
                 <span>Delete List</span>
               </li>
             </ul>
+            // </div>
           )}
         </div>
       </div>
@@ -132,7 +134,7 @@ const FavListPanelsList = ({ list }) => {
         showingStocks && (
           <div className="list-stocks">
             {list.tickers.map((stock) => (
-              <FavListPanelsTicker key={stock.symbol} stock={stock} />
+              <FavListPanelsTicker key={uuidv4()} stock={stock} />
             ))}
           </div>
         )}

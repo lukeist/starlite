@@ -4,9 +4,9 @@ import NewsMain from "../components/NewsMain";
 import FavListPanel from "../components/FavListPanel";
 import { newsAction } from "../store/actions/newsAction";
 import { useLocation } from "react-router";
-
 // redux
 import { useDispatch, useSelector } from "react-redux";
+import GetStocksForMyFirstList from "../components/GetStocksForMyFirstList";
 
 const Home = () => {
   // GET CURRENT LOCATION:
@@ -14,18 +14,36 @@ const Home = () => {
   // console.log(location.pathname);
   // FETCH STOCKS
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(newsAction());
-  }, [dispatch]);
+
   // get data back from state
   const { general, crypto, newsActive } = useSelector(
     (state) => state.entities.news
   );
-
   const generalWithoutBloomberg = general.filter(
     (key) => key.source !== "Bloomberg"
   );
 
+  const firstIndexOfGeneralNews = 0;
+  const secondIndexOfGeneralNews = 1;
+  const eighthIndexOfGeneralNews = 7;
+  ///////////////////////////////////////////////////////  Automatically fetch news /////////////////////////
+  useEffect(() => {
+    dispatch(newsAction());
+  }, [dispatch]);
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////  Automatically add some stocks into 'My First List'
+  const firstIndexInList = 0;
+  const list = useSelector(
+    (state) => state.entities.stockLists[firstIndexInList]
+  );
+  useEffect(() => {
+    if (typeof list !== "undefined") {
+      if (list.tickers.length === 0) {
+        GetStocksForMyFirstList(list, dispatch);
+      }
+    }
+  }, []);
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   return (
     <div className="home">
       {newsActive ? (
@@ -35,17 +53,21 @@ const Home = () => {
             <Stock />
           ) : ( */}
             <div className="main-news">
-              {generalWithoutBloomberg.slice(0, 1).map((mainnews) => (
-                <NewsMain key={mainnews.id} mainnews={mainnews} />
-              ))}
+              {generalWithoutBloomberg
+                .slice(firstIndexOfGeneralNews, secondIndexOfGeneralNews)
+                .map((mainnews) => (
+                  <NewsMain key={mainnews.id} mainnews={mainnews} />
+                ))}
             </div>
             {/* )} */}
             <div className="sub-news">
               <h3>Market News</h3>
               <hr />
-              {generalWithoutBloomberg.slice(1, 7).map((news) => (
-                <News key={news.id} news={news} />
-              ))}
+              {generalWithoutBloomberg
+                .slice(secondIndexOfGeneralNews, eighthIndexOfGeneralNews)
+                .map((news) => (
+                  <News key={news.id} news={news} />
+                ))}
             </div>
           </div>
           {/* <div className="fav-body"> */}

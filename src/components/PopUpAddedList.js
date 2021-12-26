@@ -1,13 +1,6 @@
-import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addFavAction, removeFavAction } from "../store/actions/favAction";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCheckSquare,
-  faSquare,
-  faRocket,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCheckSquare, faSquare } from "@fortawesome/free-solid-svg-icons";
 import {
   addTickerToListAction,
   removeTickerFromListAction,
@@ -28,13 +21,13 @@ const PopUpAddedList = ({ company, list, quote }) => {
   };
   const dispatch = useDispatch();
 
-  const indexOfCurrentList = list.tickers.findIndex(
+  const indexOfCurrentTicker = list.tickers.findIndex(
     (x) => x.symbol === company.ticker
   );
   ////////////////////// don't understand why this works for adding/removing item to/from array then dispatching
   const addStockToList = (listId) => {
-    if (indexOfCurrentList > -1) {
-      list.tickers.splice(indexOfCurrentList, 1);
+    if (indexOfCurrentTicker > -1) {
+      list.tickers.splice(indexOfCurrentTicker, 1);
       dispatch(removeTickerFromListAction(stock, listId));
     } else {
       list.tickers.push(stock);
@@ -48,12 +41,12 @@ const PopUpAddedList = ({ company, list, quote }) => {
       onClick={() => addStockToList(list.id)}
       className="lists-button"
     >
-      {indexOfCurrentList > -1 ? (
+      {indexOfCurrentTicker > -1 ? (
         <FontAwesomeIcon className="check-icon" icon={faCheckSquare} />
       ) : (
         <FontAwesomeIcon className="check-icon" icon={faSquare} />
       )}
-      <h4 className="list-emoji">{list.emoji}</h4>{" "}
+      <h4 className="list-emoji">{list.emoji}</h4>
       <div className="list-name">
         <h4>{list.listName}</h4>
       </div>

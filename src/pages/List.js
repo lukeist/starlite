@@ -1,18 +1,19 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { renameListAction } from "../store/actions/listAction";
-import Emojis from "../components/Emojis";
-import { TableOfStock, TableofStockHeader } from "../components/TableOfStock";
+import {
+  TableOfStock,
+  TableofStockHeader,
+} from "../components/List-TableOfStock";
 import FavListPanel from "../components/FavListPanel";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCog, faEraser } from "@fortawesome/free-solid-svg-icons";
 import DeleteList from "../components/FavList-DeleteList";
 import { useEffect } from "react";
+import ListHeader from "../components/List-Header";
+import { useRef } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
 
 const List = () => {
-  const dispatch = useDispatch();
   const location = useLocation();
   const startPositionOfListIdInLocationPathname = 7; // for example: location.pathname = /lists/1d9fa494-8a3f-4951-a99b-e3d27576aae9
   const listId = location.pathname.slice(
@@ -25,14 +26,17 @@ const List = () => {
     (list) => list.id === listId
   );
   const firstListInArrayIndex = 0;
-
   const [currentList, setCurrentList] = useState(
     filterListfromListsToArray[firstListInArrayIndex]
   );
   const [listName, setListName] = useState(currentList.listName);
   const [emoji, setEmoji] = useState(currentList.emoji);
+  const [isDeletingList, setIsDeletingList] = useState(false);
+  const [popupAfterDeleteStock, setPopupAfterDeleteStock] = useState(false);
+  const [stockInPopupAfterDeleteStock, setStockInPopupAfterDeleteStock] =
+    useState("");
 
-  //////////////// PUT LiST TO STATE WHEN CLICK ON LIST PANEL's ITEM on LIST PAGE
+  //////////////// SET CURRENT LIST WHEN CLICK ON LIST PANEL's ITEM on LIST PAGE
   useEffect(() => {
     // useEffect only when pathname has /lists/xxx, not /stocks/xxx or anything else
     if (location.pathname.includes("lists")) {
@@ -42,123 +46,81 @@ const List = () => {
       setEmoji(listFromBrowser.emoji);
     }
   }, [location]);
+  ////////////////////////////////////////////////////////////////////////////////
 
-  const [emojiActive, setEmojiActive] = useState(false);
-  const [cogDelete, setCogDelete] = useState(false);
-  const [isDeletingList, setIsDeletingList] = useState(false);
+  //////////////// ANIMATE THE HEADER WHEN SCROLL TO A CERTAIN POINT https://stackoverflow.com/questions/32856341/pure-js-add-and-remove-toggle-class-after-scrolling-x-amount/32856377
+  //////////////// https://stackoverflow.com/questions/56541342/react-hooks-why-is-current-null-for-useref-hook
+  const headerRef = useRef(null);
+  const [refVisible, setRefVisible] = useState(false);
 
-  const editListHandler = (e) => {
-    e.preventDefault();
-    currentList.emoji = emoji;
-    currentList.listName = listName;
-    dispatch(renameListAction(listName, emoji, listId));
+  const headerClassName = headerRef.current;
+  const add_class_on_scroll = () => {
+    headerClassName.classList.value = "header-main header-main-animate-scroll";
   };
-  const getInput = (e) => {
-    setListName(e.target.value);
+  const remove_class_on_scroll = () => {
+    headerClassName.classList.value = "header-main";
   };
-  const exitPopUpEmoji = (e) => {
-    const element = e.target;
-    if (element.classList.contains("emoji-shadow")) {
-      setEmojiActive(false);
-      editListHandler();
+
+  window.addEventListener("scroll", () => {
+    const scrollpos = window.pageYOffset;
+    if (refVisible) {
+      if (scrollpos > 80) {
+        add_class_on_scroll();
+      } else {
+        remove_class_on_scroll();
+      }
     }
-  };
-  const exitPopUpCogDelete = (e) => {
-    const element = e.target;
-    if (element.classList.contains("listedit-shadow")) {
-      setCogDelete(false);
-    }
-  };
-  const popUpConfirmDelete = () => {
-    setCogDelete(false);
-    setIsDeletingList(true);
-  };
+  });
+  ////////////////////////////////////////////////////////////////////////////////
   return (
     <div className="home">
       {/* {stockActive ? ( */}
       <div className="home-body">
         <div className="list-body">
-          <div className="list-header">
-            <form
-              onSubmit={editListHandler}
-              className="listpage-form"
-              action=""
-              id="form-addlist"
-            >
-              <div className="input-items">
-                <button
-                  onClick={() => setEmojiActive(!emojiActive)}
-                  type="button"
-                  className="input-emoji"
-                >
-                  {emoji}
-                </button>
-                <div className="input-group">
-                  <input
-                    className="input-name"
-                    placeholder="List Name"
-                    onKeyDown={
-                      (e) => (e.key === 27 ? () => console.log(e) : "") // Press ESC to exit Pop-up
-                    }
-                    onChange={getInput}
-                    type="text"
-                    minLength="1"
-                    maxLength="68"
-                    required
-                    value={listName}
-                    onBlur={editListHandler}
-                    required
-                  />
-                  <FontAwesomeIcon
-                    onClick={() => setCogDelete(true)}
-                    className="deletelist-icon"
-                    icon={faCog}
-                  />
-                  {cogDelete && (
-                    <div className="lists-edit cog-retransform">
-                      <div onClick={popUpConfirmDelete} className="list-edit">
-                        <FontAwesomeIcon
-                          className="edit-icon"
-                          icon={faEraser}
-                        />
-                        <span>Delete List</span>
-                      </div>
-                      <div
-                        onClick={exitPopUpCogDelete}
-                        className="listedit-shadow cog-shadow"
-                      ></div>
-                    </div>
-                  )}
-                </div>
-                <p className="input-sub">
-                  {currentList.tickers.length > 1
-                    ? currentList.tickers.length + ` items`
-                    : currentList.tickers.length + ` item`}
-                </p>
-              </div>
-              {emojiActive && (
-                <div onClick={exitPopUpEmoji} className="emoji-shadow"></div>
-              )}
-              {emojiActive && (
-                <div className="picker-emoji list-emoji">
-                  <Emojis setEmoji={setEmoji} />
-                </div>
-              )}
-            </form>
+          <div
+            className="header-main"
+            id="header-main"
+            ref={(element) => {
+              headerRef.current = element;
+              setRefVisible(!!element);
+            }}
+          >
+            <ListHeader
+              listId={listId}
+              currentList={currentList}
+              emoji={emoji}
+              setEmoji={setEmoji}
+              listName={listName}
+              setListName={setListName}
+              setIsDeletingList={setIsDeletingList}
+            />
           </div>
 
-          {currentList.length > 0 ? (
-            <div>
-              <div className="table-row">
-                <TableofStockHeader />
-                {currentList.tickers.map((list) => (
-                  <TableOfStock key={list.symbol} list={list} />
-                ))}
-              </div>
-              <div className="fav-container">
-                <FavListPanel />
-                {/* </div> */}
-              </div>
+          <div className="header-sticky">
+            <ListHeader
+              listId={listId}
+              currentList={currentList}
+              emoji={emoji}
+              setEmoji={setEmoji}
+              listName={listName}
+              setListName={setListName}
+              setIsDeletingList={setIsDeletingList}
+            />
+          </div>
+          {currentList.tickers.length > 0 ? (
+            <div className="table-row">
+              <TableofStockHeader />
+              {currentList.tickers.map((stock) => (
+                <TableOfStock
+                  key={stock.symbol}
+                  stock={stock}
+                  currentList={currentList}
+                  setPopupAfterDeleteStock={setPopupAfterDeleteStock}
+                  setStockInPopupAfterDeleteStock={
+                    setStockInPopupAfterDeleteStock
+                  }
+                />
+              ))}
             </div>
           ) : (
             <h4>This list is empty, like your life.</h4>
@@ -166,7 +128,6 @@ const List = () => {
         </div>
         <div className="fav-container">
           <FavListPanel />
-          {/* </div> */}
         </div>
         {/* delete list alert / confirmation */}
         {isDeletingList && (
@@ -174,6 +135,20 @@ const List = () => {
             setIsDeletingList={setIsDeletingList}
             list={currentList}
           />
+        )}
+        {popupAfterDeleteStock && (
+          <div className="list-page-popup-after-remove-stock">
+            <span>
+              {stockInPopupAfterDeleteStock} was removed from "
+              {currentList.listName}"
+            </span>{" "}
+            <FontAwesomeIcon
+              onClick={() => setPopupAfterDeleteStock(false)}
+              className="exit-icon"
+              icon={faWindowClose}
+              alt="Remove Stonk From List"
+            />
+          </div>
         )}
       </div>
 

@@ -5,11 +5,11 @@
     // position: absolute; ///// solution 1
     position: relative;
     top: 1rem;
-    height: 100vh; // (last was 100%) to lock panel to position absolute
+    height: 0vh; // for fav-panel not going down out of body leaving white space //  (last was 100%) to lock panel to position absolute
     justify-self: center;
     max-width: 400px;
     min-width: 300px;
-    z-index: 9; // this z-index > nav's z-index for popup to appear above nav
+    z-index: 999; // this z-index > nav's z-index for popup to appear above nav
 
     .fav-list {
       // position: sticky; ///// solution 1
@@ -215,9 +215,14 @@
 //   position: relative;
 //   background: red;
 // }
+
+// .cog-popup {
+//   position: absolute !important;
+// }
+
 .lists-edit {
   list-style-type: none;
-  position: fixed;
+  position: absolute;
   -webkit-transform: translateX(-75%) translateY(25%);
   transform: translateX(-75%) translateY(25%);
   padding: 0.5rem;
@@ -245,8 +250,8 @@
   transform: translateX(0%) translateY(25%) !important;
 }
 .cog-retransform {
-  -webkit-transform: translateX(255%) translateY(100%) !important;
-  transform: translateX(255%) translateY(100%) !important;
+  -webkit-transform: translateX(-100%) translateY(100%) !important;
+  transform: translateX(-100%) translateY(100%) !important;
   cursor: pointer;
   z-index: 17;
 }

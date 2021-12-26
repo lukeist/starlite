@@ -1,6 +1,13 @@
-// const initState = [];
+const initState = [
+  {
+    listName: "My First List",
+    id: "my1stlist",
+    emoji: "🌙",
+    tickers: [],
+  },
+];
 
-const listReducer = (state = [], action) => {
+const listReducer = (state = initState, action) => {
   const tickersArray = [];
   switch (action.type) {
     case "CREATE_LIST":

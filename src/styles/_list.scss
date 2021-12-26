@@ -1,32 +1,110 @@
 @import "./colorcode";
 .dark-mode {
   .list-body {
-    max-width: 800px;
-
+    width: 800px;
+    // transition: all 10s ease;
+    .header-main {
+      position: absolute;
+      background: $color-dark-background;
+      width: 800px;
+      z-index: 15;
+      transition: all 0.3s ease;
+    }
+    .header-main-animate-scroll {
+      margin-top: -30%;
+      // transition: all 10s ease;
+    }
+    .header-sticky {
+      position: sticky;
+      top: 62px;
+      padding-right: 0.5rem;
+      background: $color-dark-background;
+      z-index: 11;
+      .input-items {
+        display: flex;
+        flex-direction: row !important;
+        //   justify-content: flex-start !important;
+        align-self: start;
+        align-items: center;
+        .input-name {
+          font-size: 150% !important;
+        }
+        .input-emoji {
+          font-size: 150% !important;
+        }
+      }
+      .input-sub {
+        display: none;
+      }
+      .cog-retransform {
+        -webkit-transform: translateX(-118%) translateY(2%) !important;
+        transform: translateX(-118%) translateY(2%) !important;
+      }
+    }
+    .list-header {
+      //   width: 800px;
+      .input-items {
+        display: flex;
+        flex-direction: column;
+        //   justify-content: flex-start !important;
+        align-self: start;
+        align-items: flex-start;
+        //   margin: auto;
+        .input-group {
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+          margin-left: -0.5rem;
+          // position: relative;
+        }
+        .deletelist-icon {
+          // position: sticky;
+          // top: 90px;
+          align-self: center;
+          color: $color-dark-text-third;
+          font-size: 120%;
+          transition: all ease 0.3s;
+          padding-left: 0.5rem;
+          cursor: pointer;
+        }
+        .deletelist-icon:hover {
+          color: $color-stonkdown-second;
+        }
+      }
+    }
     .table-row {
+      margin-top: 120px;
       display: grid;
       grid-template-rows: repeat(minmax(20px, 1fr));
     }
     .table-column {
+      width: 780px;
       list-style-type: none;
-      // display: block;
       flex-direction: column;
       padding: 1rem 0rem;
       display: grid;
       grid-template-columns: 2fr 1fr 1fr 1fr 1fr 0.5fr;
+      // display: block;
       //   repeat(7, minmax(80px, 1fr));
       //   grid-column-gap: 2rem;
       //   grid-row-gap: 1rem;
     }
 
     .table-header {
+      position: sticky;
+      top: 110px;
       font-size: small;
       font-weight: 300;
       color: $color-dark-text-third !important;
+      background: $color-dark-background;
+      z-index: 11;
     }
     .table-item {
       font-size: small;
       font-weight: 500;
+      z-index: 0;
+      display: flex;
+      justify-content: space-between;
     }
     .table-item:hover {
       background: $color-dark-hover;
@@ -42,8 +120,10 @@
       padding-left: 2rem;
     }
     .table-x {
-      text-align: right;
-      margin-right: 0.5rem;
+      align-self: center;
+      width: 20px;
+      color: $color-dark-text-third;
+      cursor: pointer;
     }
     .table-x:hover {
       color: $color-stonkdown-first;
@@ -98,31 +178,27 @@
       color: $color-dark-text-third;
     }
   }
-
-  .list-header {
-    .input-items {
-      display: flex;
-      flex-direction: column;
-      //   justify-content: flex-start !important;
-      align-self: start;
-      align-items: flex-start;
-      //   margin: auto;
-      .input-group {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        margin-left: -0.5rem;
-      }
-      .deletelist-icon {
-        align-self: center;
-        color: $color-dark-text-third;
-        font-size: 120%;
-        transition: all ease 0.3s;
-        padding-left: 0.5rem;
-      }
-      .deletelist-icon:hover {
-        color: $color-stonkdown-second;
-      }
-    }
+  .list-page-stock-in-list {
+    position: relative;
+  }
+  .list-page-popup-after-remove-stock {
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    transform: translate(calc(50vw - 50%));
+    left: 0;
+    bottom: 50px;
+    width: 50%;
+    padding: 1rem;
+    color: $color-dark-text-second;
+    background: rgba($color-dark-outline, 0.9);
+    backdrop-filter: blur(3px);
+    box-shadow: inset 0 0 0 1px $color-dark-highlight;
+    border-radius: 0.5rem;
+    font-size: smaller;
+    z-index: 9999;
+  }
+  .exit-icon {
+    cursor: pointer;
   }
 }

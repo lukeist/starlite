@@ -9,6 +9,8 @@ const PanelBuySellStock = ({ company, stockPriceChange }) => {
 
   const showPopUpList = () => {
     dispatch(showPopUpAction());
+    document.body.style.overflow = "hidden";
+    // document.body.style.paddingRight = "0.4rem";
   };
   // const fav = useSelector((state) => state.entities.stockFavorites);
   // const favCurrentStock = fav.filter(

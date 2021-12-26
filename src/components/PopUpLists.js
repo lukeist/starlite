@@ -22,6 +22,8 @@ const PopUpLists = ({ quote, company }) => {
       dispatch(hidePopUpAction());
       dispatch(isNotAddingList());
     }
+    document.body.style.overflow = "auto";
+    // document.body.style.paddingRight = "0rem";
   };
   const pressfaWindowClose = () => {
     dispatch(hidePopUpAction());
@@ -66,7 +68,7 @@ const PopUpLists = ({ quote, company }) => {
               <FormCreateList />
             </div>
           )}
-          <div className="lists-container">
+          <div className="lists-container addtolist-list">
             <ul>
               {stockLists.map((list) => (
                 <PopUpAddedList
