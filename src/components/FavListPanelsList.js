@@ -12,8 +12,6 @@ import FavListPanelsTicker from "./FavListPanelsTicker";
 import DeleteList from "./FavList-DeleteList";
 import RenameList from "./FavList-RenameList";
 import { Link, useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 const FavListPanelsList = ({ list }) => {

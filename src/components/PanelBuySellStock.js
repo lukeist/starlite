@@ -1,12 +1,40 @@
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretSquareRight } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCaretSquareRight,
+  faAngleDown,
+} from "@fortawesome/free-solid-svg-icons";
 import { showPopUpAction } from "../store/actions/isPopUpListsAction";
+import { useState } from "react";
 
 const PanelBuySellStock = ({ company, stockPriceChange }) => {
-  const dispatch = useDispatch();
+  const shares = "Shares";
+  const dollars = "Dollars";
+  const [isSelect, setIsSelect] = useState(false);
+  const [optionSelected, setOptionSelected] = useState(shares);
 
+  const exitPopUpShadow = (e) => {
+    const element = e.target;
+    if (element.classList.contains("popup-shadow")) {
+      setIsSelect(false);
+    }
+  };
+  const clickSelectHandler = () => {
+    setIsSelect(true);
+  };
+
+  const sharesSelectedHandler = () => {
+    setOptionSelected(shares);
+    setIsSelect(false);
+  };
+
+  const dollarsSelectedHandler = () => {
+    setOptionSelected(dollars);
+    setIsSelect(false);
+  };
+
+  const dispatch = useDispatch();
   const showPopUpList = () => {
     dispatch(showPopUpAction());
     document.body.style.overflow = "hidden";
@@ -30,7 +58,7 @@ const PanelBuySellStock = ({ company, stockPriceChange }) => {
             action=""
           >
             <div className="trade-info">
-              <label className="trade-label" htmlFor="quantity">
+              {/* <label className="trade-label" htmlFor="quantity">
                 Quantity
               </label>
               <input
@@ -38,7 +66,54 @@ const PanelBuySellStock = ({ company, stockPriceChange }) => {
                 type="text"
                 id="quantity"
                 name="quantity"
-              />
+              /> */}
+              <label className="trade-label" for="investment-type">
+                Invest In
+              </label>
+
+              <button
+                className={
+                  isSelect
+                    ? "investment-type-selected"
+                    : "investment-type-select"
+                }
+                type="button"
+                id="investment-type"
+                name="investment-type"
+                onClick={clickSelectHandler}
+              >
+                <span>{optionSelected}</span>
+                {<FontAwesomeIcon className="more-icon" icon={faAngleDown} />}
+              </button>
+
+              {isSelect && (
+                <div onClick={exitPopUpShadow} class="popup-shadow"></div>
+              )}
+              {isSelect && (
+                <ul
+                  className="investment-type-options"
+                  name="investment-type"
+                  id="investment-type"
+                >
+                  {/* <li className="investment-type-option">{optionSelected}</li> */}
+                  <hr />
+                  <li
+                    onClick={sharesSelectedHandler}
+                    className="investment-type-option"
+                    value="shares"
+                  >
+                    {shares}
+                  </li>
+                  <hr />
+                  <li
+                    onClick={dollarsSelectedHandler}
+                    className="investment-type-option"
+                    value="dollars"
+                  >
+                    {dollars}
+                  </li>
+                </ul>
+              )}
               <label className="trade-label" htmlFor="amount">
                 Amount
               </label>

@@ -203,7 +203,7 @@ const Stock = () => {
           </div>
         </div>
       ) : (
-        <div>
+        <div className="blobs-loading">
           <div className="blobs">
             <div className="blob-center"></div>
             <div className="blob"></div>

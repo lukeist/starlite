@@ -110,6 +110,11 @@ const ListHeader = ({
               ? currentList.tickers.length + ` items`
               : currentList.tickers.length + ` item`}
           </p>
+          {currentList.tickers.length === 0 && (
+            <h4 className="list-header-sub-text">
+              This list is empty, like your life.
+            </h4>
+          )}
         </div>
         {emojiActive && (
           <div onClick={exitPopUpEmoji} className="emoji-shadow"></div>

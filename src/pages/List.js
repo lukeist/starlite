@@ -107,7 +107,7 @@ const List = () => {
               setIsDeletingList={setIsDeletingList}
             />
           </div>
-          {currentList.tickers.length > 0 ? (
+          {currentList.tickers.length > 0 && (
             <div className="table-row">
               <TableofStockHeader />
               {currentList.tickers.map((stock) => (
@@ -122,8 +122,6 @@ const List = () => {
                 />
               ))}
             </div>
-          ) : (
-            <h4>This list is empty, like your life.</h4>
           )}
         </div>
         <div className="fav-container">

@@ -2,7 +2,10 @@
 
 .dark-mode {
   .nav {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr 4fr 2fr 1fr 1fr;
+    // column-gap: 2rem;
+
     min-height: 5vh;
     justify-content: space-around;
     align-items: center;
@@ -49,42 +52,32 @@
     //   display: block;
     // }
   }
-
+  // .logo-container {
+  //   grid-column-start: 1;
+  //   display: flex;
+  //   justify-content: flex-end;
+  // }
   .logo {
     //   padding-right: 3rem;
     //   background-color: hotpink;
     //   width: 30%;
+    grid-column-start: 1;
+    text-align: right;
     font-size: larger;
     cursor: pointer;
     transition: 0.3s ease;
-    padding-left: 1rem;
+    // padding-left: 1rem;
     font-family: Lobster;
   }
   .logo:hover {
     color: aqua;
   }
-  .menu-items {
-    list-style-type: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    padding-right: 1rem;
-    li {
-      padding: 0.5rem;
-      // background-color: khaki;
-      font-size: small;
-      font-weight: 500;
-      a:hover {
-        color: aqua;
-        transition: all 0.2s ease;
-      }
-    }
-  }
 
   .search-field {
-    width: 30rem;
-    margin: 0rem 1rem;
+    grid-column-start: 3;
+    min-width: 300px;
+    margin: 0rem 0.5rem;
+    // min-width: 640px;
   }
   .search-bar {
     position: relative;
@@ -278,7 +271,43 @@
     top: 0;
     left: 0;
   }
-  .test {
-    position: relative;
+  // .test {
+  //   position: relative;
+  // }
+
+  .menu-items {
+    grid-column-start: 5;
+    list-style-type: none;
+    display: flex;
+    justify-content: flex-start;
+    // min-width: 320px;
+    // width: 400px;
+    // justify-content: space-around;
+    align-items: center;
+    cursor: pointer;
+    padding-right: 1rem;
+    li {
+      padding: 0.5rem;
+      // background-color: khaki;
+      font-size: small;
+      font-weight: 500;
+      a:hover {
+        color: aqua;
+        transition: all 0.2s ease;
+      }
+    }
+  }
+  .toggle-switch-mode {
+    grid-column-start: 6;
+    display: flex;
+    justify-content: flex-start;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .logo {
+    text-align: left !important;
+    grid-column-start: 2 !important;
+    // position: absolute;
   }
 }

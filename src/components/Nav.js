@@ -48,10 +48,11 @@ const Nav = () => {
 
   return (
     <nav id="nav" className="nav">
-      <Link onClick={resetActive} className="logo" id="logo" to="/">
+      {/* <div className="logo-container"> */}
+      <Link className="logo" onClick={resetActive} id="logo" to="/">
         Starlite
       </Link>
-
+      {/* </div> */}
       {/* <button onClick={() => console.log(searchResult.slice(0, 6))}>
         aaaaa
       </button> */}
@@ -124,7 +125,7 @@ const Nav = () => {
           </Link>
         </li>
       </ul>
-      <div>
+      <div className="toggle-switch-mode">
         <input type="checkbox" id="time" />
         <label htmlFor="time">Night</label>
       </div>

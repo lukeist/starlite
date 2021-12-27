@@ -1,14 +1,19 @@
 @import "./colorcode";
 .dark-mode {
   .list-body {
-    width: 800px;
+    position: relative;
+    grid-column-start: 3;
+    min-width: 640px;
+    // width: 100% !important;
     // transition: all 10s ease;
     .header-main {
       position: absolute;
       background: $color-dark-background;
-      width: 800px;
-      z-index: 15;
+      width: 100%;
+      min-width: 650px;
       transition: all 0.3s ease;
+      z-index: 15;
+      margin-left: -10px; //////////////////////// see below
     }
     .header-main-animate-scroll {
       margin-top: -30%;
@@ -17,13 +22,13 @@
     .header-sticky {
       position: sticky;
       top: 62px;
-      padding-right: 0.5rem;
+      padding-right: 10px; //////////////////////// because header-main has margin-left: -10px
       background: $color-dark-background;
+      min-width: 640px;
       z-index: 11;
       .input-items {
         display: flex;
         flex-direction: row !important;
-        //   justify-content: flex-start !important;
         align-self: start;
         align-items: center;
         .input-name {
@@ -54,7 +59,6 @@
           display: flex;
           justify-content: space-between;
           width: 100%;
-          margin-left: -0.5rem;
           // position: relative;
         }
         .deletelist-icon {
@@ -78,7 +82,8 @@
       grid-template-rows: repeat(minmax(20px, 1fr));
     }
     .table-column {
-      width: 780px;
+      min-width: 620px;
+      // width: 90%;
       list-style-type: none;
       flex-direction: column;
       padding: 1rem 0rem;
@@ -89,22 +94,33 @@
       //   grid-column-gap: 2rem;
       //   grid-row-gap: 1rem;
     }
-
-    .table-header {
+    .list-page-table-header {
       position: sticky;
       top: 110px;
+      z-index: 11;
+    }
+    .table-header {
       font-size: small;
       font-weight: 300;
-      color: $color-dark-text-third !important;
       background: $color-dark-background;
-      z-index: 11;
+      color: $color-dark-text-third !important;
+      display: grid;
+      grid-template-columns: 20fr 1fr;
+      .table-x {
+        // display: none;
+        opacity: 0;
+        cursor: none !important;
+      }
+    }
+    .list-page-table-item {
+      position: relative;
     }
     .table-item {
       font-size: small;
       font-weight: 500;
+      display: grid;
+      grid-template-columns: 20fr 1fr;
       z-index: 0;
-      display: flex;
-      justify-content: space-between;
     }
     .table-item:hover {
       background: $color-dark-hover;
@@ -120,8 +136,10 @@
       padding-left: 2rem;
     }
     .table-x {
+      display: flex;
+      justify-content: center;
       align-self: center;
-      width: 20px;
+      // width: 20px;
       color: $color-dark-text-third;
       cursor: pointer;
     }
@@ -175,16 +193,16 @@
     }
     .input-sub {
       font-size: small;
+      padding-left: 10px;
+
       color: $color-dark-text-third;
     }
   }
-  .list-page-stock-in-list {
-    position: relative;
-  }
+
   .list-page-popup-after-remove-stock {
+    position: fixed;
     display: flex;
     justify-content: space-between;
-    position: fixed;
     transform: translate(calc(50vw - 50%));
     left: 0;
     bottom: 50px;
@@ -200,5 +218,9 @@
   }
   .exit-icon {
     cursor: pointer;
+  }
+  .list-header-sub-text {
+    padding-top: 1rem;
+    color: $color-dark-text-second;
   }
 }

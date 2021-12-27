@@ -33,6 +33,9 @@
   button:hover {
     background-color: $color-stonkup-third;
   }
+  .investment-type-option:hover {
+    background: $color-stonkup-second;
+  }
 }
 
 .stonk-down {
@@ -69,5 +72,8 @@
   }
   button:hover {
     background-color: $color-stonkdown-third;
+  }
+  .investment-type-option:hover {
+    background: $color-stonkdown-third;
   }
 }

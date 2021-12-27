@@ -1,7 +1,9 @@
 @import "./colorcode";
 .dark-mode {
   .stock-body {
-    max-width: 800px;
+    min-width: 640px;
+    grid-column-start: 3;
+
     ul {
       list-style-type: none;
       // display: block;

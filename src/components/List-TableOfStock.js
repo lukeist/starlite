@@ -10,16 +10,23 @@ import { removeTickerFromListAction } from "../store/actions/listAction";
 
 export const TableofStockHeader = () => {
   return (
-    <div className="table-header">
-      <ul className="table-column">
-        <li className="table-left">Name</li>
-        <li className="table-right">Symbol</li>
-        <li className="table-right">Price</li>
-        <li className="table-mid">Today</li>
-        <li className="table-right">Market Cap</li>
-      </ul>
-      {/* <li className="table-x"></li> */}
-
+    <div className="list-page-table-header">
+      <div className="table-header">
+        <ul className="table-column">
+          <li className="table-left">Name</li>
+          <li className="table-right">Symbol</li>
+          <li className="table-right">Price</li>
+          <li className="table-mid">Today</li>
+          <li className="table-right">Market Cap</li>
+        </ul>
+        <div className="table-x">
+          <FontAwesomeIcon
+            className="exit-icon"
+            icon={faWindowClose}
+            alt="Remove Stonk From List"
+          />
+        </div>
+      </div>
       <hr />
     </div>
   );
@@ -46,7 +53,7 @@ export const TableOfStock = ({
     }, 2500);
   };
   return (
-    <div className="list-page-stock-in-list">
+    <div className="list-page-table-item">
       <div className="table-item">
         <Link to={`/stocks/${stock.symbol}`}>
           <ul className="table-column">

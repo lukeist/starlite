@@ -6,9 +6,11 @@
     position: relative;
     top: 1rem;
     height: 0vh; // for fav-panel not going down out of body leaving white space //  (last was 100%) to lock panel to position absolute
-    justify-self: center;
-    max-width: 400px;
-    min-width: 300px;
+    justify-self: flex-start;
+    padding-left: 2rem;
+    // width: 300px;
+    // max-width: 400px;
+    // min-width: 300px;
     z-index: 999; // this z-index > nav's z-index for popup to appear above nav
 
     .fav-list {

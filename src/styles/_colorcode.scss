@@ -6,7 +6,6 @@ $color-dark-highlight: #545765;
 $color-dark-text-first: rgb(255, 255, 255);
 $color-dark-text-second: rgba(255, 255, 255, 0.7);
 $color-dark-text-third: rgba(255, 255, 255, 0.4);
-$color-dark-boxshadow: 0px 5px 30px rgba(0, 0, 0, 0.2);
 
 // light mode
 $color-light-background: white;
@@ -26,3 +25,5 @@ $color-stonkdown-last: rgba(255, 0, 0, 0.1);
 
 $color-dark-hover-icon: aqua;
 $color-popup-shadow-bg: rgba(0, 0, 0, 0.8);
+$color-dark-boxshadow: 0px 5px 30px rgba(0, 0, 0, 0.2);
+$color-dark-boxshadow-second: inset 0px 5px 30px 1px rgba(0, 0, 0, 0.5);
