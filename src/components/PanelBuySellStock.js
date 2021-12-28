@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -7,8 +6,14 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { showPopUpAction } from "../store/actions/isPopUpListsAction";
 import { useState } from "react";
+import PanelBuySellStockDollars from "./PanelBuySellStock-Dollars";
+import PanelBuySellStockShares from "./PanelBuySellStock-Shares";
 
-const PanelBuySellStock = ({ company, stockPriceChange }) => {
+const PanelBuySellStock = ({
+  company,
+  stockPriceChange,
+  stockCurrentPrice,
+}) => {
   const shares = "Shares";
   const dollars = "Dollars";
   const [isSelect, setIsSelect] = useState(false);
@@ -26,7 +31,7 @@ const PanelBuySellStock = ({ company, stockPriceChange }) => {
 
   const sharesSelectedHandler = () => {
     setOptionSelected(shares);
-    setIsSelect(false);
+    setIsSelect(!isSelect);
   };
 
   const dollarsSelectedHandler = () => {
@@ -44,6 +49,7 @@ const PanelBuySellStock = ({ company, stockPriceChange }) => {
   // const favCurrentStock = fav.filter(
   //   (stock) => stock.symbol === company.ticker
   // );
+
   return (
     <div className="trade-list">
       <div className="trade-panel">
@@ -57,8 +63,9 @@ const PanelBuySellStock = ({ company, stockPriceChange }) => {
             className={stockPriceChange < 0 ? "stonk-down" : "stonk-up"}
             action=""
           >
-            <div className="trade-info">
-              {/* <label className="trade-label" htmlFor="quantity">
+            <div className="trade-info-container">
+              <div className="trade-info">
+                {/* <label className="trade-label" htmlFor="quantity">
                 Quantity
               </label>
               <input
@@ -67,66 +74,64 @@ const PanelBuySellStock = ({ company, stockPriceChange }) => {
                 id="quantity"
                 name="quantity"
               /> */}
-              <label className="trade-label" for="investment-type">
-                Invest In
-              </label>
+                <label className="trade-label" htmlFor="investment-type">
+                  Invest In
+                </label>
 
-              <button
-                className={
-                  isSelect
-                    ? "investment-type-selected"
-                    : "investment-type-select"
-                }
-                type="button"
-                id="investment-type"
-                name="investment-type"
-                onClick={clickSelectHandler}
-              >
-                <span>{optionSelected}</span>
-                {<FontAwesomeIcon className="more-icon" icon={faAngleDown} />}
-              </button>
-
-              {isSelect && (
-                <div onClick={exitPopUpShadow} class="popup-shadow"></div>
-              )}
-              {isSelect && (
-                <ul
-                  className="investment-type-options"
-                  name="investment-type"
+                <button
+                  className={
+                    isSelect
+                      ? "investment-type-selected"
+                      : "investment-type-select"
+                  }
+                  type="button"
                   id="investment-type"
+                  name="investment-type"
+                  onClick={clickSelectHandler}
                 >
-                  {/* <li className="investment-type-option">{optionSelected}</li> */}
-                  <hr />
-                  <li
-                    onClick={sharesSelectedHandler}
-                    className="investment-type-option"
-                    value="shares"
+                  <span>{optionSelected}</span>
+                  {<FontAwesomeIcon className="more-icon" icon={faAngleDown} />}
+                </button>
+
+                {isSelect && (
+                  <div onClick={exitPopUpShadow} className="popup-shadow"></div>
+                )}
+                {isSelect && (
+                  <ul
+                    className="investment-type-options"
+                    name="investment-type"
+                    id="investment-type"
                   >
-                    {shares}
-                  </li>
-                  <hr />
-                  <li
-                    onClick={dollarsSelectedHandler}
-                    className="investment-type-option"
-                    value="dollars"
-                  >
-                    {dollars}
-                  </li>
-                </ul>
+                    {/* <li className="investment-type-option">{optionSelected}</li> */}
+                    <hr />
+                    <li
+                      onClick={sharesSelectedHandler}
+                      className="investment-type-option"
+                      value="shares"
+                    >
+                      {shares}
+                    </li>
+                    <hr />
+                    <li
+                      onClick={dollarsSelectedHandler}
+                      className="investment-type-option"
+                      value="dollars"
+                    >
+                      {dollars}
+                    </li>
+                  </ul>
+                )}
+              </div>
+              {optionSelected === dollars ? (
+                <PanelBuySellStockDollars
+                  stockCurrentPrice={stockCurrentPrice}
+                />
+              ) : (
+                <PanelBuySellStockShares
+                  stockCurrentPrice={stockCurrentPrice}
+                />
               )}
-              <label className="trade-label" htmlFor="amount">
-                Amount
-              </label>
-              <input
-                className="input-name trade-input"
-                type="text"
-                id="amount"
-                name="amount"
-                placeholder="$0.00"
-              />
             </div>
-            <hr />
-            <div></div>
             <div className="trade-submit">
               <input type="submit" value="Submit" />
             </div>

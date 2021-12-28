@@ -16,7 +16,7 @@ const Stock = () => {
   // Market Cap display
   const { PopUpFavLists } = useSelector((state) => state.utilities);
 
-  const stockCurrentPrice = quote.c;
+  const stockCurrentPrice = Math.round(quote.c * 100) / 100;
   const stockPriceChange = quote.d;
   // doesn't work because stock hasn't loaded yet
   // const stockPriceChangeWithDollarSignInTheMiddle =
@@ -196,6 +196,7 @@ const Stock = () => {
           <div className="trade-body">
             <div className="trade-container">
               <PanelBuySellStock
+                stockCurrentPrice={stockCurrentPrice}
                 stockPriceChange={stockPriceChange}
                 company={company}
               />
