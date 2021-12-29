@@ -14,7 +14,7 @@ const FavListPanel = () => {
   return (
     <div className="fav-list">
       <div className="fav-header">
-        <h4>Watching</h4>
+        <h4>Watch Lists</h4>
         <FontAwesomeIcon
           onClick={() => dispatch(isAddingList())}
           className="fav-icon"

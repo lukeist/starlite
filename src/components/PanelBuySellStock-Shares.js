@@ -1,18 +1,28 @@
 import { useState } from "react";
 
 const PanelBuySellStockShares = ({ stockCurrentPrice }) => {
+  const [inputShares, setInputShares] = useState("");
   const [estimateCost, setEstimateCost] = useState(0);
+  const maxInputLength = 9; // only 9 digits allow in input
   const estCostHandler = (e) => {
     const getNumberOfShares = e.target.value;
-    const getEstimateCost = getNumberOfShares * stockCurrentPrice;
+    setInputShares(getNumberOfShares);
+    const getEstimateCost =
+      Math.round(
+        (getNumberOfShares * stockCurrentPrice + Number.EPSILON) * 100 //to be more specific and to ensure things like 1.005 round correctly, use Number.EPSILON : https://stackoverflow.com/questions/11832914/how-to-round-to-at-most-2-decimal-places-if-necessary
+      ) / 100;
     const getEstimateCostToString = getEstimateCost
       .toString()
       .replace(/\B(?=(\d{3})+(?!\d))/g, ","); // Display large numbers with commas https://stackoverflow.com/questions/27761543/how-do-i-display-large-numbers-with-commas-html
-    if (getNumberOfShares > 0) {
-      setEstimateCost(getEstimateCostToString);
-    } else {
-      setEstimateCost(0);
+
+    if (getNumberOfShares.length < maxInputLength + 1) {
+      getNumberOfShares > 0
+        ? setEstimateCost(getEstimateCostToString)
+        : setEstimateCost(0);
     }
+  };
+  const limitNumberToTen = (number) => {
+    return parseFloat(number.toString().slice(0, maxInputLength));
   };
   return (
     <div>
@@ -30,6 +40,11 @@ const PanelBuySellStockShares = ({ stockCurrentPrice }) => {
           id="quantity-shares"
           name="quantity-shares"
           placeholder="0"
+          value={
+            inputShares.length > maxInputLength
+              ? limitNumberToTen(inputShares)
+              : inputShares
+          }
         />
       </div>
       <div className="trade-info">

@@ -8,6 +8,7 @@ import { showPopUpAction } from "../store/actions/isPopUpListsAction";
 import { useState } from "react";
 import PanelBuySellStockDollars from "./PanelBuySellStock-Dollars";
 import PanelBuySellStockShares from "./PanelBuySellStock-Shares";
+import PopupSubmit from "./PanelBuySellStock-PopupSubmit";
 
 const PanelBuySellStock = ({
   company,
@@ -18,6 +19,7 @@ const PanelBuySellStock = ({
   const dollars = "Dollars";
   const [isSelect, setIsSelect] = useState(false);
   const [optionSelected, setOptionSelected] = useState(shares);
+  const [isPopupSubmit, setIsPopupSubmit] = useState(false);
 
   const exitPopUpShadow = (e) => {
     const element = e.target;
@@ -49,19 +51,28 @@ const PanelBuySellStock = ({
   // const favCurrentStock = fav.filter(
   //   (stock) => stock.symbol === company.ticker
   // );
-
+  const submitTradeForm = (e) => {
+    e.preventDefault();
+    setIsPopupSubmit(true);
+  };
   return (
     <div className="trade-list">
+      {isPopupSubmit && (
+        <div onClick={exitPopUpShadow} className="popup-shadow"></div>
+      )}
+      {isPopupSubmit && <PopupSubmit />}
+
       <div className="trade-panel">
         <div className="trade-header">
           <h4>Buy {company.ticker}</h4>
-          <FontAwesomeIcon className="more-icon" icon={faCaretSquareRight} />
+          {/* <FontAwesomeIcon className="more-icon" icon={faCaretSquareRight} /> */}
         </div>
         <hr />
         <div className="trade-items">
           <form
             className={stockPriceChange < 0 ? "stonk-down" : "stonk-up"}
             action=""
+            onSubmit={submitTradeForm}
           >
             <div className="trade-info-container">
               <div className="trade-info">

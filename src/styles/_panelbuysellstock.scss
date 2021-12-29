@@ -247,4 +247,16 @@
   input[type="number"] {
     -moz-appearance: textfield;
   }
+  .popup-trade-submit {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    box-shadow: $color-dark-boxshadow;
+    border-radius: 0.5rem;
+    background-color: $color-dark-hover;
+    padding: 5rem;
+    z-index: 1000;
+  }
 }
