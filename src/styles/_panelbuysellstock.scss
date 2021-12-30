@@ -247,6 +247,15 @@
   input[type="number"] {
     -moz-appearance: textfield;
   }
+
+  .trade-panel-buying-power {
+    display: flex;
+    justify-content: center;
+  }
+  .trade-panel-buying-power-txt {
+    padding: 1rem;
+    font-size: small;
+  }
   .popup-trade-submit {
     position: fixed;
     top: 50%;

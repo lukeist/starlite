@@ -36,6 +36,9 @@
   .investment-type-option:hover {
     background: $color-stonkup-second;
   }
+  .trade-panel-buying-power-txt {
+    color: $color-stonkup-second;
+  }
 }
 
 .stonk-down {
@@ -75,5 +78,8 @@
   }
   .investment-type-option:hover {
     background: $color-stonkdown-third;
+  }
+  .trade-panel-buying-power-txt {
+    color: $color-stonkdown-second;
   }
 }
