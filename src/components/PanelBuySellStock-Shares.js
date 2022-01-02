@@ -2,11 +2,16 @@ import { useState } from "react";
 
 const PanelBuySellStockShares = ({
   stockCurrentPrice,
-  quantity,
-  setQuantity,
+  tradeQuantity,
+  setTradeQuantity,
   setTotalCost,
+  totalCostToString,
+  setToTalCostToString,
+  isBuying,
+  stockPriceChange,
 }) => {
-  const [estimateCost, setEstimateCost] = useState(0);
+  // const [totalCostToString, setToTalCostToString] = useState("0.00");
+
   const maxInputLength = 9; // only 9 digits allow in input
   const estCostHandler = (e) => {
     const getNumberOfShares = e.target.value;
@@ -17,17 +22,18 @@ const PanelBuySellStockShares = ({
       Math.round(
         (getNumberOfShares * stockCurrentPrice + Number.EPSILON) * 100 //to be more specific and to ensure things like 1.005 round correctly, use Number.EPSILON : https://stackoverflow.com/questions/11832914/how-to-round-to-at-most-2-decimal-places-if-necessary
       ) / 100;
-    setQuantity(getNumberOfShares);
+    setTradeQuantity(getNumberOfShares);
     setTotalCost(getEstimateCost);
 
     const getEstimateCostToString = getEstimateCost
       .toString()
       .replace(/\B(?=(\d{3})+(?!\d))/g, ","); // Display large numbers with commas https://stackoverflow.com/questions/27761543/how-do-i-display-large-numbers-with-commas-html
 
+    // LIMIT input TO ONLY $999,999,999
     if (getNumberOfShares.length < maxInputLength + 1) {
       getNumberOfShares > 0
-        ? setEstimateCost(getEstimateCostToString)
-        : setEstimateCost(0);
+        ? setToTalCostToString(getEstimateCostToString)
+        : setToTalCostToString("0.00");
     }
   };
   const limitNumberToTen = (number) => {
@@ -36,7 +42,7 @@ const PanelBuySellStockShares = ({
   return (
     <div>
       <div className="trade-info">
-        <label className="trade-label" htmlFor="quantity-shares">
+        <label className="trade-label" htmlFor="tradeQuantity-shares">
           Shares
         </label>
         <input
@@ -46,15 +52,15 @@ const PanelBuySellStockShares = ({
           required
           onChange={estCostHandler}
           className="input-name trade-input"
-          id="quantity-shares"
-          name="quantity-shares"
+          id="tradeQuantity-shares"
+          name="tradeQuantity-shares"
           placeholder="0"
           value={
-            quantity === 0
+            tradeQuantity === 0
               ? ""
-              : quantity.length > maxInputLength
-              ? limitNumberToTen(quantity)
-              : quantity
+              : tradeQuantity.length > maxInputLength
+              ? limitNumberToTen(tradeQuantity)
+              : tradeQuantity
           }
         />
       </div>
@@ -65,7 +71,7 @@ const PanelBuySellStockShares = ({
       <hr className="trade-hr-line" />
       <div className="trade-info">
         <span className="estimate">Estimate Cost</span>
-        <span className="estimate-result">${estimateCost}</span>
+        <span className="estimate-result">${totalCostToString}</span>
       </div>
     </div>
   );

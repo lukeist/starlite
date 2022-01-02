@@ -8,7 +8,7 @@ const initState = [
 const tradeReducer = (state = initState, action) => {
   switch (action.type) {
     case "BUY_STOCK_FROM_ZERO_POSITION":
-      const firstQuantityParseFloat =
+      const firstQuantityAfterBuyParseFloat =
         Math.round(
           (parseFloat(action.payload.quantity) + Number.EPSILON) * 10000
         ) / 10000;
@@ -16,23 +16,39 @@ const tradeReducer = (state = initState, action) => {
         ...state,
         {
           symbol: action.payload.symbol,
-          quantity: firstQuantityParseFloat,
+          quantity: firstQuantityAfterBuyParseFloat,
         },
       ];
     case "BUY_STOCK_FROM_SOME_POSITIONS":
-      const index = state.findIndex(
+      const indexBuy = state.findIndex(
         (stock) => stock.symbol === action.payload.symbol
       );
-      const totalQuantityParseFloat =
+      const totalQuantityAfterBuyParseFloat =
         Math.round(
-          (parseFloat(state[index].quantity) +
+          (parseFloat(state[indexBuy].quantity) +
             parseFloat(action.payload.quantity) +
             Number.EPSILON) *
             10000
         ) / 10000;
-      state[index].quantity = totalQuantityParseFloat;
+      state[indexBuy].quantity = totalQuantityAfterBuyParseFloat;
       return state;
-    case "SELL_STOCK":
+    case "SELL_POSITION":
+      const indexSell = state.findIndex(
+        (stock) => stock.symbol === action.payload.symbol
+      );
+      const quantityAfterSellParseFloat =
+        Math.round(
+          (parseFloat(state[indexSell].quantity) -
+            parseFloat(action.payload.quantity) +
+            Number.EPSILON) *
+            10000
+        ) / 10000;
+      quantityAfterSellParseFloat === 0
+        ? // REMOVE ITEM IF NO POSITION LEFT
+          (state = state.filter(
+            (item) => item.quantity !== state[indexSell].quantity
+          ))
+        : (state[indexSell].quantity = quantityAfterSellParseFloat);
       return state;
 
     default:

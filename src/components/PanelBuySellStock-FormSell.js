@@ -1,16 +1,14 @@
+import { sellAction } from "../store/actions/tradeAction";
+
 const PanelBuySellStockFormSell = ({
   setTotalCost,
-  setQuantity,
+  setTradeQuantity,
   setCurrentBalance,
   currentBalanceAction,
-  positions,
-  buyAction,
   dispatch,
-  firstBuyAction,
   symbol,
   stockPriceChange,
   currentBalance,
-  showPopupNotEnoughMoney,
   clickSelectHandler,
   FontAwesomeIcon,
   faAngleDown,
@@ -25,22 +23,38 @@ const PanelBuySellStockFormSell = ({
   totalCost,
   PanelBuySellStockShares,
   stockCurrentPrice,
-  quantity,
+  tradeQuantity,
+  isBuying,
+  setIsBuying,
+  quantityOfCurrentStock,
+  totalCostToString,
+  setToTalCostToString,
+  showPopupNotEnoughShare,
+  isTradeQuantityGreaterThanQuantityOfCurrentStock,
+  setIsTradeQuantityGreaterThanQuantityOfCurrentStock,
 }) => {
   const PanelBuySellStockFormSubmit = (e) => {
     e.preventDefault();
-    setTotalCost(0);
-    setQuantity(0);
-    const balanceAfterBuy = currentBalance - totalCost;
-    setCurrentBalance(balanceAfterBuy);
-    dispatch(currentBalanceAction(balanceAfterBuy));
 
-    if (positions.some((position) => position.symbol === symbol)) {
-      // BUYING WHEN THERE IS ALREADY SOME POSITIONS
-      dispatch(buyAction(symbol, quantity));
+    const balanceAfterSell = currentBalance + totalCost;
+    console.log(tradeQuantity);
+    console.log(quantityOfCurrentStock.toString());
+    // tradeQuantity === quantityOfCurrentStock
+    if (tradeQuantity === quantityOfCurrentStock.toString()) {
+      setIsBuying(true);
+    }
+
+    // SELL POSITION
+    if (tradeQuantity > quantityOfCurrentStock) {
+      setIsTradeQuantityGreaterThanQuantityOfCurrentStock(true);
     } else {
-      // BUYING WHEN THERE IS NO POSITION YET
-      dispatch(firstBuyAction(symbol, quantity));
+      setIsTradeQuantityGreaterThanQuantityOfCurrentStock(false);
+      setTotalCost(0);
+      setTradeQuantity(0);
+      setToTalCostToString("0.00");
+      setCurrentBalance(balanceAfterSell);
+      dispatch(sellAction(symbol, tradeQuantity));
+      dispatch(currentBalanceAction(balanceAfterSell));
     }
   };
 
@@ -51,7 +65,7 @@ const PanelBuySellStockFormSell = ({
       onSubmit={
         currentBalance > totalCost
           ? PanelBuySellStockFormSubmit
-          : showPopupNotEnoughMoney
+          : showPopupNotEnoughShare
       }
     >
       <div className="trade-info-container">
@@ -72,7 +86,6 @@ const PanelBuySellStockFormSell = ({
             <span>{optionSelected}</span>
             {<FontAwesomeIcon className="more-icon" icon={faAngleDown} />}
           </button>
-
           {isSelect && (
             <div onClick={exitPopUpShadow} className="popup-shadow"></div>
           )}
@@ -104,17 +117,32 @@ const PanelBuySellStockFormSell = ({
         {optionSelected === dollars ? (
           <PanelBuySellStockDollars
             stockCurrentPrice={stockCurrentPrice}
-            quantity={quantity}
-            setQuantity={setQuantity}
+            tradeQuantity={tradeQuantity}
+            setTradeQuantity={setTradeQuantity}
             totalCost={totalCost}
             setTotalCost={setTotalCost}
+            isTradeQuantityGreaterThanQuantityOfCurrentStock={
+              isTradeQuantityGreaterThanQuantityOfCurrentStock
+            }
+            isBuying={isBuying}
+            stockPriceChange={stockPriceChange}
+            quantityOfCurrentStock={quantityOfCurrentStock}
           />
         ) : (
           <PanelBuySellStockShares
             stockCurrentPrice={stockCurrentPrice}
-            quantity={quantity}
-            setQuantity={setQuantity}
+            tradeQuantity={tradeQuantity}
+            setTradeQuantity={setTradeQuantity}
+            totalCost={totalCost}
             setTotalCost={setTotalCost}
+            totalCostToString={totalCostToString}
+            setToTalCostToString={setToTalCostToString}
+            isTradeQuantityGreaterThanQuantityOfCurrentStock={
+              isTradeQuantityGreaterThanQuantityOfCurrentStock
+            }
+            isBuying={isBuying}
+            stockPriceChange={stockPriceChange}
+            quantityOfCurrentStock={quantityOfCurrentStock}
           />
         )}
       </div>

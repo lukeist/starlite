@@ -206,6 +206,7 @@
       border-radius: 0.3rem;
       font-weight: bolder;
       color: $color-dark-hover;
+      cursor: pointer;
     }
   }
   // .fav-stock {
@@ -230,12 +231,13 @@
       -moz-box-sizing: border-box;
       -webkit-box-sizing: border-box;
       box-sizing: border-box;
-      margin: 1.5rem 1.5rem;
+      margin: 1.5rem 1.5rem 0rem 1.5rem;
       border-radius: 0.3rem;
       text-align: center;
       padding: 1rem 1.5rem;
       cursor: pointer;
     }
+    transition: all ease 1s;
   }
 
   //  Remove Arrows/Spinners https://www.w3schools.com/howto/howto_css_hide_arrow_number.asp
@@ -267,5 +269,21 @@
     background-color: $color-dark-hover;
     padding: 5rem;
     z-index: 1000;
+  }
+
+  .sell-all {
+    font-weight: 800;
+    font-size: smaller;
+    text-align: right;
+    cursor: pointer;
+    span {
+      text-decoration: underline;
+    }
+    span:hover {
+      color: $color-stonkdown-second;
+    }
+  }
+  .sell-all:hover {
+    color: $color-stonkdown-second;
   }
 }

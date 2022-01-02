@@ -1,12 +1,18 @@
+import { useEffect } from "react";
 import { useState } from "react";
 import CurrencyInput from "./CurrencyInput";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 
 const PanelBuySellStockDollars = ({
   stockCurrentPrice,
-  quantity,
-  setQuantity,
+  tradeQuantity,
+  setTradeQuantity,
   totalCost,
   setTotalCost,
+  isBuying,
+  stockPriceChange,
+  quantityOfCurrentStock,
 }) => {
   //   const regex = /^-?\d*[.,]?\d{0,2}$/; //////////// HTML text input allow only numeric input https://jsfiddle.net/emkey08/zgvtjc51 https://stackoverflow.com/questions/469357/html-text-input-allow-only-numeric-input
 
@@ -14,17 +20,21 @@ const PanelBuySellStockDollars = ({
   //https://www.reddit.com/r/reactjs/comments/rqva1t/anyone_know_how_to_put_the_in_the_input_field/
   //https://codesandbox.io/s/cocky-poitras-jvbow?file=/src/App.js
   //   const [cost, setCost] = useState("");
-
+  // const [targetValueNumberOfDollars,]
   const handleInput = (e) => {
     const getNumberOfDollars = e.target.value;
     const getNumberOfDollarsParseFloat = parseFloat(
       getNumberOfDollars.replace("$", "").split(",").join("")
     );
-    const getEstimateQuantity =
+    const getEstimatetradeQuantity =
       Math.round((getNumberOfDollarsParseFloat / stockCurrentPrice) * 100000) /
       100000;
-    setQuantity(getEstimateQuantity);
+    // console.log(getNumberOfDollarsParseFloat);
+
+    setTradeQuantity(getEstimatetradeQuantity);
     setTotalCost(getNumberOfDollarsParseFloat);
+    // console.log(getNumberOfDollars);
+    // }
     // ////////////////// REGEX to allow only numbers in textbox in reactjs: https://stackoverflow.com/questions/43067719/how-to-allow-only-numbers-in-textbox-in-reactjs
     // const regexInput = regex.test(getNumberOfDollars);
     // if (getNumberOfDollars === "" || regexInput) {
@@ -36,12 +46,34 @@ const PanelBuySellStockDollars = ({
     // }
   };
   //     if (numberOfDollarBackToNumber > 0) {
-  //       setQuantity(getEstimateQuantity);
+  //       setTradeQuantity(getEstimatetradeQuantity);
   //     } else {
-  //       setQuantity(0);
+  //       setTradeQuantity(0);
   //     }
   //   }
-  // };
+  // // };
+  const sellAllInDollars =
+    Math.round(
+      (stockCurrentPrice * quantityOfCurrentStock + Number.EPSILON) * 100
+    ) / 100;
+
+  const [isSellAll, setIsSellAll] = useState(false);
+  const handleSellAll = () => {
+    setIsSellAll(true);
+    const sellAllQuantity = Math.round(
+      ((sellAllInDollars / stockCurrentPrice + Number.EPSILON) * 100) / 100
+    );
+    setTradeQuantity(sellAllQuantity);
+
+    console.log(sellAllInDollars);
+  };
+
+  const handleOnClickCurrencyInput = () => {
+    if (isSellAll) {
+      setTotalCost(sellAllInDollars);
+      setIsSellAll(false);
+    }
+  };
 
   return (
     <div>
@@ -55,16 +87,39 @@ const PanelBuySellStockDollars = ({
           //   onInput={handleInput}
           placeholder="$0.00"
           onChange={handleInput}
-          value={totalCost === 0 ? "" : totalCost}
+          onClick={handleOnClickCurrencyInput}
+          value={
+            isSellAll
+              ? sellAllInDollars
+              : isNaN(totalCost)
+              ? ""
+              : totalCost === 0
+              ? ""
+              : totalCost
+          }
         />
       </div>
       <hr className="trade-hr-line" />
       <div className="trade-info">
         <span className="estimate">Est. Quantity</span>
         <span className="estimate-result">
-          {isNaN(quantity) ? 0 : quantity}
+          {isNaN(tradeQuantity) ? 0 : tradeQuantity}
         </span>
       </div>
+      {!isBuying && (
+        <div className="trade-info">
+          <span className="estimate"></span>
+          <div className="sell-all">
+            <span
+              onClick={handleSellAll}
+              className={stockPriceChange < 0 ? "stonk-down" : "stonk-up"}
+            >
+              Sell All
+            </span>{" "}
+            <FontAwesomeIcon className="more-icon" icon={faExclamationCircle} />
+          </div>
+        </div>
+      )}
     </div>
     // <div>
     //   <div className="trade-info">
@@ -74,7 +129,7 @@ const PanelBuySellStockDollars = ({
 
     //       //   type="text"
     //       //   required
-    //       //   onChange={estimateQuantityHandler}
+    //       //   onChange={estimatetradeQuantity}
     //       //   id="amount-dollar"
     //       //   name="amount-dollar"
     //       placeholder="$0.00"

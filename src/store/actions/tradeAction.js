@@ -20,7 +20,7 @@ export const buyAction = (symbol, quantity) => (dispatch) => {
 
 export const sellAction = (symbol, quantity) => (dispatch) => {
   dispatch({
-    type: "SELL_STOCK",
+    type: "SELL_POSITION",
     payload: {
       symbol,
       quantity,
