@@ -1,12 +1,8 @@
-- prevent white flash on browser before loading page?
 
 - dark/light theme
-- button colors followed red/green
 - buy/sell panel
 
-- route on browser address
 
-- more list watching stonk\s
 
 - login > only logging in: can 'watch stock' > after clicking on login: nav account shows up, nav login disappears
 
@@ -23,3 +19,16 @@
 - ETF doesnt show tickers
 
 ` DOI MAT MAT munich@
+
+
+
+- shadow when search 
+
+- sell all button
+
+- popup: when 'amount' > 'buying power': popup-shadow not working
+- BUY popup: when isTradeQuantityGreaterThanQuantityOfCurrentStock 'shares' input resets to 0
+- $1,000,000.0, buying power available
+
+
+- change classname market-price-result to something general to use in other places 
