@@ -39,8 +39,16 @@
   .trade-panel-buying-power-txt {
     color: $color-stonkup-second;
   }
+  .sell-all {
+    span:hover {
+      color: $color-stonkup-second;
+    }
+  }
+  .sell-all:hover {
+    color: $color-stonkup-second;
+  }
 }
-
+////////////////////////////////////////////////////////////////////////////////////////////////////
 .stonk-down {
   color: $color-stonkdown-first;
   .trade-info {
@@ -80,6 +88,14 @@
     background: $color-stonkdown-third;
   }
   .trade-panel-buying-power-txt {
+    color: $color-stonkdown-second;
+  }
+  .sell-all {
+    span:hover {
+      color: $color-stonkdown-second;
+    }
+  }
+  .sell-all:hover {
     color: $color-stonkdown-second;
   }
 }

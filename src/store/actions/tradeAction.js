@@ -27,3 +27,13 @@ export const sellAction = (symbol, quantity) => (dispatch) => {
     },
   });
 };
+
+export const sellAllAction = (symbol, quantity) => (dispatch) => {
+  dispatch({
+    type: "SELL_POSITION_ALL",
+    payload: {
+      symbol,
+      quantity,
+    },
+  });
+};

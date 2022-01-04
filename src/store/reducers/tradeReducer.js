@@ -6,6 +6,9 @@ const initState = [
 ];
 
 const tradeReducer = (state = initState, action) => {
+  const index = state.findIndex(
+    (stock) => stock.symbol === action.payload.symbol
+  );
   switch (action.type) {
     case "BUY_STOCK_FROM_ZERO_POSITION":
       const firstQuantityAfterBuyParseFloat =
@@ -20,35 +23,43 @@ const tradeReducer = (state = initState, action) => {
         },
       ];
     case "BUY_STOCK_FROM_SOME_POSITIONS":
-      const indexBuy = state.findIndex(
-        (stock) => stock.symbol === action.payload.symbol
-      );
+      // const indexBuy = state.findIndex(
+      //   (stock) => stock.symbol === action.payload.symbol
+      // );
       const totalQuantityAfterBuyParseFloat =
         Math.round(
-          (parseFloat(state[indexBuy].quantity) +
+          (parseFloat(state[index].quantity) +
             parseFloat(action.payload.quantity) +
             Number.EPSILON) *
             10000
         ) / 10000;
-      state[indexBuy].quantity = totalQuantityAfterBuyParseFloat;
+      state[index].quantity = totalQuantityAfterBuyParseFloat;
       return state;
     case "SELL_POSITION":
-      const indexSell = state.findIndex(
-        (stock) => stock.symbol === action.payload.symbol
-      );
+      // const indexSell = state.findIndex(
+      //   (stock) => stock.symbol === action.payload.symbol
+      // );
       const quantityAfterSellParseFloat =
         Math.round(
-          (parseFloat(state[indexSell].quantity) -
+          (parseFloat(state[index].quantity) -
             parseFloat(action.payload.quantity) +
             Number.EPSILON) *
             10000
         ) / 10000;
-      quantityAfterSellParseFloat === 0
-        ? // REMOVE ITEM IF NO POSITION LEFT
-          (state = state.filter(
-            (item) => item.quantity !== state[indexSell].quantity
-          ))
-        : (state[indexSell].quantity = quantityAfterSellParseFloat);
+      // quantityAfterSellParseFloat === 0
+      //   ? // REMOVE ITEM IF NO POSITION LEFT
+      //     (state = state.filter(
+      //       (item) => item.quantity !== state[indexSell].quantity
+      //     ))
+      //   :
+      state[index].quantity = quantityAfterSellParseFloat;
+      return state;
+
+    case "SELL_POSITION_ALL":
+      // const indexSellAll = state.findIndex(
+      //   (stock) => stock.symbol === action.payload.symbol
+      // );
+      state = state.filter((item) => item.quantity !== state[index].quantity);
       return state;
 
     default:

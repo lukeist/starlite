@@ -18,7 +18,7 @@
 -           minLength="1" function
 - ETF doesnt show tickers
 
-` DOI MAT MAT munich@
+` DOI MAT MA munich@
 
 
 
@@ -32,3 +32,7 @@
 
 
 - change classname market-price-result to something general to use in other places 
+
+
+- MATH PROBLEM: MATH IS NOT PRECISE => PROBLEM WHEN CALCULATE / BUY SELL TINY AMOUNT: like DOLLARS $1 
+- SELL ALL input in Shares error with .xxxx

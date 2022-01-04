@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { getEstimateCost } from "./PanelBuySellStock-FuncGetEstimate";
+import SellAll from "./PanelBuySellStock-SellAll";
 
 const PanelBuySellStockShares = ({
   stockCurrentPrice,
@@ -9,30 +10,24 @@ const PanelBuySellStockShares = ({
   setToTalCostToString,
   isBuying,
   stockPriceChange,
+  isSellAll,
+  setIsSellAll,
+  quantityOfCurrentStock,
 }) => {
-  // const [totalCostToString, setToTalCostToString] = useState("0.00");
-
   const maxInputLength = 9; // only 9 digits allow in input
-  const estCostHandler = (e) => {
+
+  const handleEstimateCost = (e) => {
     const getNumberOfShares = e.target.value;
-    // const getNumberOfSharesParseFloat =
-    //   Math.round(parseFloat(getNumberOfShares + Number.EPSILON) * 10000) /
-    //   10000;
-    const getEstimateCost =
-      Math.round(
-        (getNumberOfShares * stockCurrentPrice + Number.EPSILON) * 100 //to be more specific and to ensure things like 1.005 round correctly, use Number.EPSILON : https://stackoverflow.com/questions/11832914/how-to-round-to-at-most-2-decimal-places-if-necessary
-      ) / 100;
+    const getEstimateCostFromFunction = getEstimateCost(
+      getNumberOfShares,
+      stockCurrentPrice
+    );
     setTradeQuantity(getNumberOfShares);
-    setTotalCost(getEstimateCost);
-
-    const getEstimateCostToString = getEstimateCost
-      .toString()
-      .replace(/\B(?=(\d{3})+(?!\d))/g, ","); // Display large numbers with commas https://stackoverflow.com/questions/27761543/how-do-i-display-large-numbers-with-commas-html
-
+    setTotalCost(getEstimateCostFromFunction.estimateCost);
     // LIMIT input TO ONLY $999,999,999
     if (getNumberOfShares.length < maxInputLength + 1) {
       getNumberOfShares > 0
-        ? setToTalCostToString(getEstimateCostToString)
+        ? setToTalCostToString(getEstimateCostFromFunction.estimateCostToString)
         : setToTalCostToString("0.00");
     }
   };
@@ -48,9 +43,10 @@ const PanelBuySellStockShares = ({
         <input
           type="number"
           min="0"
+          step="any" // to avoid required's error with float number: 22.2342 => 22 or 23 only
           //   onInput="validity.valid||(value='')"
           required
-          onChange={estCostHandler}
+          onChange={handleEstimateCost}
           className="input-name trade-input"
           id="tradeQuantity-shares"
           name="tradeQuantity-shares"
@@ -73,6 +69,17 @@ const PanelBuySellStockShares = ({
         <span className="estimate">Estimate Cost</span>
         <span className="estimate-result">${totalCostToString}</span>
       </div>
+      {!isBuying && (
+        <SellAll
+          stockCurrentPrice={stockCurrentPrice}
+          setTradeQuantity={setTradeQuantity}
+          stockPriceChange={stockPriceChange}
+          setIsSellAll={setIsSellAll}
+          quantityOfCurrentStock={quantityOfCurrentStock}
+          setTotalCost={setTotalCost}
+          setToTalCostToString={setToTalCostToString}
+        />
+      )}
     </div>
   );
 };

@@ -15,6 +15,7 @@ import { buyAction, firstBuyAction } from "../store/actions/tradeAction";
 import currentBalanceAction from "../store/actions/currentBalanceAction";
 import PanelBuySellStockFormSell from "./PanelBuySellStock-FormSell";
 import PanelBuySellStockFormBuy from "./PanelBuySellStock-FormBuy";
+import { useEffect } from "react";
 
 const PanelBuySellStock = ({
   company,
@@ -51,6 +52,15 @@ const PanelBuySellStock = ({
   const indexOfCurrentStockInPositions = positions.findIndex(
     (position) => position.symbol === symbol
   );
+
+  // const [quantityOfCurrentStock, setQuantityOfCurrentStock] = useState(0);
+  // useEffect(() => {
+  //   indexOfCurrentStockInPositions > -1
+  //     ? setQuantityOfCurrentStock(
+  //         positions[indexOfCurrentStockInPositions].quantity
+  //       )
+  //     : setQuantityOfCurrentStock(0);
+  // }, [quantityOfCurrentStock]);
 
   let quantityOfCurrentStock;
   indexOfCurrentStockInPositions > -1
@@ -103,6 +113,12 @@ const PanelBuySellStock = ({
     setIsTradeQuantityGreaterThanQuantityOfCurrentStock(true);
   };
 
+  const handleSetIsBuying = () => {
+    setIsBuying(!isBuying);
+    optionSelected === dollars
+      ? setToTalCostToString("0.00")
+      : setTradeQuantity(0);
+  };
   return (
     <div className="trade-list">
       {/* {isPopupSubmit && (
@@ -260,9 +276,9 @@ const PanelBuySellStock = ({
       >
         {indexOfCurrentStockInPositions > -1 &&
           (isBuying ? (
-            <button onClick={() => setIsBuying(false)}>Sell {symbol}</button>
+            <button onClick={handleSetIsBuying}>Sell {symbol}</button>
           ) : (
-            <button onClick={() => setIsBuying(true)}>Buy {symbol}</button>
+            <button onClick={handleSetIsBuying}>Buy {symbol}</button>
           ))}
       </div>
       <div

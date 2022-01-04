@@ -1,14 +1,14 @@
-import { sellAction } from "../store/actions/tradeAction";
+import { sellAction, sellAllAction } from "../store/actions/tradeAction";
+import { useState } from "react";
 
 const PanelBuySellStockFormSell = ({
   setTotalCost,
-  setTradeQuantity,
+  currentBalance,
   setCurrentBalance,
   currentBalanceAction,
   dispatch,
   symbol,
   stockPriceChange,
-  currentBalance,
   clickSelectHandler,
   FontAwesomeIcon,
   faAngleDown,
@@ -24,6 +24,7 @@ const PanelBuySellStockFormSell = ({
   PanelBuySellStockShares,
   stockCurrentPrice,
   tradeQuantity,
+  setTradeQuantity,
   isBuying,
   setIsBuying,
   quantityOfCurrentStock,
@@ -33,20 +34,27 @@ const PanelBuySellStockFormSell = ({
   isTradeQuantityGreaterThanQuantityOfCurrentStock,
   setIsTradeQuantityGreaterThanQuantityOfCurrentStock,
 }) => {
-  const PanelBuySellStockFormSubmit = (e) => {
+  const [isSellAll, setIsSellAll] = useState(false);
+
+  const handleSubmitSell = (e) => {
     e.preventDefault();
 
     const balanceAfterSell = currentBalance + totalCost;
     console.log(tradeQuantity);
     console.log(quantityOfCurrentStock.toString());
     // tradeQuantity === quantityOfCurrentStock
-    if (tradeQuantity === quantityOfCurrentStock.toString()) {
-      setIsBuying(true);
-    }
 
     // SELL POSITION
-    if (tradeQuantity > quantityOfCurrentStock) {
+    if (tradeQuantity > quantityOfCurrentStock.toString()) {
       setIsTradeQuantityGreaterThanQuantityOfCurrentStock(true);
+    } else if (tradeQuantity === quantityOfCurrentStock.toString()) {
+      setIsBuying(true);
+      setTotalCost(0);
+      setTradeQuantity(0);
+      setToTalCostToString("0.00");
+      setCurrentBalance(balanceAfterSell);
+      dispatch(sellAllAction(symbol, tradeQuantity));
+      dispatch(currentBalanceAction(balanceAfterSell));
     } else {
       setIsTradeQuantityGreaterThanQuantityOfCurrentStock(false);
       setTotalCost(0);
@@ -63,8 +71,9 @@ const PanelBuySellStockFormSell = ({
       className={stockPriceChange < 0 ? "stonk-down" : "stonk-up"}
       action=""
       onSubmit={
-        currentBalance > totalCost
-          ? PanelBuySellStockFormSubmit
+        tradeQuantity < quantityOfCurrentStock.toString() ||
+        tradeQuantity === quantityOfCurrentStock.toString()
+          ? handleSubmitSell
           : showPopupNotEnoughShare
       }
     >
@@ -127,6 +136,9 @@ const PanelBuySellStockFormSell = ({
             isBuying={isBuying}
             stockPriceChange={stockPriceChange}
             quantityOfCurrentStock={quantityOfCurrentStock}
+            isSellAll={isSellAll}
+            setIsSellAll={setIsSellAll}
+            setToTalCostToString={setToTalCostToString}
           />
         ) : (
           <PanelBuySellStockShares
@@ -143,6 +155,8 @@ const PanelBuySellStockFormSell = ({
             isBuying={isBuying}
             stockPriceChange={stockPriceChange}
             quantityOfCurrentStock={quantityOfCurrentStock}
+            isSellAll={isSellAll}
+            setIsSellAll={setIsSellAll}
           />
         )}
       </div>
