@@ -12,9 +12,7 @@ const tradeReducer = (state = initState, action) => {
   switch (action.type) {
     case "BUY_STOCK_FROM_ZERO_POSITION":
       const firstQuantityAfterBuyParseFloat =
-        Math.round(
-          (parseFloat(action.payload.quantity) + Number.EPSILON) * 10000
-        ) / 10000;
+        Math.round((action.payload.quantity + Number.EPSILON) * 10000) / 10000;
       return [
         ...state,
         {
@@ -29,7 +27,7 @@ const tradeReducer = (state = initState, action) => {
       const totalQuantityAfterBuyParseFloat =
         Math.round(
           (parseFloat(state[index].quantity) +
-            parseFloat(action.payload.quantity) +
+            action.payload.quantity +
             Number.EPSILON) *
             10000
         ) / 10000;
@@ -42,7 +40,7 @@ const tradeReducer = (state = initState, action) => {
       const quantityAfterSellParseFloat =
         Math.round(
           (parseFloat(state[index].quantity) -
-            parseFloat(action.payload.quantity) +
+            action.payload.quantity +
             Number.EPSILON) *
             10000
         ) / 10000;

@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { sellAction } from "../store/actions/tradeAction";
+import { tradeMessagesAction } from "../store/actions/messagesAction";
 
 const PanelBuySellStockFormBuy = ({
   setTotalCost,
@@ -42,6 +41,7 @@ const PanelBuySellStockFormBuy = ({
     const balanceAfterBuy = currentBalance - totalCost;
     setCurrentBalance(balanceAfterBuy);
     dispatch(currentBalanceAction(balanceAfterBuy));
+    dispatch(tradeMessagesAction(symbol, tradeQuantity, totalCost, isBuying));
 
     if (positions.some((position) => position.symbol === symbol)) {
       // BUYING WHEN THERE IS ALREADY SOME POSITIONS

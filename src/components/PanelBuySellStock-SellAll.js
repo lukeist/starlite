@@ -22,7 +22,7 @@ const SellAll = ({
       stockCurrentPrice
     );
     console.log(getNumberOfShares, quantityOfCurrentStock);
-    setTradeQuantity(getNumberOfShares.toString());
+    setTradeQuantity(getNumberOfShares);
     setTotalCost(getEstimateCostFromFunction.estimateCost);
     setToTalCostToString(getEstimateCostFromFunction.estimateCostToString);
   };

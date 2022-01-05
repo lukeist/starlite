@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { socket } from "../api";
 import News from "../components/News";
 import PanelBuySellStock from "../components/PanelBuySellStock";
@@ -10,9 +10,9 @@ import { useDispatch } from "react-redux";
 import { stocksAction } from "../store/actions/stocksAction";
 
 const Stock = () => {
-  const { company, quote, companyNews, basicFinancials, stockActive } =
-    useSelector((state) => state.entities.stock);
-  const { general } = useSelector((state) => state.entities.news);
+  const { company, quote, companyNews, stockActive } = useSelector(
+    (state) => state.entities.stock
+  );
   // Market Cap display
   const { PopUpFavLists } = useSelector((state) => state.utilities);
 

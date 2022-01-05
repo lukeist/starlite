@@ -22,7 +22,9 @@ const PanelBuySellStockDollars = ({
       getNumberOfDollars,
       stockCurrentPrice
     );
-    setTradeQuantity(getEstimateQuantityFromFunction.estimateQuantity);
+    setTradeQuantity(
+      parseFloat(getEstimateQuantityFromFunction.estimateQuantity)
+    );
     setTotalCost(getEstimateQuantityFromFunction.estimateCost);
   };
 

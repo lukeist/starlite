@@ -17,7 +17,7 @@ const Nav = () => {
 
   const dispatch = useDispatch();
   const searchResult = useSelector((state) => state.entities.search.result);
-  const activeStock = useSelector((state) => state.entities.stock);
+  // const activeStock = useSelector((state) => state.entities.stock);
 
   /////////////////////////////////////////////////// when there is searchResult => useEffect to create arrays
   useEffect(() => {

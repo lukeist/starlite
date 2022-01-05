@@ -22,7 +22,7 @@ const PanelBuySellStockShares = ({
       getNumberOfShares,
       stockCurrentPrice
     );
-    setTradeQuantity(getNumberOfShares);
+    setTradeQuantity(parseFloat(getNumberOfShares));
     setTotalCost(getEstimateCostFromFunction.estimateCost);
     // LIMIT input TO ONLY $999,999,999
     if (getNumberOfShares.length < maxInputLength + 1) {

@@ -1,5 +1,6 @@
 import { sellAction, sellAllAction } from "../store/actions/tradeAction";
 import { useState } from "react";
+import { tradeMessagesAction } from "../store/actions/messagesAction";
 
 const PanelBuySellStockFormSell = ({
   setTotalCost,
@@ -41,13 +42,14 @@ const PanelBuySellStockFormSell = ({
 
     const balanceAfterSell = currentBalance + totalCost;
     console.log(tradeQuantity);
-    console.log(quantityOfCurrentStock.toString());
+    console.log(quantityOfCurrentStock);
     // tradeQuantity === quantityOfCurrentStock
+    dispatch(tradeMessagesAction(symbol, tradeQuantity, totalCost, isBuying));
 
     // SELL POSITION
-    if (tradeQuantity > quantityOfCurrentStock.toString()) {
+    if (tradeQuantity > quantityOfCurrentStock) {
       setIsTradeQuantityGreaterThanQuantityOfCurrentStock(true);
-    } else if (tradeQuantity === quantityOfCurrentStock.toString()) {
+    } else if (tradeQuantity === quantityOfCurrentStock) {
       setIsBuying(true);
       setTotalCost(0);
       setTradeQuantity(0);
@@ -71,8 +73,8 @@ const PanelBuySellStockFormSell = ({
       className={stockPriceChange < 0 ? "stonk-down" : "stonk-up"}
       action=""
       onSubmit={
-        tradeQuantity < quantityOfCurrentStock.toString() ||
-        tradeQuantity === quantityOfCurrentStock.toString()
+        tradeQuantity < quantityOfCurrentStock ||
+        tradeQuantity === quantityOfCurrentStock
           ? handleSubmitSell
           : showPopupNotEnoughShare
       }

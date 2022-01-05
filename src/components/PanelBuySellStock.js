@@ -1,9 +1,6 @@
 import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCaretSquareRight,
-  faAngleDown,
-} from "@fortawesome/free-solid-svg-icons";
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { showPopUpAction } from "../store/actions/isPopUpListsAction";
 import { useState } from "react";
 import PanelBuySellStockDollars from "./PanelBuySellStock-Dollars";
@@ -15,7 +12,6 @@ import { buyAction, firstBuyAction } from "../store/actions/tradeAction";
 import currentBalanceAction from "../store/actions/currentBalanceAction";
 import PanelBuySellStockFormSell from "./PanelBuySellStock-FormSell";
 import PanelBuySellStockFormBuy from "./PanelBuySellStock-FormBuy";
-import { useEffect } from "react";
 
 const PanelBuySellStock = ({
   company,

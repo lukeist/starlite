@@ -1,7 +1,7 @@
 
 - dark/light theme
-- buy/sell panel
 
+- buy/sell panel's width have to = watching panel's width
 
 
 - login > only logging in: can 'watch stock' > after clicking on login: nav account shows up, nav login disappears
