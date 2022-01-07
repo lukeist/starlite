@@ -10,6 +10,8 @@
 - add transition to all hovers
 
 
+
+
 - fix errors in console
 
 ` press ESC to exit pop up
