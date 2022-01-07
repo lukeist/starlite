@@ -123,7 +123,7 @@ const Nav = () => {
           <Link className="nav-account" id="portfolio" to="/account">
             Account
           </Link>
-        </li>
+        </li>{" "}
       </ul>
       <div className="toggle-switch-mode">
         <input type="checkbox" id="time" />

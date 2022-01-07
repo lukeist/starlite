@@ -1,25 +1,29 @@
 import { useSelector } from "react-redux";
+import Message from "../components/Messages-Message";
 
 const Messages = () => {
   const { tradeMessages } = useSelector((state) => state.messages);
-  const isBuying = tradeMessages.buy;
-  const symbol = tradeMessages.symbol;
-  const quantity = tradeMessages.quantity;
-  const price = tradeMessages.price;
-  const messageId = tradeMessages.id;
+
   return (
     <div className="home">
-      {tradeMessages.map((tradeMessage) => (
-        <div key={messageId} className="home-body">
-          <div className="block-message">aaaaa</div>
-          <h4>
-            adsssssafsdfasdfsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-            {/* You've just bought {tradeMessages.quantity}{" "}
-            {quantity > 1 ? "shares" : "share"} of {symbol}. */}
-          </h4>
-          <div>{tradeMessage.symbol}</div>
+      {tradeMessages.length === 0 ? (
+        <div className="home-body">
+          <p className="block-message-empty">
+            You have no messages. Go buy and sell something!
+          </p>
         </div>
-      ))}
+      ) : (
+        <div className="home-body">
+          {tradeMessages.map((tradeMessage) => (
+            <div className="block-message">
+              <div className="text-message">
+                <Message key={tradeMessage.id} tradeMessage={tradeMessage} />
+              </div>
+              <p className="text-timestamp"> {tradeMessage.time}</p>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

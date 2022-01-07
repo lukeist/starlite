@@ -4,14 +4,16 @@ const tradeMessagesReducer = (state = initState, action) => {
   switch (action.type) {
     case "TRADE_MESSAGE":
       return [
-        ...state,
         {
           id: action.payload.id,
           symbol: action.payload.symbol,
+          stockPrice: action.payload.stockPrice,
           quantity: action.payload.quantity,
-          price: action.payload.price,
+          cost: action.payload.cost,
           buy: action.payload.buy,
+          time: action.payload.time,
         },
+        ...state,
       ];
 
     default:

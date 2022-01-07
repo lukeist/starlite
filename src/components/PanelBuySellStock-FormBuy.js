@@ -1,4 +1,5 @@
 import { tradeMessagesAction } from "../store/actions/messagesAction";
+import { currentDateTime } from "./getDateTime";
 
 const PanelBuySellStockFormBuy = ({
   setTotalCost,
@@ -31,6 +32,7 @@ const PanelBuySellStockFormBuy = ({
   totalCostToString,
   setToTalCostToString,
   isBuying,
+  setPopupAfterTrade,
 }) => {
   const PanelBuySellStockFormSubmit = (e) => {
     e.preventDefault();
@@ -41,7 +43,19 @@ const PanelBuySellStockFormBuy = ({
     const balanceAfterBuy = currentBalance - totalCost;
     setCurrentBalance(balanceAfterBuy);
     dispatch(currentBalanceAction(balanceAfterBuy));
-    dispatch(tradeMessagesAction(symbol, tradeQuantity, totalCost, isBuying));
+    const buy = true;
+    dispatch(
+      tradeMessagesAction(
+        symbol,
+        stockCurrentPrice,
+        tradeQuantity,
+        totalCost,
+        buy,
+        currentDateTime()
+      )
+    );
+
+    setPopupAfterTrade(true);
 
     if (positions.some((position) => position.symbol === symbol)) {
       // BUYING WHEN THERE IS ALREADY SOME POSITIONS
@@ -50,6 +64,9 @@ const PanelBuySellStockFormBuy = ({
       // BUYING WHEN THERE IS NO POSITION YET
       dispatch(firstBuyAction(symbol, tradeQuantity));
     }
+    setTimeout(() => {
+      setPopupAfterTrade(false);
+    }, 3000);
   };
 
   return (

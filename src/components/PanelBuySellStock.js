@@ -17,6 +17,7 @@ const PanelBuySellStock = ({
   company,
   stockPriceChange,
   stockCurrentPrice,
+  setPopupAfterTrade,
 }) => {
   const shares = "Shares";
   const dollars = "Dollars";
@@ -48,15 +49,6 @@ const PanelBuySellStock = ({
   const indexOfCurrentStockInPositions = positions.findIndex(
     (position) => position.symbol === symbol
   );
-
-  // const [quantityOfCurrentStock, setQuantityOfCurrentStock] = useState(0);
-  // useEffect(() => {
-  //   indexOfCurrentStockInPositions > -1
-  //     ? setQuantityOfCurrentStock(
-  //         positions[indexOfCurrentStockInPositions].quantity
-  //       )
-  //     : setQuantityOfCurrentStock(0);
-  // }, [quantityOfCurrentStock]);
 
   let quantityOfCurrentStock;
   indexOfCurrentStockInPositions > -1
@@ -93,12 +85,8 @@ const PanelBuySellStock = ({
   const showPopUpList = () => {
     dispatch(showPopUpAction());
     document.body.style.overflow = "hidden";
-    // document.body.style.paddingRight = "0.4rem";
   };
-  // const fav = useSelector((state) => state.entities.stockFavorites);
-  // const favCurrentStock = fav.filter(
-  //   (stock) => stock.symbol === company.ticker
-  // );
+
   const showPopupNotEnoughMoney = (e) => {
     e.preventDefault();
     setNotEnoughMoney(true);
@@ -117,10 +105,6 @@ const PanelBuySellStock = ({
   };
   return (
     <div className="trade-list">
-      {/* {isPopupSubmit && (
-        <div onClick={exitPopUpShadow} className="popup-shadow"></div>
-      )} */}
-      {/* {isPopupSubmit && <PopupSubmit />} */}
       <PopupEverything
         exitPopUpShadow={exitPopUpShadow}
         isPopupSubmit={isPopupSubmit}
@@ -129,22 +113,10 @@ const PanelBuySellStock = ({
           isTradeQuantityGreaterThanQuantityOfCurrentStock
         }
       />
-      {/* {notEnoughMoney && (
-        <div onClick={exitPopUpShadow} className="popup-shadow"></div>
-      )}
-      {notEnoughMoney && <PopupNotEnoughMoney />}
-
-      {isTradeQuantityGreaterThanQuantityOfCurrentStock && (
-        <div onClick={exitPopUpShadow} className="popup-shadow"></div>
-      )}
-      {isTradeQuantityGreaterThanQuantityOfCurrentStock && (
-        <PopupNotEnoughSharesToSell />
-      )} */}
 
       <div className="trade-panel">
         <div className="trade-header">
           {isBuying ? <h4>Buy {symbol}</h4> : <h4>Sell {symbol}</h4>}
-          {/* <FontAwesomeIcon className="more-icon" icon={faCaretSquareRight} /> */}
         </div>
         <hr />
 
@@ -181,6 +153,7 @@ const PanelBuySellStock = ({
               totalCostToString={totalCostToString}
               setToTalCostToString={setToTalCostToString}
               isBuying={isBuying}
+              setPopupAfterTrade={setPopupAfterTrade}
             />
           ) : (
             <PanelBuySellStockFormSell
@@ -220,6 +193,7 @@ const PanelBuySellStock = ({
                 setIsTradeQuantityGreaterThanQuantityOfCurrentStock
               }
               indexOfCurrentStockInPositions={indexOfCurrentStockInPositions}
+              setPopupAfterTrade={setPopupAfterTrade}
             />
           )}
         </div>

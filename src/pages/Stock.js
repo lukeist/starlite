@@ -8,6 +8,10 @@ import PopUpLists from "../components/PopUpLists";
 import CompanyMarketCap from "../components/CompanyMarketCap";
 import { useDispatch } from "react-redux";
 import { stocksAction } from "../store/actions/stocksAction";
+import { useState } from "react";
+import Message from "../components/Messages-Message";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
 
 const Stock = () => {
   const { company, quote, companyNews, stockActive } = useSelector(
@@ -76,6 +80,10 @@ const Stock = () => {
   //   socket.send(JSON.stringify({ type: "unsubscribe", symbol: symbol }));
   // };
 
+  const [popupAfterTrade, setPopupAfterTrade] = useState(false);
+  const { tradeMessages } = useSelector((state) => state.messages);
+  const firstIndexOfTradeMessages = 0;
+  const notificationMessage = tradeMessages[firstIndexOfTradeMessages];
   return (
     <div className="home">
       {PopUpFavLists ? <PopUpLists quote={quote} company={company} /> : ""}
@@ -84,7 +92,13 @@ const Stock = () => {
           <div className="stock-body">
             <div className="quote">
               <div className="quote-header">
-                <h3>{company.name}</h3>
+                <h3
+                  onClick={() =>
+                    console.log(company.ticker, notificationMessage)
+                  }
+                >
+                  {company.name}
+                </h3>
 
                 <h1
                   className={
@@ -171,17 +185,6 @@ const Stock = () => {
                   <dt>Industry: </dt>
                   <dd>{company.finnhubIndustry}</dd>
                 </li>
-
-                {/* <button onClick={tesssst}>test</button> */}
-                {/* <p>{basicFinancials.metric.52WeekHigh}</p> */}
-                {/* <p>52 Week High Date{basicFinancials.52WeekHighDate}</p>
-        <p>52 Week Low {basicFinancials.52WeekLow}</p>
-        <p>52 Week Low Date {basicFinancials.52WeekLowDate}</p>
-        <p>52 Week High {basicFinancials.52WeekHigh}</p>
-        <p>52 Week High {basicFinancials.52WeekHigh}</p>
-        <p>52 Week High {basicFinancials.52WeekHigh}</p>
-        <p>52 Week High {basicFinancials.52WeekHigh}</p> */}
-                {/* <p>52 Week High {basicFinancials.10DayAverageTradingVolume}</p> */}
               </ul>
             </div>
             <div className="company-news">
@@ -199,9 +202,27 @@ const Stock = () => {
                 stockCurrentPrice={stockCurrentPrice}
                 stockPriceChange={stockPriceChange}
                 company={company}
+                setPopupAfterTrade={setPopupAfterTrade}
               />
             </div>
           </div>
+
+          {popupAfterTrade && (
+            <div className="list-page-popup-after-remove-stock">
+              <span>
+                <Message
+                  key={notificationMessage.id}
+                  tradeMessage={notificationMessage}
+                />
+              </span>{" "}
+              <FontAwesomeIcon
+                onClick={() => setPopupAfterTrade(false)}
+                className="exit-icon"
+                icon={faWindowClose}
+                alt="Remove Stonk From List"
+              />
+            </div>
+          )}
         </div>
       ) : (
         <div className="blobs-loading">
