@@ -1,14 +1,17 @@
-const CompanyMarketCap = (company) => {
+import numberWithCommas from "./_getCommasAsThousandsSeparators ";
+
+const companyMarketCap = (company) => {
+  const million = "M";
+  const billion = "B";
   const marketCapLength = Math.round(company.marketCapitalization).toString()
     .length;
-  const marketCapMillion = Math.round(company.marketCapitalization) + "M";
+  const marketCapMillion = Math.round(company.marketCapitalization) + million;
   const marketCapBillion =
-    +(Math.round((company.marketCapitalization * 100) / 1000) + "e-2") + "B";
+    +(Math.round((company.marketCapitalization * 100) / 1000) + "e-2") +
+    billion;
   const marketCapTrillion =
-    Math.round(company.marketCapitalization)
-      .toString()
-      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-      .slice(0, -4) + "B";
+    numberWithCommas(Math.round(company.marketCapitalization)).slice(0, -4) +
+    billion;
 
   //   marketCapLength > 3
   //     ? marketCapLength > 6
@@ -25,4 +28,4 @@ const CompanyMarketCap = (company) => {
   }
 };
 
-export default CompanyMarketCap;
+export default companyMarketCap;

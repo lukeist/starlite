@@ -1,5 +1,5 @@
 import { tradeMessagesAction } from "../store/actions/messagesAction";
-import { currentDateTime } from "./getDateTime";
+import { currentDateTime } from "./_getDateTime";
 
 const PanelBuySellStockFormBuy = ({
   setTotalCost,
@@ -33,6 +33,7 @@ const PanelBuySellStockFormBuy = ({
   setToTalCostToString,
   isBuying,
   setPopupAfterTrade,
+  companyName,
 }) => {
   const PanelBuySellStockFormSubmit = (e) => {
     e.preventDefault();
@@ -59,10 +60,10 @@ const PanelBuySellStockFormBuy = ({
 
     if (positions.some((position) => position.symbol === symbol)) {
       // BUYING WHEN THERE IS ALREADY SOME POSITIONS
-      dispatch(buyAction(symbol, tradeQuantity));
+      dispatch(buyAction(symbol, companyName, tradeQuantity));
     } else {
       // BUYING WHEN THERE IS NO POSITION YET
-      dispatch(firstBuyAction(symbol, tradeQuantity));
+      dispatch(firstBuyAction(symbol, companyName, tradeQuantity));
     }
     setTimeout(() => {
       setPopupAfterTrade(false);

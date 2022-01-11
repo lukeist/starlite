@@ -6,15 +6,15 @@ import {
   companyNewsDataToday,
   basicFinancialsData,
   companyProfile,
-} from "../../src/api";
+} from "../api";
 
 import { addTickerToListAction } from "../store/actions/listAction";
 import { stocksAction } from "../store/actions/stocksAction";
 import { useDispatch, useSelector } from "react-redux";
-import CompanyMarketCap from "../components/CompanyMarketCap";
+import companyMarketCap from "./_getCompanyMarketCap";
 
 /////////////////////////////////////////////////////// For Automate
-const GetStocksForMyFirstList = async (list, dispatch) => {
+const getStocksForMyFirstList = async (list, dispatch) => {
   //   console.log(list);
   const arrayOfStocks = [
     "GME",
@@ -54,7 +54,7 @@ const GetStocksForMyFirstList = async (list, dispatch) => {
     const companyName = getCompany.data.name;
     const stockCurrentPrice = getQuote.data.c;
     const stockPercentChange = Math.round(getQuote.data.dp * 100) / 100;
-    const marketCap = CompanyMarketCap(getCompany.data);
+    const marketCap = companyMarketCap(getCompany.data);
     const stock = {
       companyName,
       symbol: getCompany.data.ticker,
@@ -67,4 +67,4 @@ const GetStocksForMyFirstList = async (list, dispatch) => {
   }
 };
 
-export default GetStocksForMyFirstList;
+export default getStocksForMyFirstList;

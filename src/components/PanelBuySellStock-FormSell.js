@@ -1,7 +1,7 @@
 import { sellAction, sellAllAction } from "../store/actions/tradeAction";
 import { useState } from "react";
 import { tradeMessagesAction } from "../store/actions/messagesAction";
-import { currentDateTime } from "./getDateTime";
+import { currentDateTime } from "./_getDateTime";
 
 const PanelBuySellStockFormSell = ({
   setTotalCost,
@@ -36,6 +36,7 @@ const PanelBuySellStockFormSell = ({
   isTradeQuantityGreaterThanQuantityOfCurrentStock,
   setIsTradeQuantityGreaterThanQuantityOfCurrentStock,
   setPopupAfterTrade,
+  companyName,
 }) => {
   const [isSellAll, setIsSellAll] = useState(false);
 
@@ -57,7 +58,7 @@ const PanelBuySellStockFormSell = ({
         currentDateTime()
       )
     );
-
+    const tradeQuantityToNegative = 0 - tradeQuantity;
     // SELL POSITION
     if (tradeQuantity > quantityOfCurrentStock) {
       setIsTradeQuantityGreaterThanQuantityOfCurrentStock(true);
@@ -67,7 +68,7 @@ const PanelBuySellStockFormSell = ({
       setTradeQuantity(0);
       setToTalCostToString("0.00");
       setCurrentBalance(balanceAfterSell);
-      dispatch(sellAllAction(symbol, tradeQuantity));
+      dispatch(sellAllAction(symbol, companyName, tradeQuantityToNegative));
       dispatch(currentBalanceAction(balanceAfterSell));
       setPopupAfterTrade(true);
     } else {
@@ -76,7 +77,7 @@ const PanelBuySellStockFormSell = ({
       setTradeQuantity(0);
       setToTalCostToString("0.00");
       setCurrentBalance(balanceAfterSell);
-      dispatch(sellAction(symbol, tradeQuantity));
+      dispatch(sellAction(symbol, companyName, tradeQuantityToNegative));
       dispatch(currentBalanceAction(balanceAfterSell));
       setPopupAfterTrade(true);
     }

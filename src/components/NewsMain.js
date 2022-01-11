@@ -1,4 +1,4 @@
-import { timeConverter } from "./getDateTime";
+import { timeConverter } from "./_getDateTime";
 
 const NewsMain = ({ mainnews }) => {
   return (

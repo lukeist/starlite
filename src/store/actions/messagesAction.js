@@ -1,16 +1,22 @@
-import { v4 as uuidv4 } from "uuid";
 export const tradeMessagesAction =
-  (symbol, stockPrice, quantity, cost, buy, time) => (dispatch) => {
+  (symbol, tradeCostPerShare, tradeQuantityTotal, tradeCostTotal, buy, time) =>
+  (dispatch) => {
     dispatch({
       type: "TRADE_MESSAGE",
       payload: {
-        id: uuidv4(),
         symbol,
-        stockPrice,
-        quantity,
-        cost,
+        tradeQuantityTotal,
+        tradeCostPerShare,
+        tradeCostTotal,
         buy,
         time,
       },
     });
   };
+
+export const tradeMessagesSampleAction = () => (dispatch) => {
+  dispatch({
+    type: "TRADE_MESSAGE_SAMPLE",
+    payload: {},
+  });
+};

@@ -2,6 +2,7 @@ import { useState } from "react";
 import CurrencyInput from "./CurrencyInput";
 import { getEstimateQuantity } from "./PanelBuySellStock-FuncGetEstimate";
 import SellAll from "./PanelBuySellStock-SellAll";
+import decimalConverter from "./_getDecimal";
 
 const PanelBuySellStockDollars = ({
   stockCurrentPrice,
@@ -28,10 +29,10 @@ const PanelBuySellStockDollars = ({
     setTotalCost(getEstimateQuantityFromFunction.estimateCost);
   };
 
-  const sellAllInDollars =
-    Math.round(
-      (stockCurrentPrice * quantityOfCurrentStock + Number.EPSILON) * 100
-    ) / 100;
+  const sellAllInDollars = decimalConverter(
+    stockCurrentPrice * quantityOfCurrentStock,
+    100
+  );
 
   const handleOnClickCurrencyInput = () => {
     if (isSellAll) {

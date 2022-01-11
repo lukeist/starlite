@@ -6,7 +6,7 @@ import { newsAction } from "../store/actions/newsAction";
 import { useLocation } from "react-router";
 // redux
 import { useDispatch, useSelector } from "react-redux";
-import GetStocksForMyFirstList from "../components/GetStocksForMyFirstList";
+import getStocksForMyFirstList from "../components/_getStocksForMyFirstList";
 
 const Home = () => {
   // GET CURRENT LOCATION:
@@ -39,7 +39,7 @@ const Home = () => {
   useEffect(() => {
     if (typeof list !== "undefined") {
       if (list.tickers.length === 0) {
-        GetStocksForMyFirstList(list, dispatch);
+        getStocksForMyFirstList(list, dispatch);
       }
     }
   }, []);

@@ -12,6 +12,7 @@ import { buyAction, firstBuyAction } from "../store/actions/tradeAction";
 import currentBalanceAction from "../store/actions/currentBalanceAction";
 import PanelBuySellStockFormSell from "./PanelBuySellStock-FormSell";
 import PanelBuySellStockFormBuy from "./PanelBuySellStock-FormBuy";
+import decimalConverter from "./_getDecimal";
 
 const PanelBuySellStock = ({
   company,
@@ -22,6 +23,7 @@ const PanelBuySellStock = ({
   const shares = "Shares";
   const dollars = "Dollars";
   const symbol = company.ticker;
+  const companyName = company.name;
   const [isBuying, setIsBuying] = useState(true);
   const [isSelect, setIsSelect] = useState(false);
   const [notEnoughMoney, setNotEnoughMoney] = useState(false);
@@ -38,8 +40,7 @@ const PanelBuySellStock = ({
     setIsTradeQuantityGreaterThanQuantityOfCurrentStock,
   ] = useState(false);
 
-  const buyingPowerWithDecimal =
-    ((currentBalance + Number.EPSILON) * 100) / 100;
+  const buyingPowerWithDecimal = decimalConverter(currentBalance, 100);
   const buyingPowerWithCommas = buyingPowerWithDecimal
     .toString()
     .replace(/\B(?=(\d{3})+(?!\d))/g, ","); //How to print a number with commas as thousands separators in JavaScript https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
@@ -154,6 +155,7 @@ const PanelBuySellStock = ({
               setToTalCostToString={setToTalCostToString}
               isBuying={isBuying}
               setPopupAfterTrade={setPopupAfterTrade}
+              companyName={companyName}
             />
           ) : (
             <PanelBuySellStockFormSell
@@ -194,6 +196,7 @@ const PanelBuySellStock = ({
               }
               indexOfCurrentStockInPositions={indexOfCurrentStockInPositions}
               setPopupAfterTrade={setPopupAfterTrade}
+              companyName={companyName}
             />
           )}
         </div>

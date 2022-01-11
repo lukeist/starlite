@@ -1,11 +1,12 @@
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { stocksAction } from "../store/actions/stocksAction";
+import decimalConverter from "./_getDecimal";
 
 const FavStock = ({ stock }) => {
   const dispatch = useDispatch();
   const stockCurrentPrice = stock.quote.c;
-  const stockPercentChange = Math.round(stock.quote.dp * 100) / 100;
+  const stockPercentChange = decimalConverter(stock.quote.dp, 100);
 
   return (
     <Link to={`/stocks/${stock.symbol}`}>

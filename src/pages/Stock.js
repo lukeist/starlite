@@ -5,13 +5,14 @@ import { socket } from "../api";
 import News from "../components/News";
 import PanelBuySellStock from "../components/PanelBuySellStock";
 import PopUpLists from "../components/PopUpLists";
-import CompanyMarketCap from "../components/CompanyMarketCap";
+import companyMarketCap from "../components/_getCompanyMarketCap";
 import { useDispatch } from "react-redux";
 import { stocksAction } from "../store/actions/stocksAction";
 import { useState } from "react";
 import Message from "../components/Messages-Message";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
+import decimalConverter from "../components/_getDecimal";
 
 const Stock = () => {
   const { company, quote, companyNews, stockActive } = useSelector(
@@ -20,18 +21,18 @@ const Stock = () => {
   // Market Cap display
   const { PopUpFavLists } = useSelector((state) => state.utilities);
 
-  const stockCurrentPrice = Math.round(quote.c * 100) / 100;
-  const stockPriceChange = quote.d;
+  const stockCurrentPrice = decimalConverter(quote.c, 100);
+  const stockPriceChange = decimalConverter(quote.d, 100);
   // doesn't work because stock hasn't loaded yet
   // const stockPriceChangeWithDollarSignInTheMiddle =
   //   stockPriceChange.toString().slice(0, 1) +
   //   "$" +
   //   stockPriceChange.toString().slice(1);
-  const stockPercentChange = Math.round(quote.dp * 100) / 100;
-  const todayHigh = Math.round(quote.h * 100) / 100;
-  const todayLow = Math.round(quote.l * 100) / 100;
-  const todayOpen = Math.round(quote.o * 100) / 100;
-  const previousClose = Math.round(quote.pc * 100) / 100;
+  const stockPercentChange = decimalConverter(quote.dp, 100);
+  const todayHigh = decimalConverter(quote.h, 100);
+  const todayLow = decimalConverter(quote.l, 100);
+  const todayOpen = decimalConverter(quote.o, 100);
+  const previousClose = decimalConverter(quote.pc, 100);
   const sixLatestNews = 6;
 
   //////////////// PUT SToCK TO STATE WHEN ENTER SYMBOL INTo BROWSER
@@ -149,7 +150,7 @@ const Stock = () => {
                   <dt>Market Cap: </dt>
                   <dd>
                     {
-                      CompanyMarketCap(company)
+                      companyMarketCap(company)
                       // marketCapLength > 3
                       //   ? marketCapLength > 6
                       //     ? marketCapTrillion

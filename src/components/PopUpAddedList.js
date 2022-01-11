@@ -5,12 +5,13 @@ import {
   addTickerToListAction,
   removeTickerFromListAction,
 } from "../store/actions/listAction";
-import CompanyMarketCap from "./CompanyMarketCap";
+import companyMarketCap from "./_getCompanyMarketCap";
+import decimalConverter from "./_getDecimal";
 const PopUpAddedList = ({ company, list, quote }) => {
   const companyName = company.name;
   const stockCurrentPrice = quote.c;
-  const stockPercentChange = Math.round(quote.dp * 100) / 100;
-  const marketCap = CompanyMarketCap(company);
+  const stockPercentChange = decimalConverter(quote.dp, 100);
+  const marketCap = companyMarketCap(company);
 
   const stock = {
     companyName,
