@@ -37,6 +37,7 @@ const getCurrentDay = () => {
 const base_url = `https://finnhub.io/api/v1/`;
 const apiENV = process.env.REACT_APP_FINNHUB_API;
 const api_key = `&token=${apiENV}`;
+export const api_key_websocket = `?token=${apiENV}`;
 
 // SAI - KO CHAY DUOC vi (sym) nam trong function symbol:
 // const symbol = (sym) => `symbol=${sym}`;
@@ -51,7 +52,8 @@ export const companyProfile = (symbol) =>
 
 export const quoteData = (symbol) =>
   `${base_url}quote?symbol=${symbol}${api_key}`;
-
+export const quoteDataWebSocket = (symbol) =>
+  `wss://ws.finnhub.io/api/v1/quote?symbol=${symbol}${api_key}`;
 /////////////////////////////////////////////////// Market News
 // https://finnhub.io/api/v1/news?category=general&token=c6a500qad3idi8g5o2v0
 const marketNewsGeneral = `news?category=general`;
@@ -89,7 +91,31 @@ export const basicFinancialsData = (symbol) =>
 export const symbolLookupData = (terms) =>
   `${base_url}search?q=${terms}${api_key}`;
 
-/////////////////////////////////////////////////// Trades - Last Price Updates
+// /////////////////////////////////////////////////// Trades - Last Price Updates
 // export const socket = new WebSocket(
 //   "wss://ws.finnhub.io?token=c6a500qad3idi8g5o2v0"
 // );
+
+// const socket = new WebSocket(`wss://ws.finnhub.io${api_key_websocket}`);
+
+// // Connection opened -> Subscribe
+// socket.addEventListener("open", function (event) {
+//   socket.send(JSON.stringify({ type: "subscribe", symbol: "AAPL" }));
+//   // socket.send(JSON.stringify({ type: "subscribe", symbol: "BINANCE:BTCUSDT" }));
+//   // socket.send(JSON.stringify({ type: "subscribe", symbol: "BINANCE:ETHUSDT" }));
+//   // socket.send(JSON.stringify({ type: "subscribe", symbol: "IC MARKETS:1" }));
+// });
+
+// // Listen for messages
+// socket.addEventListener("message", function (event) {
+//   const str = event.data;
+//   console.log(
+//     "Message from server ",
+//     str.substring(str.indexOf(`"p"`) + 4, str.indexOf(`,"s"`))
+//   );
+// });
+
+// // Unsubscribe
+// var unsubscribe = function (symbol) {
+//   socket.send(JSON.stringify({ type: "unsubscribe", symbol: symbol }));
+// };

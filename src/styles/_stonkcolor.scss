@@ -47,7 +47,9 @@
   .sell-all:hover {
     color: $color-stonkup-second;
   }
-
+  .portfolio-table-title {
+    color: $color-stonkup-first;
+  }
   .portfolio-table-subtitle {
     color: $color-stonkup-second;
   }
@@ -102,7 +104,10 @@
   .sell-all:hover {
     color: $color-stonkdown-second;
   }
+  .portfolio-table-title {
+    color: $color-stonkdown-first;
+  }
   .portfolio-table-subtitle {
-    color: $color-stonkdown-second !important;
+    color: $color-stonkdown-second;
   }
 }

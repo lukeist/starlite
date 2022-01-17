@@ -1,3 +1,6 @@
+import axios from "axios";
+import { quoteData } from "../../api";
+
 export const firstBuyAction = (symbol, companyName, quantity) => (dispatch) => {
   dispatch({
     type: "BUY_STOCK_FROM_ZERO_POSITION",
@@ -48,3 +51,13 @@ export const getSampleAction = () => (dispatch) => {
     payload: {},
   });
 };
+
+export const getPortfolioUpdateToCurrentPrice =
+  (symbol, costBasisNumber) => async (dispatch) => {
+    const quote = await axios.get(quoteData(symbol));
+
+    dispatch({
+      type: "GET_PORTFOLIO_UPDATE_TO_CURRENT_PRICE",
+      payload: { symbol, quote, costBasisNumber },
+    });
+  };

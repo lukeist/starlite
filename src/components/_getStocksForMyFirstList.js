@@ -1,16 +1,6 @@
 import axios from "axios";
-import {
-  quoteData,
-  companyNewsData3Days,
-  companyNewsData7Days,
-  companyNewsDataToday,
-  basicFinancialsData,
-  companyProfile,
-} from "../api";
-
+import { quoteData, companyProfile } from "../api";
 import { addTickerToListAction } from "../store/actions/listAction";
-import { stocksAction } from "../store/actions/stocksAction";
-import { useDispatch, useSelector } from "react-redux";
 import companyMarketCap from "./_getCompanyMarketCap";
 
 /////////////////////////////////////////////////////// For Automate
