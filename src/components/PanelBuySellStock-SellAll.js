@@ -21,9 +21,9 @@ const SellAll = ({
       quantityOfCurrentStock,
       stockCurrentPrice
     );
-    console.log(getNumberOfShares, quantityOfCurrentStock);
-    const getNumberOfSharesToNegative = 0 - getNumberOfShares;
-    setTradeQuantity(getNumberOfSharesToNegative);
+    // console.log(getNumberOfShares, quantityOfCurrentStock);
+    // const getNumberOfSharesToNegative = 0 - getNumberOfShares;
+    setTradeQuantity(getNumberOfShares);
     setTotalCost(getEstimateCostFromFunction.estimateCost);
     setToTalCostToString(getEstimateCostFromFunction.estimateCostToString);
   };

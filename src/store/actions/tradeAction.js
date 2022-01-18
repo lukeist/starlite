@@ -52,12 +52,20 @@ export const getSampleAction = () => (dispatch) => {
   });
 };
 
-export const getPortfolioUpdateToCurrentPrice =
-  (symbol, costBasisNumber) => async (dispatch) => {
-    const quote = await axios.get(quoteData(symbol));
+// export const getPortfolioUpdateToCurrentPrice =
+//   (symbol, costBasisNumber) => async (dispatch) => {
+//     const quote = await axios.get(quoteData(symbol));
 
+//     dispatch({
+//       type: "GET_PORTFOLIO_UPDATE_TO_CURRENT_PRICE",
+//       payload: { symbol, quote, costBasisNumber },
+//     });
+//   };
+export const getPortfolioUpdateToCurrentPriceAction =
+  (symbol, current) => (dispatch) => {
+    // const quote = await axios.get(quoteData(symbol));
     dispatch({
       type: "GET_PORTFOLIO_UPDATE_TO_CURRENT_PRICE",
-      payload: { symbol, quote, costBasisNumber },
+      payload: { symbol, current },
     });
   };

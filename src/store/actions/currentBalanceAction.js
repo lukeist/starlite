@@ -1,4 +1,4 @@
-const currentBalanceAction = (balance) => (dispatch) => {
+export const currentBalanceAction = (balance) => (dispatch) => {
   dispatch({
     type: "CURRENT_BALANCE",
     payload: {
@@ -6,4 +6,3 @@ const currentBalanceAction = (balance) => (dispatch) => {
     },
   });
 };
-export default currentBalanceAction;

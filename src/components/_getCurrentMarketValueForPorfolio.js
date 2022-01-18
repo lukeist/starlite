@@ -1,38 +1,48 @@
 import axios from "axios";
-import { quoteData, companyProfile } from "../api";
-import { addTickerToListAction } from "../store/actions/listAction";
-import companyMarketCap from "./_getCompanyMarketCap";
+import { quoteData } from "../api";
+import { currentTotalAction } from "../store/actions/totalAllPositionsAction";
+import { getPortfolioUpdateToCurrentPriceAction } from "../store/actions/tradeAction";
+import numberWithCommas from "./_getCommasAsThousandsSeparators ";
+import getCostBasisOfAPosition from "./_getCostBasisofAPosition";
+import decimalConverter from "./_getDecimal";
+import getTotalSumOfAllPositions from "./_getTotalSumOfAllPositions";
 
 /////////////////////////////////////////////////////// For Automate
-const getStocksForMyFirstList = async (list, dispatch, positions) => {
-  //   console.log(list);
-
+const getCurrentMarketValueForPorfolio = async (
+  dispatch,
+  tradeMessages,
+  positions
+) => {
   for (let i = 0; i < positions.length; i++) {
-    //fetch axios
-    // const getCompany = await axios.get(companyProfile(arrayOfStocks[i]));
-    const getQuote = await axios.get(quoteData(positions[i].symbol));
-
     const dollarSign = "$";
     const dollarSignPositive = "+$";
     const dollarSignNegative = "-$";
     const indexAfterMinusSign = 1;
+    //fetch axios
+    // const getCompany = await axios.get(companyProfile(arrayOfStocks[i]));
+    const symbol = positions[i].symbol;
+
+    const getQuote = await axios.get(quoteData(symbol));
+    const costBasisNumber = await getCostBasisOfAPosition(
+      symbol,
+      tradeMessages
+    );
+    const costBasis = dollarSign + numberWithCommas(costBasisNumber);
 
     // const current = positions[i].current;
     const quantity = positions[i].quantity;
     const quote = getQuote.data;
 
-    const costBasisNumber = action.payload.costBasisNumber;
     const sharePriceNumber = quote.c;
 
     const priceChangePercentage = decimalConverter(quote.dp, 100);
     const priceChangeNumber = quote.d;
-    // .substring(
-    //   indexAfterMinusSign
-    // ); // remove -
+
     const marketValueNumber = decimalConverter(
       sharePriceNumber * quantity,
       100
     );
+
     const dayChangeNumber = decimalConverter(priceChangeNumber * quantity, 100);
     const dayChangePercentage = decimalConverter(
       (dayChangeNumber * 100) / costBasisNumber,
@@ -47,10 +57,8 @@ const getStocksForMyFirstList = async (list, dispatch, positions) => {
       (gainLostAllTimeNumber * 100) / costBasisNumber,
       100
     );
-    // if (state.length > 0) {
 
     //   // ToString
-
     const sharePrice = dollarSign + numberWithCommas(sharePriceNumber);
     const priceChange =
       dollarSignPositive + numberWithCommas(priceChangeNumber);
@@ -69,7 +77,6 @@ const getStocksForMyFirstList = async (list, dispatch, positions) => {
       dollarSignNegative +
       numberWithCommas(gainLostAllTimeNumber).substring(indexAfterMinusSign); // remove -
     // }
-
     const current = {
       sharePriceNumber,
       sharePrice,
@@ -90,8 +97,11 @@ const getStocksForMyFirstList = async (list, dispatch, positions) => {
       marketValueNumber,
       marketValue,
     };
-    dispatch(addTickerToListAction(stock, "my1stlist"));
+    dispatch(getPortfolioUpdateToCurrentPriceAction(symbol, current));
+    // dispatch(currentTotalAction(getTotalSumOfAllPositions(positions)));
+    // console.log(getTotalSumOfAllPositions(positions));
   }
+  dispatch(currentTotalAction(getTotalSumOfAllPositions(positions)));
 };
 
-export default getStocksForMyFirstList;
+export default getCurrentMarketValueForPorfolio;

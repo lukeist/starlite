@@ -13,7 +13,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import decimalConverter from "./_getDecimal";
 import { useDispatch } from "react-redux";
-import { getPortfolioUpdateToCurrentPrice } from "../store/actions/tradeAction";
+import { getPortfolioUpdateToCurrentPriceAction } from "../store/actions/tradeAction";
 import { isGotPortfolioUpdateToCurrentPriceDispatchedAction } from "../store/actions/isGotPortfolioUpdateToCurrentPriceDispatchedAction";
 
 export const TableofPositionsHeader = () => {
@@ -59,46 +59,39 @@ export const TableofPositionsHeader = () => {
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 
-export const TableOfPositions = ({
-  position,
-
-  getSample,
-}) => {
-  const symbol = position.symbol;
-  const dollarSign = "$";
-  const companyName = position.companyName;
+export const TableOfPositions = ({ position }) => {
   // const index = position.findIndex(
   //   (stock) => stock.symbol === action.payload.symbol
   // );
   //////////////// GET TOTAL COST OF ALL CURRENT SHARE'S ORDERS, INCLUDE SALE ORDERS
-  const { tradeMessages } = useSelector((state) => state.messages);
+  // const { tradeMessages } = useSelector((state) => state.messages);
   // const { positions } = useSelector((state) => state.portfolio);
   // const indexFirstPositionInArray = 0;
-  // const filterOutArrayThisPosition = positions.filter(
+  // const filterOutArrayThisPosition = filter(
   //   (stock) => stock.symbol === symbol
   // );
   // const thisPosition = filterOutArrayThisPosition[indexFirstPositionInArray];
-  const quantity = position.quantity;
-  const current = position.current;
+
   // const [current, setCurrent] = useState({});
 
-  const allOrdersFromCurrentPosition = tradeMessages.filter(
-    (order) => order.symbol === position.symbol
-  );
-  let costBasisNumber = 0;
-  if (allOrdersFromCurrentPosition.length > 0) {
-    for (let i = 0; i < allOrdersFromCurrentPosition.length; i++) {
-      costBasisNumber =
-        Math.round(
-          (allOrdersFromCurrentPosition[i].tradeCostTotal +
-            costBasisNumber +
-            Number.EPSILON) *
-            100
-        ) / 100;
-    }
-  }
+  // const allOrdersFromCurrentPosition = tradeMessages.filter(
+  //   //<<<<<<<<<<<<<<<<<<<<< dispatch!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  //   (order) => order.symbol === position.symbol
+  // );
+  // let costBasisNumber = 0;
+  // if (allOrdersFromCurrentPosition.length > 0) {
+  //   for (let i = 0; i < allOrdersFromCurrentPosition.length; i++) {
+  //     costBasisNumber =
+  //       Math.round(
+  //         (allOrdersFromCurrentPosition[i].tradeCostTotal +
+  //           costBasisNumber +
+  //           Number.EPSILON) *
+  //           100
+  //       ) / 100;
+  //   }
+  // }
 
-  const costBasis = dollarSign + numberWithCommas(costBasisNumber);
+  // const costBasis = dollarSign + numberWithCommas(costBasisNumber);
 
   //////////////// GET COMPANY's DATA, CURRENT QUOTE
   // const [quote, setQuote] = useState("");
@@ -106,23 +99,21 @@ export const TableOfPositions = ({
   // const fetchQuote = async (symbol) => {
   //   return await axios.get(quoteData(symbol)).then((res) => setQuote(res.data)); // axios gets data instead of Promise
   // };
-  const dispatch = useDispatch();
-  const location = useLocation(); // PUT SToCKs TO STATE WHEN GO TO /portfolio
+  // const dispatch = useDispatch();
+  // const location = useLocation(); // PUT SToCKs TO STATE WHEN GO TO /portfolio
   // UPDATE TO CURRENT SHARE PRICE WHEN GO TO PORTFOLIO
-  useEffect(() => {
-    if (location.pathname.includes("portfolio")) {
-      dispatch(getPortfolioUpdateToCurrentPrice(symbol, costBasisNumber));
-    }
-  }, [location.pathname]);
+  // useEffect(() => {
+  //   if (location.pathname.includes("portfolio")) {
+  //     dispatch(getPortfolioUpdateToCurrentPriceAction(symbol, costBasisNumber));
+  //   }
+  // }, [location.pathname]);
 
-  useEffect(() => {
-    if (location.pathname.includes("portfolio")) {
-      dispatch(getPortfolioUpdateToCurrentPrice(symbol, costBasisNumber));
-      // dispatch(isGotPortfolioUpdateToCurrentPriceDispatchedAction());
-    }
-  }, [getSample]);
-
-  const [showPosition, setShowPosition] = useState(false);
+  // useEffect(() => {
+  //   if (location.pathname.includes("portfolio")) {
+  //     dispatch(getPortfolioUpdateToCurrentPriceAction(symbol, costBasisNumber));
+  //     // dispatch(isGotPortfolioUpdateToCurrentPriceDispatchedAction());
+  //   }
+  // }, [getSample]);
 
   // useEffect(() => {
   //   thisPosition.current.sharePriceNumber !== 0 && setShowPosition(true);
@@ -289,7 +280,7 @@ export const TableOfPositions = ({
   //     //   marketValueNumber,
   //     //   marketValue,
   //     // };
-  //     // dispatch(getPortfolioUpdateToCurrentPrice(symbol, currentPosition));
+  //     // dispatch(getPortfolioUpdateToCurrentPriceAction(symbol, currentPosition));
   //   }
   // }, [quote]);
 
@@ -346,111 +337,115 @@ export const TableOfPositions = ({
   //   );
   // }
   const signPositive = "+";
+  const symbol = position.symbol;
+  const dollarSign = "$";
+  const companyName = position.companyName;
+
+  const quantity = position.quantity;
+  const current = position.current;
+
   return (
-    // <Link to={`/stocks/${symbol}`}>
-    <div className="portfolio-table-item">
-      <button
-        onClick={() => console.log(showPosition, current.sharePriceNumber)}
-      >
-        asdfas
-      </button>
-      {/* {thisPosition.current.sharePriceNumber !== 0 && ( */}
-      <div className="table-item">
-        <ul className="table-column">
-          <li className="table-left">
-            <p
-              onClick={() => console.log(current.sharePrice)}
-              className="portfolio-table-title"
-            >
-              {symbol}
-            </p>
-            <p className="portfolio-table-subtitle">{companyName}</p>
-          </li>
-          <li className="table-right">
-            <p className="portfolio-table-title">{quantity}</p>
-          </li>
-          <li
-            className={
-              current.priceChangePercentage < 0
-                ? "table-right stonk-down"
-                : "table-right stonk-up"
-            }
-          >
-            <p className="portfolio-table-title">{current.sharePrice}</p>
-          </li>
-          <li
-            className={
-              current.priceChangePercentage < 0
-                ? "table-right stonk-down"
-                : "table-right stonk-up"
-            }
-          >
-            <p className="portfolio-table-title">
-              {current.priceChangePercentage < 0
-                ? current.priceChangeNegative
-                : current.priceChange}
-            </p>
-            <p className="portfolio-table-subtitle">
-              {current.priceChangePercentage < 0
-                ? current.priceChangePercentage
-                : signPositive + current.priceChangePercentage}
-              %
-            </p>
-          </li>
-          <li
-            className={
-              current.priceChangePercentage < 0
-                ? "table-right stonk-down"
-                : "table-right stonk-up"
-            }
-          >
-            <p className="portfolio-table-title">
-              {current.dayChangeNumber < 0
-                ? current.dayChangeNegative
-                : (current.dayChangeNumber = 0
-                    ? current.dayChange
-                    : current.dayChange)}
-            </p>
-            <p className="portfolio-table-subtitle">
-              {current.priceChangePercentage < 0
-                ? current.dayChangePercentage
-                : signPositive + current.dayChangePercentage}
-              %
-            </p>
-          </li>
-          <li className="table-right">
-            <p className="portfolio-table-title">{costBasis}</p>
-          </li>
-          <li
-            className={
-              current.gainLostAllTimeNumber < 0
-                ? "table-right stonk-down"
-                : "table-right stonk-up"
-            }
-          >
-            <p className="portfolio-table-title">
-              {current.gainLostAllTimeNumber < 0
-                ? current.gainLostAllTimeNegative
-                : (current.gainLostAllTimeNumber = 0
-                    ? current.gainLostAllTime
-                    : current.gainLostAllTime)}
-            </p>
-            <p className="portfolio-table-subtitle">
-              {current.gainLostAllTimeNumber < 0
-                ? current.gainLostAllTimePercentage
-                : signPositive + current.gainLostAllTimePercentage}
-              %
-            </p>
-          </li>
-          <li className="table-right">
-            <p className="portfolio-table-title">{current.marketValue}</p>
-          </li>
-        </ul>
-        <hr />
+    <Link to={`/stocks/${symbol}`}>
+      <div className="portfolio-table-item">
+        {position.current.sharePriceNumber > 0 && (
+          <div className="table-item">
+            <ul className="table-column">
+              <li className="table-left">
+                <p
+                  onClick={() => console.log(current.sharePrice)}
+                  className="portfolio-table-title"
+                >
+                  {symbol}
+                </p>
+                <p className="portfolio-table-subtitle">{companyName}</p>
+              </li>
+              <li className="table-right">
+                <p className="portfolio-table-title">{quantity}</p>
+              </li>
+              <li
+                className={
+                  current.priceChangePercentage < 0
+                    ? "table-right stonk-down"
+                    : "table-right stonk-up"
+                }
+              >
+                <p className="portfolio-table-title">
+                  {position.current.sharePrice}
+                </p>
+              </li>
+              <li
+                className={
+                  current.priceChangePercentage < 0
+                    ? "table-right stonk-down"
+                    : "table-right stonk-up"
+                }
+              >
+                <p className="portfolio-table-title">
+                  {current.priceChangePercentage < 0
+                    ? current.priceChangeNegative
+                    : current.priceChange}
+                </p>
+                <p className="portfolio-table-subtitle">
+                  {current.priceChangePercentage < 0
+                    ? current.priceChangePercentage
+                    : signPositive + current.priceChangePercentage}
+                  %
+                </p>
+              </li>
+              <li
+                className={
+                  current.priceChangePercentage < 0
+                    ? "table-right stonk-down"
+                    : "table-right stonk-up"
+                }
+              >
+                <p className="portfolio-table-title">
+                  {current.dayChangeNumber < 0
+                    ? current.dayChangeNegative
+                    : (current.dayChangeNumber = 0
+                        ? current.dayChange
+                        : current.dayChange)}
+                </p>
+                <p className="portfolio-table-subtitle">
+                  {current.priceChangePercentage < 0
+                    ? current.dayChangePercentage
+                    : signPositive + current.dayChangePercentage}
+                  %
+                </p>
+              </li>
+              <li className="table-right">
+                <p className="portfolio-table-title">{current.costBasis}</p>
+              </li>
+              <li
+                className={
+                  current.gainLostAllTimeNumber < 0
+                    ? "table-right stonk-down"
+                    : "table-right stonk-up"
+                }
+              >
+                <p className="portfolio-table-title">
+                  {current.gainLostAllTimeNumber < 0
+                    ? current.gainLostAllTimeNegative
+                    : (current.gainLostAllTimeNumber = 0
+                        ? current.gainLostAllTime
+                        : current.gainLostAllTime)}
+                </p>
+                <p className="portfolio-table-subtitle">
+                  {current.gainLostAllTimeNumber < 0
+                    ? current.gainLostAllTimePercentage
+                    : signPositive + current.gainLostAllTimePercentage}
+                  %
+                </p>
+              </li>
+              <li className="table-right">
+                <p className="portfolio-table-title">{current.marketValue}</p>
+              </li>
+            </ul>
+            <hr />
+          </div>
+        )}
       </div>
-      {/* )} */}
-    </div>
-    // </Link>
+    </Link>
   );
 };
 
@@ -478,76 +473,61 @@ export const TableofPositionsFooter = () => {
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 export const TableofPositionsFooterTotal = () => {
-  const { positions } = useSelector((state) => state.portfolio);
-  const allPositionsCalculation = (item) => {
-    let totalResult = 0;
-    for (let i = 0; i < positions.length; i++) {
-      totalResult =
-        Math.round(
-          (positions[i].current[item] + totalResult + Number.EPSILON) * 100
-        ) / 100;
-    }
-    return totalResult;
-  };
-  const totalCost = allPositionsCalculation("costBasisNumber");
-  const totalGainLoss = allPositionsCalculation("gainLostAllTimeNumber");
-  const totalMarketValue = allPositionsCalculation("marketValueNumber");
-
-  const indexAfterMinusSign = 1;
-  const totalGainLossPercentage = decimalConverter(
-    ((totalGainLoss - totalCost) * 100) / totalCost,
-    100
-  );
-  const totalGainLostNegative =
-    numberWithCommas(totalGainLoss).substring(indexAfterMinusSign);
+  const { total } = useSelector((state) => state.portfolio);
   const signPositive = `+`;
   const dollarSign = `$`;
-
+  const totalGainLoss = total.gainLoss;
+  const totalCost = total.cost;
+  const totalMarketValue = total.marketValue;
+  const totalGainLossPercentage = total.gainLossPercentage;
+  const totalGainLostNegative = total.gainLossNegative;
   return (
     <div className="portfolio-table-header">
-      <div className="table-header">
-        <ul className="table-column">
-          <li className="table-left"></li>
-          <li className="table-right"></li>
-          <li className="table-right"></li>
-          <li className="table-right"></li>
-          <li className="table-right"></li>
-          <li
-            onClick={() => console.log(totalGainLoss)}
-            className="table-right"
-          >
-            <p className="portfolio-table-title">
-              ${numberWithCommas(totalCost)}
-            </p>
-          </li>
-          <li
-            className={
-              totalGainLoss < 0
-                ? "table-right stonk-down"
-                : "table-right stonk-up"
-            }
-          >
-            <p className="portfolio-table-title">
-              {totalGainLoss < 0
-                ? numberWithCommas(totalGainLostNegative)
-                : totalGainLoss === 0
-                ? `$0.00`
-                : signPositive + dollarSign + numberWithCommas(totalGainLoss)}
-            </p>
-            <p className="portfolio-table-subtitle">
-              {totalGainLoss < 0
-                ? numberWithCommas(totalGainLossPercentage)
-                : signPositive + numberWithCommas(totalGainLossPercentage)}
-              %
-            </p>
-          </li>
-          <li className="table-right">
-            <p className="portfolio-table-title">
-              ${numberWithCommas(totalMarketValue)}
-            </p>
-          </li>
-        </ul>
-      </div>
+      {totalCost > 0 && (
+        <div className="table-header">
+          <ul className="table-column">
+            <li className="table-left"></li>
+            <li className="table-right"></li>
+            <li className="table-right"></li>
+            <li className="table-right"></li>
+            <li className="table-right"></li>
+            <li
+              onClick={() => console.log(totalGainLoss)}
+              className="table-right"
+            >
+              <p className="portfolio-table-title">
+                ${numberWithCommas(totalCost)}
+              </p>
+            </li>
+            <li
+              className={
+                totalGainLoss < 0
+                  ? "table-right stonk-down"
+                  : "table-right stonk-up"
+              }
+            >
+              <p className="portfolio-table-title">
+                {totalGainLoss < 0
+                  ? numberWithCommas(totalGainLostNegative)
+                  : totalGainLoss === 0
+                  ? `$0.00`
+                  : signPositive + dollarSign + numberWithCommas(totalGainLoss)}
+              </p>
+              <p className="portfolio-table-subtitle">
+                {totalGainLoss < 0
+                  ? numberWithCommas(totalGainLossPercentage)
+                  : signPositive + numberWithCommas(totalGainLossPercentage)}
+                %
+              </p>
+            </li>
+            <li className="table-right">
+              <p className="portfolio-table-title">
+                ${numberWithCommas(totalMarketValue)}
+              </p>
+            </li>
+          </ul>
+        </div>
+      )}
     </div>
   );
 };

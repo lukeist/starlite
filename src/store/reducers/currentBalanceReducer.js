@@ -5,7 +5,7 @@ const currentBalanceReducer = (state = initState, action) => {
   switch (action.type) {
     case "CURRENT_BALANCE":
       state.balance = action.payload.balance;
-      return state;
+      return { ...state };
 
     default:
       return state;

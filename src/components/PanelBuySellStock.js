@@ -9,7 +9,7 @@ import PopupEverything from "./PanelBuySellStock-PopupEverything";
 import { useSelector } from "react-redux";
 // import { PanelBuySellStockFormSubmit } from "./PanelBuySellStock-FormSubmit";
 import { buyAction, firstBuyAction } from "../store/actions/tradeAction";
-import currentBalanceAction from "../store/actions/currentBalanceAction";
+import { currentBalanceAction } from "../store/actions/currentBalanceAction";
 import PanelBuySellStockFormSell from "./PanelBuySellStock-FormSell";
 import PanelBuySellStockFormBuy from "./PanelBuySellStock-FormBuy";
 import decimalConverter from "./_getDecimal";

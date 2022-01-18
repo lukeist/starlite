@@ -44,8 +44,8 @@ const PanelBuySellStockFormSell = ({
     e.preventDefault();
 
     const balanceAfterSell = currentBalance + totalCost;
-    console.log(tradeQuantity);
-    console.log(quantityOfCurrentStock);
+    // console.log(tradeQuantity);
+    // console.log(quantityOfCurrentStock);
     // tradeQuantity === quantityOfCurrentStock
     const buy = false;
     dispatch(
@@ -58,7 +58,7 @@ const PanelBuySellStockFormSell = ({
         currentDateTime()
       )
     );
-    const tradeQuantityToNegative = 0 - tradeQuantity;
+    // const tradeQuantityToNegative = 0 - tradeQuantity;
     // SELL POSITION
     if (tradeQuantity > quantityOfCurrentStock) {
       setIsTradeQuantityGreaterThanQuantityOfCurrentStock(true);
@@ -68,7 +68,7 @@ const PanelBuySellStockFormSell = ({
       setTradeQuantity(0);
       setToTalCostToString("0.00");
       setCurrentBalance(balanceAfterSell);
-      dispatch(sellAllAction(symbol, companyName, tradeQuantityToNegative));
+      dispatch(sellAllAction(symbol, companyName, tradeQuantity));
       dispatch(currentBalanceAction(balanceAfterSell));
       setPopupAfterTrade(true);
     } else {
@@ -77,7 +77,7 @@ const PanelBuySellStockFormSell = ({
       setTradeQuantity(0);
       setToTalCostToString("0.00");
       setCurrentBalance(balanceAfterSell);
-      dispatch(sellAction(symbol, companyName, tradeQuantityToNegative));
+      dispatch(sellAction(symbol, companyName, tradeQuantity));
       dispatch(currentBalanceAction(balanceAfterSell));
       setPopupAfterTrade(true);
     }
