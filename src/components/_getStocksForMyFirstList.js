@@ -20,7 +20,6 @@ const getStocksForMyFirstList = async (list, dispatch) => {
     "FB",
     "SPCE",
     "ABNB",
-    "OXY",
     "CCL",
     "DIDI",
     "BABA",
