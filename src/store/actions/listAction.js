@@ -44,3 +44,14 @@ export const removeTickerFromListAction = (symbol, id) => (dispatch) => {
     },
   });
 };
+
+export const currentPriceStreamingInListAction =
+  (symbol, quoteStreaming) => (dispatch) => {
+    dispatch({
+      type: "STREAMING_PRICE_IN_LIST",
+      payload: {
+        symbol,
+        quoteStreaming,
+      },
+    });
+  };

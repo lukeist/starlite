@@ -19,6 +19,7 @@ const PopUpAddedList = ({ company, list, quote }) => {
     stockCurrentPrice,
     stockPercentChange,
     marketCap,
+    quoteStreaming: 0,
   };
   const dispatch = useDispatch();
 

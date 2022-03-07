@@ -44,7 +44,7 @@ const listReducer = (state = initState, action) => {
       return state;
     // [...state, stateWithoutCurrentList.push(currentList)];
     case "REMOVE_TICKER_FROM_LIST":
-      return state;
+      return [...state];
     // [
     //   ...state,
     //   {
@@ -53,6 +53,15 @@ const listReducer = (state = initState, action) => {
     //     ),
     //   },
     // ];
+    case "STREAMING_PRICE_IN_LIST":
+      const index = state.tickers?.findIndex(
+        (item) => item.symbol === action.payload.symbol
+      );
+      if (state.tickers?.length > 0) {
+        state.tickers[index].quoteStreaming = action.payload.quoteStreaming;
+        return;
+      }
+      return [...state];
 
     default:
       return state;

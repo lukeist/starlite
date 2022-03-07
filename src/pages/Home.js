@@ -3,22 +3,20 @@ import News from "../components/News";
 import NewsMain from "../components/NewsMain";
 import FavListPanel from "../components/FavListPanel";
 import { newsAction } from "../store/actions/newsAction";
-import { useLocation } from "react-router";
+// import { useLocation } from "react-router";
 // redux
 import { useDispatch, useSelector } from "react-redux";
 import getStocksForMyFirstList from "../components/_getStocksForMyFirstList";
 
 const Home = () => {
   // GET CURRENT LOCATION:
-  const location = useLocation();
+  // const location = useLocation();
   // console.log(location.pathname);
   // FETCH STOCKS
   const dispatch = useDispatch();
 
   // get data back from state
-  const { general, crypto, newsActive } = useSelector(
-    (state) => state.entities.news
-  );
+  const { general, newsActive } = useSelector((state) => state.entities.news);
   const generalWithoutBloomberg = general.filter(
     (key) => key.source !== "Bloomberg"
   );

@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCog, faEraser } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faCog, faEraser } from "@fortawesome/free-solid-svg-icons";
 import {
   TableOfPositions,
   TableofPositionsFooter,
@@ -9,7 +9,7 @@ import {
 } from "../components/Portfolio-TableOfPositions";
 import { useDispatch } from "react-redux";
 import {
-  getPortfolioUpdateToCurrentPriceAction,
+  // getPortfolioUpdateToCurrentPriceAction,
   getSampleAction,
 } from "../store/actions/tradeAction";
 import { tradeMessagesSampleAction } from "../store/actions/messagesAction";
@@ -17,15 +17,15 @@ import { useState } from "react";
 import getCurrentMarketValueForPorfolio from "../components/_getCurrentMarketValueForPorfolio";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import getTotalSumOfAllPositions from "../components/_getTotalSumOfAllPositions";
+// import getTotalSumOfAllPositions from "../components/_getTotalSumOfAllPositions";
 
 const Portfolio = () => {
   const [getSample, setGetSample] = useState(false);
 
   const { tradeMessages } = useSelector((state) => state.messages);
-  const { buyingPower, positions } = useSelector((state) => state.portfolio);
+  const { positions } = useSelector((state) => state.portfolio);
 
-  const dollarSymbol = `$`;
+  // const dollarSymbol = `$`;
   const dispatch = useDispatch();
 
   const getSampleActionData = async () => {

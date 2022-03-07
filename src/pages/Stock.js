@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { socket } from "../api";
 import News from "../components/News";
 import PanelBuySellStock from "../components/PanelBuySellStock";
 import PopUpLists from "../components/PopUpLists";
@@ -46,6 +45,7 @@ const Stock = () => {
     // useEffect only when pathname has /stocks/xxx, not /lists/xxx or anything else
     if (location.pathname.includes("stocks")) {
       dispatch(stocksAction(getSymbolFromBrowser));
+      return;
     }
   }, [location]);
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -194,7 +194,8 @@ const Stock = () => {
               {companyNews.slice(0, sixLatestNews).map((news) => (
                 <News news={news} key={news.id} />
               ))}
-              <a href="#">See more</a>
+              {/* <a href="#">See more</a> */}
+              <span>See more</span>
             </div>
           </div>
           <div className="trade-body">

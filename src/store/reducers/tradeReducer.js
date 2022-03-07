@@ -1,4 +1,4 @@
-import numberWithCommas from "../../components/_getCommasAsThousandsSeparators ";
+// import numberWithCommas from "../../components/_getCommasAsThousandsSeparators ";
 import decimalConverter from "../../components/_getDecimal";
 // const current = {
 //   sharePriceNumber: 0,

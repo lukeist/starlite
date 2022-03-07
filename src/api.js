@@ -68,7 +68,7 @@ const currentDay = getCurrentDay();
 const currentDate = `${currentYear}-${currentMonth}-${currentDay}`;
 const last7Days = `${currentYear}-${currentMonth}-${currentDay - 7}`;
 const last3Days = `${currentYear}-${currentMonth}-${currentDay - 3}`;
-const companyNews = `company-news`;
+// const companyNews = `company-news`;
 // https://finnhub.io/api/v1/company-news?symbol=AAPL&from=2021-09-01&to=2021-09-09&token=c6a500qad3idi8g5o2v0
 
 export const companyNewsData7Days = (symbol) =>
@@ -100,8 +100,8 @@ export const symbolLookupData = (terms) =>
 
 // // Connection opened -> Subscribe
 // socket.addEventListener("open", function (event) {
-//   socket.send(JSON.stringify({ type: "subscribe", symbol: "AAPL" }));
-//   // socket.send(JSON.stringify({ type: "subscribe", symbol: "BINANCE:BTCUSDT" }));
+//   // socket.send(JSON.stringify({ type: "subscribe", symbol: "AAPL" }));
+//   socket.send(JSON.stringify({ type: "subscribe", symbol: "BINANCE:BTCUSDT" }));
 //   // socket.send(JSON.stringify({ type: "subscribe", symbol: "BINANCE:ETHUSDT" }));
 //   // socket.send(JSON.stringify({ type: "subscribe", symbol: "IC MARKETS:1" }));
 // });

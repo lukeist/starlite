@@ -1,11 +1,11 @@
 import { useDispatch } from "react-redux";
 import { stocksAction } from "../store/actions/stocksAction";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
-import PopUpAddedList from "./PopUpAddedList";
-import { useSelector } from "react-redux";
-import { useState } from "react";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+// import PopUpAddedList from "./PopUpAddedList";
+// import { useSelector } from "react-redux";
+// import { useState } from "react";
 
 const ResultList = ({
   stock,

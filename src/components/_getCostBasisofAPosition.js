@@ -1,5 +1,3 @@
-import { useSelector } from "react-redux";
-
 const getCostBasisOfAPosition = (symbol, tradeMessages) => {
   const allOrdersFromCurrentPosition = tradeMessages.filter(
     (order) => order.symbol === symbol

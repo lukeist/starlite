@@ -1,5 +1,5 @@
-import axios from "axios";
-import { quoteData } from "../../api";
+// import axios from "axios";
+// import { quoteData } from "../../api";
 
 export const firstBuyAction = (symbol, companyName, quantity) => (dispatch) => {
   dispatch({

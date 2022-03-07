@@ -1,6 +1,6 @@
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { useLocation, useHistory, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { removeListAction } from "../store/actions/listAction";
 
 const DeleteList = ({ setIsDeletingList, list }) => {
@@ -14,7 +14,7 @@ const DeleteList = ({ setIsDeletingList, list }) => {
   // const listId = location.pathname.slice(
   //   startPositionOfListIdInLocationPathname
   // );
-  const allCurrentLists = useSelector((state) => state.entities.stockLists);
+  // const allCurrentLists = useSelector((state) => state.entities.stockLists);
 
   const deleteListHandler = () => {
     dispatch(removeListAction(list.id));

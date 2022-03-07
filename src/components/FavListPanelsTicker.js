@@ -1,82 +1,112 @@
 import { useEffect } from "react";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { api_key_websocket, quoteDataWebSocket } from "../api";
-import { stocksAction } from "../store/actions/stocksAction";
 import decimalConverter from "./_getDecimal";
-import streamingStockPrice from "./_getWebsocketStreamingStockPrice";
-
+import numberWithCommas from "./_getCommasAsThousandsSeparators ";
 const FavListPanelsTicker = ({ stock }) => {
   ///////////////////////////////////////////////////  streaming price using websocket
-
-  const [stockPrice, setStockPrice] = useState("");
-
-  // useEffect(() => {
-  //   // setStockPrice(streamingStockPrice("BINANCE:BTCUSDT"));
-  //   const websocket = new WebSocket(`wss://ws.finnhub.io${api_key_websocket}`);
-
-  //   websocket.onopen = () => {
-  //     console.log("connected");
-  //   };
-  // }, [stockPrice]);
-
-  // useEffect(() => {
-  //   // Connection opened -> Subscribe
-  //   socket.addEventListener("open", function (event) {
-  //     socket.send(JSON.stringify({ type: "subscribe", symbol: stock.symbol }));
-
-  //     // Listen for messages
-  //     socket.addEventListener("message", function (event) {
-  //       const str = event.data;
-  //       const fourCharacterAfterP = 4;
-  //       const currentPriceFromStr = str.substring(
-  //         str.indexOf(`"p"`) + fourCharacterAfterP,
-  //         str.indexOf(`,"s"`)
-  //       );
-  //       setStockPrice(currentPriceFromStr);
-  //       console.log("Message from server ", currentPriceFromStr);
-  //     });
-  //   });
-  //   // Unsubscribe
-  //   var unsubscribe = function (symbol) {
-  //     socket.send(JSON.stringify({ type: "unsubscribe", symbol: symbol }));
-  //   };
-  // }, []);
+  const symbol = stock.symbol;
+  // const symbol = "BINANCE:BTCUSDT";
 
   ///////////////////////////////////////////////////
+
   const dispatch = useDispatch();
-  const stockCurrentPrice = stock.stockCurrentPrice;
+  const { streaming } = useSelector((state) => state.entities);
+  const stockCurrentPrice = numberWithCommas(
+    decimalConverter(stock.stockCurrentPrice, 100)
+  );
   const stockPercentChange = decimalConverter(stock.stockPercentChange, 100);
+  // const [currentPrice, setCurrentPrice] = useState(0);
+
+  // const thisBlock = streaming.filter((item) => item.symbol === symbol);
+  // const thisStock = thisBlock[0];
+  // const currentPrice = 0;
+  // if (thisBlock.length > 0) {
+  //   currentPrice = thisStock.price;
+  // }
+
+  // useEffect(() => {
+  //   const ssss = getStreamingPrice(symbol);
+  //   // dispatch(currentPriceStreamingAction(symbol, ssss));
+  //   // setCurrentPrice(ssss);
+  //   // console.log(ssss);
+  // }, []);
+  const [sPrice, setSPrice] = useState(0);
+  const [stockPrice, setStockPrice] = useState([]);
+
+  useEffect(() => {
+    console.log("MOUNTING");
+    const socket = new WebSocket(
+      "wss://ws.finnhub.io?token=c7d2eiqad3idhma6grrg"
+    );
+    const crypto = "BINANCE:BTCUSDT";
+    // Connection opened -> Subscribe
+    socket.addEventListener("open", function (event) {
+      socket.send(JSON.stringify({ type: "subscribe", symbol: crypto }));
+      console.log("OPENED");
+    });
+
+    // Listen for messages
+    socket.addEventListener("message", function (event) {
+      const resJSON = JSON.parse(event.data);
+      console.log(resJSON.data);
+      if (!resJSON) {
+        console.log("invalid data");
+        return;
+      }
+      if (!resJSON.data) {
+        console.log("no data received, might have been only a ping");
+        return;
+      }
+      // take first entry of received data to show that it works
+
+      const updateChunk = resJSON.data.map(
+        (d) =>
+          `symbol: ${d?.s}, price: ${d?.p}, amount: ${d?.v}, time: ${new Date(
+            d?.t
+          ).toLocaleTimeString()}`
+      );
+
+      setStockPrice((prevSP) => [...prevSP, ...updateChunk]);
+      // dispatch(currentPriceStreamingInListAction(symbol, resJSON?.data[0].p));
+
+      // setStockPrice(resJSON.data[0].p);
+    });
+  }, []);
 
   return (
-    <Link to={`/stocks/${stock.symbol}`}>
-      <div className="fav-item">
-        <div
-          onClick={() => dispatch(stocksAction(stock.symbol))}
-          className="fav-stock"
+    // <Link to={`/stocks/${symbol}`}>
+    <div className="fav-item">
+      <ul
+        onClick={
+          // () => dispatch(stocksAction(symbol))
+          () => console.log(stockPrice)
+        }
+        className="fav-stock"
+      >
+        <li className="fav-symbol">{symbol}</li>
+        <li
+          className={
+            stockPercentChange > 0
+              ? "fav-graph stonk-up"
+              : "fav-graph stonk-down"
+          }
         >
-          <li className="fav-symbol">{stock.symbol}</li>
-          <li
-            className={
-              stockPercentChange > 0
-                ? "fav-graph stonk-up"
-                : "fav-graph stonk-down"
-            }
-          >
-            Fancy Graphs
-          </li>
-          <li className="fav-quote">
-            <dt>${stockPrice}</dt>
-            {stockPercentChange < 0 ? (
-              <dd className="stonk-down">{stockPercentChange}%</dd>
-            ) : (
-              <dd className="stonk-up">+{stockPercentChange}%</dd>
-            )}
-          </li>
-        </div>
-      </div>
-    </Link>
+          Fancy Graphs
+        </li>
+        <li className="fav-quote">
+          <dt>${stockPrice}</dt>
+          {stockPercentChange < 0 ? (
+            <dd className="stonk-down">{stockPercentChange}%</dd>
+          ) : (
+            <dd className="stonk-up">+{stockPercentChange}%</dd>
+          )}
+        </li>
+      </ul>
+    </div>
+    // </Link>
   );
 };
 

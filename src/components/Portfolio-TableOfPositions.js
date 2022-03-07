@@ -1,20 +1,20 @@
-import { Link, useLocation } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faWindowClose,
-  faSortUp,
-  faSortDown,
-} from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import {
+//   faWindowClose,
+//   faSortUp,
+//   faSortDown,
+// } from "@fortawesome/free-solid-svg-icons";
 import numberWithCommas from "./_getCommasAsThousandsSeparators ";
 import { useSelector } from "react-redux";
-import { quoteData } from "../api";
-import { useState } from "react";
-import axios from "axios";
-import { useEffect } from "react";
-import decimalConverter from "./_getDecimal";
-import { useDispatch } from "react-redux";
-import { getPortfolioUpdateToCurrentPriceAction } from "../store/actions/tradeAction";
-import { isGotPortfolioUpdateToCurrentPriceDispatchedAction } from "../store/actions/isGotPortfolioUpdateToCurrentPriceDispatchedAction";
+// import { quoteData } from "../api";
+// import { useState } from "react";
+// import axios from "axios";
+// import { useEffect } from "react";
+// import decimalConverter from "./_getDecimal";
+// import { useDispatch } from "react-redux";
+// import { getPortfolioUpdateToCurrentPriceAction } from "../store/actions/tradeAction";
+// import { isGotPortfolioUpdateToCurrentPriceDispatchedAction } from "../store/actions/isGotPortfolioUpdateToCurrentPriceDispatchedAction";
 
 export const TableofPositionsHeader = () => {
   return (
@@ -338,7 +338,7 @@ export const TableOfPositions = ({ position }) => {
   // }
   const signPositive = "+";
   const symbol = position.symbol;
-  const dollarSign = "$";
+  // const dollarSign = "$";
   const companyName = position.companyName;
 
   const quantity = position.quantity;

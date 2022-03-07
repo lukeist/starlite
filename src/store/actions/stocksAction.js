@@ -1,9 +1,9 @@
 import axios from "axios";
 import {
   quoteData,
-  companyNewsData3Days,
+  // companyNewsData3Days,
   companyNewsData7Days,
-  companyNewsDataToday,
+  // companyNewsDataToday,
   basicFinancialsData,
   companyProfile,
 } from "../../api";
@@ -33,6 +33,15 @@ export const resetStockPage = () => (dispatch) => {
     type: "RESET_STOCKS",
     payload: {
       stockActive: false,
+    },
+  });
+};
+
+export const currentPriceStreamingAction = (quoteStreaming) => (dispatch) => {
+  dispatch({
+    type: "STREAMING_PRICE",
+    payload: {
+      quoteStreaming,
     },
   });
 };

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import CurrencyInput from "./CurrencyInput";
 import { getEstimateQuantity } from "./PanelBuySellStock-FuncGetEstimate";
 import SellAll from "./PanelBuySellStock-SellAll";

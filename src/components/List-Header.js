@@ -81,7 +81,6 @@ const ListHeader = ({
               required
               value={listName}
               onBlur={submitNewListHandler}
-              required
             />
             <FontAwesomeIcon
               onClick={() => setCogDelete(true)}

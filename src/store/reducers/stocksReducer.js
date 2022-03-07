@@ -1,4 +1,5 @@
 const initState = {
+  quoteStreaming: 0,
   quote: {},
   company: {},
   companyNews: [],
@@ -19,6 +20,8 @@ const stocksReducer = (state = initState, action) => {
       };
     case "RESET_STOCKS":
       return { ...state, stockActive: action.payload.stockActive };
+    case "STREAMING_PRICE":
+      return { ...state, quoteStreaming: action.payload.quoteStreaming };
     default:
       return { ...state };
   }
