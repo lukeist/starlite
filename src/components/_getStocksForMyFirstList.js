@@ -7,7 +7,6 @@ import companyMarketCap from "./_getCompanyMarketCap";
 const getStocksForMyFirstList = async (list, dispatch) => {
   //   console.log(list);
   const arrayOfStocks = [
-    "GME",
     "TSLA",
     "MSFT",
     "AAPL",
