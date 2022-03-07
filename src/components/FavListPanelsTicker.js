@@ -77,37 +77,37 @@ const FavListPanelsTicker = ({ stock }) => {
   // // }, []);
 
   return (
-    // <Link to={`/stocks/${symbol}`}>
-    <div className="fav-item">
-      <ul
-        // onClick={
-        //   // () => dispatch(stocksAction(symbol))
-        //   () => console.log(stockPrice)
-        // }
-        className="fav-stock"
-      >
-        <li className="fav-symbol">{symbol}</li>
-        <li
-          className={
-            stockPercentChange > 0
-              ? "fav-graph stonk-up"
-              : "fav-graph stonk-down"
-          }
+    <Link to={`/stocks/${symbol}`}>
+      <div className="fav-item">
+        <ul
+          // onClick={
+          //   // () => dispatch(stocksAction(symbol))
+          //   () => console.log(stockPrice)
+          // }
+          className="fav-stock"
         >
-          Fancy Graphs
-        </li>
-        <li className="fav-quote">
-          {/* <dt>${stockPrice}</dt>  FOR WHEN USING SOCKET*/}
-          <dt>${stockCurrentPrice}</dt>
-          {stockPercentChange < 0 ? (
-            <dd className="stonk-down">{stockPercentChange}%</dd>
-          ) : (
-            <dd className="stonk-up">+{stockPercentChange}%</dd>
-          )}
-        </li>
-      </ul>
-    </div>
-    // </Link>
+          <li className="fav-symbol">{symbol}</li>
+          <li
+            className={
+              stockPercentChange > 0
+                ? "fav-graph stonk-up"
+                : "fav-graph stonk-down"
+            }
+          >
+            Fancy Graphs
+          </li>
+          <li className="fav-quote">
+            {/* <dt>${stockPrice}</dt>  FOR WHEN USING SOCKET*/}
+            <dt>${stockCurrentPrice}</dt>
+            {stockPercentChange < 0 ? (
+              <dd className="stonk-down">{stockPercentChange}%</dd>
+            ) : (
+              <dd className="stonk-up">+{stockPercentChange}%</dd>
+            )}
+          </li>
+        </ul>
+      </div>
+    </Link>
   );
 };
 
